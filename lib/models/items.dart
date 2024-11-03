@@ -60,26 +60,26 @@ class Item {
       };
 }
 
-class Additive {
-  final int id;
-  final String title;
-  final String price;
-
-  Additive({
-    required this.id,
-    required this.title,
-    required this.price,
-  });
-
-  factory Additive.fromJson(Map<String, dynamic> json) => Additive(
-        id: json["id"],
-        title: json["title"],
-        price: json["price"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "title": title,
-        "price": price,
-      };
-}
+// class Additive {
+//   final int id;
+//   final String title;
+//   final String price;
+//
+//   Additive({
+//     required this.id,
+//     required this.title,
+//     required this.price,
+//   });
+//
+//   factory Additive.fromJson(Map<String, dynamic> json) => Additive(
+//         id: json["id"],
+//         title: json["title"],
+//         price: json["price"],
+//       );
+//
+//   Map<String, dynamic> toJson() => {
+//         "id": id,
+//         "title": title,
+//         "price": price,
+//       };
+// }

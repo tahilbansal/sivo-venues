@@ -49,7 +49,7 @@ class OrderDetailsPage extends StatelessWidget {
                           padding: EdgeInsets.symmetric(horizontal: 12.w),
                           margin: EdgeInsets.fromLTRB(8.w, 8.w, 8.w, 0),
                           decoration: BoxDecoration(
-                              color: kOffWhite,
+                              color: kLightWhite,
                               borderRadius: BorderRadius.circular(12.r)),
                           child: Column(
                             children: [
@@ -132,10 +132,11 @@ class OrderDetailsPage extends StatelessWidget {
                       SizedBox(
                         height: 20.h,
                       ),
-                      Flexible(
+                      Container(
+                        color: kLightWhite,
+                        height: 0.6 * hieght,
                         child: ListView.builder(
                           shrinkWrap: true,
-                          physics: const BouncingScrollPhysics(),
                           itemCount: controller.order!.orderItems.length,
                           itemBuilder: (context, index) {
                             return OrderPageTile(

@@ -35,7 +35,7 @@ class CartTile extends HookWidget {
           height: 80,
           width: width,
           decoration: const BoxDecoration(
-              color: kOffWhite,
+              color: kLightWhite,
               borderRadius: BorderRadius.all(Radius.circular(9))),
           child: Container(
             padding: const EdgeInsets.all(4),

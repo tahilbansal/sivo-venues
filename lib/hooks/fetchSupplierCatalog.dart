@@ -18,6 +18,7 @@ FetchHook useFetchCatalog(id) {
           Uri.parse('${Environment.appBaseUrl}/api/items/supplier-items/$id'));
 
       if (response.statusCode == 200) {
+        print("response body:" + response.body.toString());
         items.value = itemFromJson(response.body);
       } else {
         throw Exception('Failed to load data');

@@ -25,7 +25,6 @@ class CartPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    //Local Storage
     final box = GetStorage();
     String? token = box.read('token');
 
@@ -58,7 +57,7 @@ class CartPage extends HookWidget {
     return token == null
         ? const LoginRedirection()
         : Scaffold(
-            backgroundColor: kLightWhite,
+            backgroundColor: kOffWhite,
             appBar: AppBar(
               backgroundColor: kLightWhite,
               elevation: 0.3,
@@ -79,7 +78,6 @@ class CartPage extends HookWidget {
             ),
             body: SafeArea(
               child: CustomContainer(
-                color: Colors.white,
                 containerContent: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -89,10 +87,9 @@ class CartPage extends HookWidget {
                         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
                         width: width,
                         height: 0.7 * hieght,
-                        color: kLightWhite,
+                        color: kOffWhite,
                         child: ListView.builder(
                           padding: EdgeInsets.zero,
-                          physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemCount: userCarts?.length ?? 0,
                           itemBuilder: (context, cartIndex) {
@@ -123,7 +120,8 @@ class CartPage extends HookWidget {
                           },
                         ),
                       ),
-                  Padding(
+                    // Delivery Date Selector
+                    Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -152,6 +150,7 @@ class CartPage extends HookWidget {
                       ],
                     ),
                   ),
+                    //Checkout Button
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Row(
