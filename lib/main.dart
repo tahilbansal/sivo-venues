@@ -18,6 +18,7 @@ import 'package:rivus_user/views/home/home_page.dart';
 import 'package:rivus_user/views/message/chat/index.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:rivus_user/views/message/controller.dart';
 import 'package:rivus_user/views/message/view.dart';
 import 'package:rivus_user/views/orders/order_details_page.dart';
 import 'package:rivus_user/views/orders/order_notification_details_page.dart';

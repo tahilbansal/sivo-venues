@@ -183,9 +183,9 @@ class ProfilePage extends HookWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  // const SizedBox(
+                  //   height: 10,
+                  // ),
                   Container(
                     height: 45.h,
                     decoration: const BoxDecoration(color: Colors.white),

@@ -17,11 +17,13 @@ import 'package:rivus_user/views/entrypoint.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:rivus_user/views/message/controller.dart';
 
 import '../views/auth/login_page.dart';
 
 class LoginController extends GetxController {
   final controller = Get.put(NotificationsController());
+  final messageController = Get.put(MessageController());
   final box = GetStorage();
   RxBool _isLoading = false.obs;
   final db = FirebaseFirestore.instance;
@@ -55,6 +57,10 @@ class LoginController extends GetxController {
         box.write("token", json.encode(data.userToken));
         box.write("userId", json.encode(data.id));
         box.write("verification", data.verification);
+
+        // Force reload messages after login
+        //await messageController.asyncLoadMsgData();
+        messageController.reset();
 
         print("my token is ${json.encode(data.userToken)}");
         if (data.phoneVerification == true) {
@@ -95,10 +101,8 @@ class LoginController extends GetxController {
                 .collection("users")
                 .withConverter(
                   fromFirestore: UserData.fromFirestore,
-                  toFirestore: (UserData userdata, options) =>
-                      userdata.toFirestore(),
-                )
-                .add(data);
+                  toFirestore: (UserData userdata, options) => userdata.toFirestore(),
+                ).add(data);
 
             print("docs---updated");
           } catch (e) {
@@ -246,6 +250,10 @@ class LoginController extends GetxController {
 
   void logout() {
     box.erase();
+    // final messageController = Get.find<MessageController>();
+    // messageController.reset();
+    Get.delete<MessageController>();
+
     Get.offAll(() => Login(),
         transition: Transition.fade, duration: const Duration(seconds: 1));
   }

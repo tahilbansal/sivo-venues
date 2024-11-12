@@ -17,7 +17,7 @@ class MessageController extends GetxController {
   MessageController();
 
   final box = GetStorage();
-  String? token; // = box.read('token');
+  String? token; //= box.read('userId');
   final db = FirebaseFirestore.instance;
   final MessageState state = MessageState();
   var listener;
@@ -45,13 +45,11 @@ class MessageController extends GetxController {
     print(state.msgList.value);
 
     var from_messages = await db
-        .collection("message")
-        .withConverter(
-          fromFirestore: Msg.fromFirestore,
-          toFirestore: (Msg msg, options) => msg.toFirestore(),
-        )
-        .where("from_uid", isEqualTo: token)
-        .get();
+      .collection("message")
+      .withConverter(
+        fromFirestore: Msg.fromFirestore,
+        toFirestore: (Msg msg, options) => msg.toFirestore(),
+      ).where("from_uid", isEqualTo: token).get();
     print(from_messages.docs.length);
 
     var to_messages = await db
@@ -220,5 +218,9 @@ class MessageController extends GetxController {
         });
       }
     });
+  }
+  void reset() {
+    state.msgList.clear();
+    listener?.cancel();
   }
 }

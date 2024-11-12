@@ -10,6 +10,7 @@ import 'package:rivus_user/common/reusable_text.dart';
 import 'package:rivus_user/constants/constants.dart';
 import 'package:rivus_user/controllers/address_controller.dart';
 import 'package:rivus_user/controllers/order_controller.dart';
+import 'package:rivus_user/hooks/fetchCart.dart';
 import 'package:rivus_user/hooks/fetchDefaultAddress.dart';
 import 'package:rivus_user/models/distance_time.dart';
 import 'package:rivus_user/models/items.dart';
@@ -18,6 +19,7 @@ import 'package:rivus_user/models/suppliers.dart';
 import 'package:rivus_user/services/distance.dart';
 import 'package:rivus_user/views/home/widgets/custom_btn.dart';
 import 'package:rivus_user/views/orders/payment.dart';
+import 'package:rivus_user/views/orders/widgets/bill_details.dart';
 import 'package:rivus_user/views/orders/widgets/order_tile.dart';
 import 'package:rivus_user/views/profile/shipping_address.dart';
 import 'package:rivus_user/views/supplier/suppliers_page.dart';
@@ -133,6 +135,25 @@ class CheckoutPage extends HookWidget {
                             ),
                           ],
                         ),
+                        SizedBox(height: 5.h),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              width: width * 0.3,
+                              child: ReusableText(text: "Delivering to", style: appStyle(10, kGray, FontWeight.w500)),
+                            ),
+                            SizedBox(
+                              width: width * 0.585,
+                              child: Text(
+                                controller.userAddress ?? "Provide an address to proceed ordering",
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 3,
+                                style: appStyle(10, kGray, FontWeight.w400),
+                              ),
+                            ),
+                          ],
+                        ),
                         SizedBox(
                           height: 5.h,
                         ),
@@ -154,7 +175,7 @@ class CheckoutPage extends HookWidget {
                   ),
                   Container(
                     margin: EdgeInsets.symmetric(horizontal: 12.w),
-                    height: 0.49 * hieght,
+                    height: 0.58 * hieght,
                     decoration: BoxDecoration(
                         color: kLightWhite,
                         borderRadius: BorderRadius.circular(18.r)),
@@ -171,88 +192,29 @@ class CheckoutPage extends HookWidget {
                     height: 10.h,
                   ),
                   Container(
-                    width: width,
-                    padding: EdgeInsets.symmetric(horizontal:18.w),
-                    decoration: BoxDecoration(
-                        color: kLightWhite,
-                        borderRadius: BorderRadius.circular(12.r)),
-                    child: Column(
-                      crossAxisAlignment:
-                      CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        Text(
-                          "Bill Details",
-                          style: appStyle(12, kDark, FontWeight.w500),
-                        ),
-                        // RowText(
-                        //     first: "Distance To Supplier",
-                        //     second: "${distanceTime.distance.toStringAsFixed(3)} km"),
-                        SizedBox(
-                          height: 5.h,
-                        ),
-                        RowText(
-                            first: "Order Total", second: "\₹ ${grandTotal.toStringAsFixed(2)}"),
-                        SizedBox(
-                          height: 5.h,
-                        ),
-                        RowText(
-                            first: controller.defaultAddress == null
-                                ? "Delivery Fee To Current Location"
-                                : "Delivery Fee",
-                            second: "\₹ ${distanceTime.price.toStringAsFixed(2)}"),
-                        SizedBox(
-                          height: 5.h,
-                        ),
-                        RowText(
-                            first: "Grand Order Total", second: "\₹ ${grandPriceDelivery.toStringAsFixed(2)}"),
-                        SizedBox(
-                          height: 5.h,
-                        ),
-                        const Divida(),
-                        SizedBox(
-                          height: 5.h,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(
-                              width: width * 0.3,
-                              child: ReusableText(
-                                  text: "Recipient",
-                                  style: appStyle(10, kGray, FontWeight.w500)),
-                            ),
-                            SizedBox(
-                              width: width * 0.585,
-                              child: Text(
-                                  controller.userAddress ?? "Provide an address to proceed ordering",
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 3,
-                                  style: appStyle(10, kGray, FontWeight.w400)),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 5.h,
-                        ),
-                        GestureDetector(
-                          onTap: () {},
-                          child: RowText(
-                              first: "Phone ",
-                              second: _phone.text.isEmpty
-                                  ? "Tap to add a phone number before ordering" : _phone.text),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 0.0),
-                    child : Container(
-                    padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 16.0),
+                    padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 16.0),
                     color: kLightWhite,
-                    child: Row(
+                    child: Column(
+                      children: [
+                      TextButton(
+                        onPressed: () {
+                          showModalBottomSheet(
+                            context: context,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(top: Radius.circular(12.r)),
+                            ),
+                            backgroundColor: kLightWhite,
+                            builder: (context) => SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.25,
+                              child: buildBillDetails(context, width, grandTotal, grandPriceDelivery, distanceTime, controller),
+                            ),
+                          );
+                        },
+                        child: Text("View Bill Details",
+                            style: appStyle(14, kPrimary, FontWeight.w500)),
+                      ),
+                      SizedBox(height: 5.h),
+                      Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         ReusableText(
@@ -323,6 +285,8 @@ class CheckoutPage extends HookWidget {
                         ),
                       ],
                     ),
+                      SizedBox(height: 8.h)
+                      ],
                     ),
                   ),
                 ],

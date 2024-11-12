@@ -28,10 +28,10 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: kOffWhite,
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(130.h), child: const CustomAppBar()),
+          preferredSize: Size.fromHeight(80.h), child: const CustomAppBar()),
       body: SafeArea(
-          child: CustomContainer(
-              containerContent: Column(
+        child: CustomContainer(
+        containerContent: Column(
         children: [
           GestureDetector(
             onTap: () {
@@ -82,7 +82,8 @@ class HomePage extends StatelessWidget {
                           //Get.to(() => const Recommendations());
                         },
                       ),
-                      //const FoodList(),
+                      const NearbySuppliers(),
+                      //const ItemList(),
                     ],
                   )
                 : CustomContainer(

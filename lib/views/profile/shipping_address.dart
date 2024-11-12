@@ -3,8 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:rivus_user/common/app_style.dart';
 import 'package:rivus_user/common/back_ground_container.dart';
+import 'package:rivus_user/common/custom_appbar.dart';
 import 'package:rivus_user/common/reusable_text.dart';
 import 'package:rivus_user/constants/constants.dart';
 import 'package:rivus_user/controllers/address_controller.dart';
@@ -29,6 +32,7 @@ class _AddAddressState extends State<AddAddress> {
   late final PageController _pageController = PageController(initialPage: 0);
   GoogleMapController? _mapController;
   final box = GetStorage();
+  bool isCurrentLocationSet = false;
 
   @override
   void initState() {
@@ -112,6 +116,37 @@ class _AddAddressState extends State<AddAddress> {
           ),
         ),
       );
+    }
+  }
+
+  Future<void> _getCurrentLocation() async {
+    try {
+      // Fetch the current location
+      Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.best);
+
+      // Get address from coordinates
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+          position.latitude, position.longitude);
+
+      // Extract address details
+      String address = '';
+      if (placemarks.isNotEmpty) {
+        Placemark place = placemarks.first;
+        address = '${place.name}, ${place.locality}, ${place.administrativeArea}, ${place.country}';
+      }
+
+      setState(() {
+        _selectedLocation = LatLng(position.latitude, position.longitude);
+        _searchController.text = address.isNotEmpty
+            ? address
+            : "Location detected, but address not found";
+        moveToSelectedLocation();
+        isCurrentLocationSet = true;
+      });
+    } catch (e) {
+      Get.snackbar("Error", "Could not fetch current location",
+          colorText: kLightWhite, backgroundColor: kRed);
     }
   }
 
@@ -233,9 +268,7 @@ class _AddAddressState extends State<AddAddress> {
                       _mapController = controller;
                     },
                     initialCameraPosition: CameraPosition(
-                      target: _selectedLocation ??
-                          const LatLng(
-                              37.77483, -122.41942), // Default location
+                      target: _selectedLocation ?? const LatLng(37.77483, -122.41942), // Default location
                       zoom: 15.0,
                     ),
                     markers: _selectedLocation == null
@@ -265,30 +298,75 @@ class _AddAddressState extends State<AddAddress> {
                               hintText: 'Search for your address...'),
                         ),
                       ),
+                      // ElevatedButton.icon(
+                      //   onPressed: _getCurrentLocation,
+                      //   icon: const Icon(Icons.location_on),
+                      //   label: const Text("Use Current Location"),
+                      //   style: ElevatedButton.styleFrom(
+                      //       backgroundColor: kPrimary, foregroundColor: kLightWhite),
+                      // ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton.icon(
+                          onPressed: () async {
+                            await _getCurrentLocation();
+                            if (controller.currentPosition.value != null) {
+                              LatLng currentLatLng = LatLng(
+                                controller.currentPosition.value!.latitude,
+                                controller.currentPosition.value!.longitude,
+                              );
+                              setState(() {
+                                _selectedLocation = currentLatLng;
+                              });
+                              moveToSelectedLocation();
+                            }
+                          },
+                          icon: const Icon(Icons.my_location, color: Colors.white),
+                          label: const Text(
+                            "Use Current Location",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: kPrimary,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                          ),
+                        ),
+                      ),
                       _placeList.isEmpty
                           ? const SizedBox.shrink()
-                          : Expanded(
-                              child: ListView(
-                                children: List.generate(
-                                  _placeList.length,
-                                  (index) {
-                                    return Container(
-                                      color: Colors.white,
-                                      child: ListTile(
-                                        visualDensity: VisualDensity.compact,
-                                        title: Text(
-                                            _placeList[index]['description']),
-                                        onTap: () {
-                                          _getPlaceDetail(
-                                              _placeList[index]['place_id']);
-                                          _selectedPlace.add(_placeList[index]);
-                                        },
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            )
+                          : Positioned(
+                            top: 60,
+                            left: 10,
+                            right: 10,
+                          child: Container(
+                          color: Colors.white,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: _placeList.length,
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                title: Text(_placeList[index]['description']),
+                                onTap: () {
+                                  _getPlaceDetail(_placeList[index]['place_id']);
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                      // Positioned(
+                      //   bottom: 20.h,
+                      //   left: 20.w,
+                      //   right: 20.w,
+                      //   child: CustomButton(
+                      //     onTap: () => _pageController.nextPage(
+                      //         duration: const Duration(milliseconds: 500),
+                      //         curve: Curves.ease),
+                      //     text: "Next",
+                      //   ),
+                      // ),
                     ],
                   ),
                 ],

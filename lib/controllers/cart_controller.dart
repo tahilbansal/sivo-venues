@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rivus_user/models/api_error.dart';
 import 'package:rivus_user/models/cart_response.dart';
 import 'package:rivus_user/models/environment.dart';
+import 'package:rivus_user/models/user_cart.dart';
 import 'package:rivus_user/views/entrypoint.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -15,7 +16,7 @@ class CartController extends GetxController {
   final box = GetStorage();
 
   // Reactive state for cart items
-  //RxInt cartItemCount = 0.obs;
+  RxInt cartItemCount = 0.obs;
 
   // Reactive state
   var _address = false.obs;
@@ -35,6 +36,23 @@ class CartController extends GetxController {
   set setLoading(bool newValue) {
     _isLoading.value = newValue;
   }
+
+  // void loadCart() {
+  //   var cartData = box.read('cartItems');
+  //   if (cartData != null) {
+  //     List<UserCart> carts = (jsonDecode(cartData) as List)
+  //         .map((item) => UserCart.fromJson(item))
+  //         .toList();
+  //     rxUserCarts.assignAll(carts);
+  //     updateCartCount();
+  //   }
+  // }
+  //
+  // void updateCartCount() {
+  //   cartItemCount.value = rxUserCarts.fold(0, (sum, cart) {
+  //     return sum + cart.items.fold(0, (itemSum, item) => itemSum + item.quantity);
+  //   });
+  // }
 
   void addToCart(String item) async {
     String token = box.read('token');
@@ -152,17 +170,26 @@ class CartController extends GetxController {
         // Update the cart item count
         //cartItemCount.value = data.count;
 
-        // Update the counter in CounterController
         Get.find<CounterController>().resetItemCount(supplierId, productId);
 
+        // rxUserCarts.removeWhere((cart) {
+        //   final initialLength = cart.items.length;
+        //   cart.items.removeWhere((item) => item.productId.id == productId);
+        //   return cart.items.length < initialLength; // Remove the cart if items were removed
+        // });
+        //
+        // box.write("cartItems", jsonEncode(rxUserCarts));
+
         box.write("cart", jsonEncode(data.count));
+
+        //update();
 
         // Get.snackbar("Product removed",
         //     "The product was removed from cart successfully",
         //     colorText: kLightWhite,
         //     backgroundColor: kPrimary,
         //     icon: const Icon(Icons.add_alert));
-        //Get.offAll(() =>  MainScreen());
+        // Get.offAll(() =>  MainScreen());
       } else {
         var data = apiErrorFromJson(response.body);
 

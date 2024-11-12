@@ -30,7 +30,7 @@ class CartPage extends HookWidget {
 
     final selectedDate = useState<DateTime?>(null);
     final hookResult = useFetchCart(supplierId: supplierId);
-    final userCarts = hookResult.data;
+    var userCarts = hookResult.data;
     final isLoading = hookResult.isLoading;
 
     final CounterController counterController = Get.find<CounterController>();
@@ -38,6 +38,7 @@ class CartPage extends HookWidget {
 
     useEffect(() {
       if (!isLoading && hookResult.data != null) {
+        counterController.rxUserCarts.assignAll(hookResult.data!);
         counterController.calculateInitialCartTotal(hookResult.data!);
       }
       return null;
@@ -54,6 +55,16 @@ class CartPage extends HookWidget {
       }
     }
 
+    void removeItemFromCart(CartItem cartItem) {
+      final userCart = counterController.rxUserCarts.firstWhere((cart) => cart.items.contains(cartItem));
+      userCart.items.remove(cartItem);
+      if (userCart.items.isEmpty) {
+        counterController.rxUserCarts.remove(userCart);
+      }
+      //counterController.calculateInitialCartTotal(rxUserCarts);
+      counterController.rxUserCarts.refresh();
+    }
+
     return token == null
         ? const LoginRedirection()
         : Scaffold(
@@ -63,8 +74,8 @@ class CartPage extends HookWidget {
               elevation: 0.3,
               title: Center(
                 child: ReusableText(
-                    text: "Your Cart", 
-                    style: appStyle(18, kDark, FontWeight.bold)
+                  text: "Your Cart",
+                  style: appStyle(18, kDark, FontWeight.bold)
                 ),
               ),
               actions: [
@@ -82,8 +93,8 @@ class CartPage extends HookWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     isLoading
-                    ? const ItemsListShimmer()
-                    : Container(
+                    ? const ItemsListShimmer() :
+                     Obx(() =>Container(
                         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
                         width: width,
                         height: 0.7 * hieght,
@@ -91,9 +102,9 @@ class CartPage extends HookWidget {
                         child: ListView.builder(
                           padding: EdgeInsets.zero,
                           shrinkWrap: true,
-                          itemCount: userCarts?.length ?? 0,
+                          itemCount: counterController.rxUserCarts.length,
                           itemBuilder: (context, cartIndex) {
-                            UserCart userCart = userCarts![cartIndex];
+                            UserCart userCart = counterController.rxUserCarts[cartIndex];
                             box.write("cart", userCarts.length.toString());
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,16 +119,16 @@ class CartPage extends HookWidget {
                                     var cartItem = userCart.items[itemIndex];
                                     return CartTile(
                                       cartItem: cartItem,
-                                      // onDelete: () {
-                                      //   hookResult.refetch();
-                                      //   refreshNotifier.value++;
-                                      // },
+                                      onItemRemoved: () {
+                                        removeItemFromCart(cartItem);
+                                      },
                                     );
                                   },
                                 ),
                               ],
                             );
                           },
+                        ),
                         ),
                       ),
                     // Delivery Date Selector
@@ -158,7 +169,6 @@ class CartPage extends HookWidget {
                         children: [
                           Obx(
                             () => ReusableText(
-                            //text :  "₹${userCarts?.fold(0, (sum, cart) => sum + cart.grandTotal)?.toStringAsFixed(2) ?? '0.00'}",
                             text :  "₹${counterController.rxCartTotal.value.toStringAsFixed(2)}",
                             style: appStyle(18, kDark, FontWeight.bold),
                             ),
@@ -166,13 +176,16 @@ class CartPage extends HookWidget {
                           SizedBox(width: 16),
                           Expanded(
                             child: CustomButton(
-                              onTap: () {
+                              onTap: () async {
                                 List<CartItem> cartItems = [];
-                                double grandTotal = 0;
                                 if (userCarts != null) {
                                   for (var userCart in userCarts) {
-                                    cartItems.addAll(userCart.items);
-                                    grandTotal += userCart.grandTotal;
+                                    for (var item in userCart.items) {
+                                      if (counterController.getItemCount(userCart.supplierId, item.productId.id) > 0) {
+                                        cartItems.add(item);
+                                      }
+                                    }
+                                    //cartItems.addAll(userCart.items);
                                   }
                                 }
 

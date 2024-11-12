@@ -20,7 +20,7 @@ class CustomContainer extends StatelessWidget {
       child: Container(
         width: width,
         height: ScreenUtil().screenHeight,
-        color: kLightWhite,
+        color: kOffWhite,
         child: SingleChildScrollView(child: containerContent),
       ),
     );

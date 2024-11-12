@@ -39,6 +39,7 @@ class UserCart {
     "userId": userId,
     "supplierId": supplierId,
     "items": List<dynamic>.from(items.map((x) => x.toJson())),
+    "grandTotal": grandTotal,
   };
 }
 

@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:geolocator/geolocator.dart';
 import 'package:rivus_user/models/environment.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
@@ -12,6 +13,8 @@ class UserLocationController extends GetxController {
   RxInt _currentIndex = 0.obs;
 
   int get currentIndex => _currentIndex.value;
+
+  var currentPosition = Rx<Position?>(null);
 
   set currentIndex(int newIndex) {
     _currentIndex.value = newIndex;
@@ -128,5 +131,37 @@ class UserLocationController extends GetxController {
       // Handle the error or no result case
       print('Failed to fetch address details');
     }
+  }
+
+  Future<void> getCurrentLocation() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Check if location services are enabled
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      Get.snackbar("Error", "Location services are disabled.");
+      return;
+    }
+
+    // Check for location permissions
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        Get.snackbar("Error", "Location permissions are denied.");
+        return;
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      Get.snackbar("Error", "Location permissions are permanently denied.");
+      return;
+    }
+
+    // Get the current position
+    currentPosition.value = await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high,
+    );
   }
 }

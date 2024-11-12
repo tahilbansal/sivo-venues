@@ -15,11 +15,11 @@ class CartTile extends HookWidget {
   const CartTile({
     super.key,
     required this.cartItem,
-    //required this.onDelete,
+    required this.onItemRemoved,
   });
 
   final CartItem cartItem;
-  //final VoidCallback onDelete;
+  final VoidCallback onItemRemoved;
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +126,22 @@ class CartTile extends HookWidget {
                   SizedBox(width: 6.w),
                   GestureDetector(
                     onTap: () {
-                      counterController.decrement(toItem);
+                      if (counterController.getItemCount(cartItem.productId.supplier.id, cartItem.productId.id) <= 1) {
+                        counterController.decrement(toItem);
+                        onItemRemoved();
+                      }
+                      else{
+                        counterController.decrement(toItem);
+                      }
+                      // if (counterController.getItemCount(toItem.supplier, toItem.id) == 0) {
+                      //   controller.rxUserCarts.removeWhere((cart) {
+                      //     final initialLength = cart.items.length;
+                      //     cart.items.removeWhere((item) => item.productId.id == toItem.id);
+                      //     return cart.items.length < initialLength; // Remove the cart if items were removed
+                      //   });
+                      //   counterController.calculateInitialCartTotal(controller.rxUserCarts);
+                      //   onItemRemoved();
+                      // }
                     },
                     child: Container(
                       padding: EdgeInsets.all(4.0),

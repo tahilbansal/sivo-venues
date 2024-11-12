@@ -32,10 +32,18 @@ class SupplierWidget extends StatelessWidget {
         padding: const EdgeInsets.only(right: 12),
         child: Container(
           width: width * 0.75,
-          height: 198.h,
+          height: 200.h,
           decoration: const BoxDecoration(
-              color: kLightWhite,
-              borderRadius: BorderRadius.all(Radius.circular(12))),
+              color: kWhite,
+              borderRadius: BorderRadius.all(Radius.circular(12)),
+            boxShadow: [
+              BoxShadow(
+                color: kGrayLight,
+                blurRadius: 6,
+                offset: const Offset(0, 2),
+              ),
+            ],
+        ),
           child: ListView(
             physics: const NeverScrollableScrollPhysics(),
             children: [

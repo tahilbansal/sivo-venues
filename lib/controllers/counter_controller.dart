@@ -11,12 +11,12 @@ class CounterController extends GetxController {
   final CartController cartController = Get.put(CartController());
   final RxMap<String, RxMap<String, RxInt>> supplierItemCounts = <String, RxMap<String, RxInt>>{}.obs;
   final RxDouble rxCartTotal = 0.0.obs;
+  final RxList<UserCart> rxUserCarts = <UserCart>[].obs;
   Timer? _debounce;
 
   @override
   void onInit() {
     super.onInit();
-    // Load the stored supplierItemCounts from local storage when the controller initializes
     Map<String, dynamic> storedCounts = box.read('supplierItemCounts') ?? {};
     supplierItemCounts.assignAll(storedCounts.map((supplierId, items) {
       RxMap<String, RxInt> rxItemMap = RxMap<String, RxInt>();
@@ -25,9 +25,6 @@ class CounterController extends GetxController {
       });
       return MapEntry(supplierId, rxItemMap);
     }));
-
-    // double cartTotal = box.read('cartTotal') ?? 0.0;
-    // rxCartTotal.value = cartTotal;
   }
 
   void increment(Item item) {
@@ -61,14 +58,14 @@ class CounterController extends GetxController {
         }
 
         if (supplierItemCounts[supplierId]![itemId]!.value < 1) {
-          cartController.removeFormCart(supplierId, item.id);
-        } else {
+          cartController.decrementFromCart(item.id);
+        }
+        else{
           cartController.decrementFromCart(item.id);
         }
         _saveItemCountsAndTotalToLocalStorage();
-
       });
-    }
+      }
   }
 
   void updateCart(Item item) {
@@ -84,16 +81,10 @@ class CounterController extends GetxController {
       quantity: count,
       totalPrice: 0,
     );
-
-    if (count == 0) {
-      cartController.removeFormCart(supplierId, itemId);
-    } else {
-      cartController.addToCart(toCartToJson(cartItem));
-    }
+    cartController.addToCart(toCartToJson(cartItem));
   }
 
   void _saveItemCountsAndTotalToLocalStorage() {
-    // Save the entire supplierItemCounts map to local storage
     Map<String, Map<String, int>> simpleMap =
         supplierItemCounts.map((supplierId, items) {
       return MapEntry(supplierId, items.map((itemId, count) => MapEntry(itemId, count.value)));
