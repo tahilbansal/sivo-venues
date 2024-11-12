@@ -199,9 +199,7 @@ class CartPage extends HookWidget {
                                   );
                                 } else if (cartItems.isNotEmpty) {
                                   Get.to(() => CheckoutPage(
-                                    cartItems: cartItems,
                                     supplierId: supplierId!,
-                                    grandTotal: counterController.rxCartTotal.value,
                                     deliveryDate: selectedDate.value!,
                                   ));
                                 } else {

@@ -36,14 +36,10 @@ import 'package:intl/intl.dart';
 class CheckoutPage extends HookWidget {
   CheckoutPage(
       {super.key,
-      required this.cartItems,
       required this.supplierId,
-      required this.grandTotal,
       required this.deliveryDate});
 
-  final List<CartItem> cartItems;
-  final String supplierId;
-  final double grandTotal;
+  final String? supplierId;
   final DateTime deliveryDate;
 
   TextEditingController _phone = TextEditingController();
@@ -68,6 +64,12 @@ class CheckoutPage extends HookWidget {
     final supplierHookResult = useFetchSupplier(supplierId);
     var supplier = supplierHookResult.data;
 
+    // Fetching cart items using API hook
+    final cartHookResult = useFetchCart(supplierId: supplierId);
+    var userCarts = cartHookResult.data ?? [];
+    List<CartItem> cartItems = [];
+    double grandTotal = 0.0;
+
     DistanceTime distanceTime;
 
     if (supplier != null) {
@@ -85,6 +87,16 @@ class CheckoutPage extends HookWidget {
         2.00,
       );
     } else {
+      return Center(child: CircularProgressIndicator());
+    }
+
+    if (userCarts != null) {
+      for (var userCart in userCarts) {
+        cartItems.addAll(userCart.items);
+        grandTotal = userCart.grandTotal;
+      }
+    }
+    else {
       return Center(child: CircularProgressIndicator());
     }
 
