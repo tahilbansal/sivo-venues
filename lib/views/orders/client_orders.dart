@@ -70,7 +70,7 @@ class _ClientOrderPageState extends State<ClientOrderPage>
                       child: Container(
                         margin: const EdgeInsets.symmetric(horizontal: 5),
                         width: MediaQuery.of(context).size.width / 6,
-                        //margin: EdgeInsets.only(left: 20, right: 20),
+                        // margin: EdgeInsets.only(left: 20, right: 20),
                         height: 25,
                         child: const Center(child: Text("Pending")),
                       ),
@@ -78,7 +78,6 @@ class _ClientOrderPageState extends State<ClientOrderPage>
                     Tab(
                       child: Container(
                         margin: const EdgeInsets.symmetric(horizontal: 5),
-
                         width: MediaQuery.of(context).size.width / 6,
                         //margin: EdgeInsets.only(left: 20, right: 20),
                         height: 25,

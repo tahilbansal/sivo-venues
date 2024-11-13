@@ -14,6 +14,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:rivus_user/views/profile/address.dart';
 
 class CustomAppBar extends StatefulHookWidget {
   const CustomAppBar({
@@ -35,7 +36,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
   @override
   void didChangeDependencies() {
     _determinePosition();
-    // TODO: implement didChangeDependencies
     super.didChangeDependencies();
   }
 
@@ -51,30 +51,23 @@ class _CustomAppBarState extends State<CustomAppBar> {
     return Container(
       width: width,
       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4),
-      height: 110,
+      height: 90,
       color: kWhite,
-      child: Container(
-        //margin: const EdgeInsets.only(top: 1.0),
-        child: Row(
+      child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Row(
+          GestureDetector(
+          onTap: () {
+              // Navigate to the Address Page
+            Get.to(() => const Addresses(),
+            transition: Transition.upToDown,
+            duration: const Duration(milliseconds: 700)
+            );
+            },
+            child : Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                // Stack(
-                //   children: [
-                //     CircleAvatar(
-                //       radius: 25,
-                //       backgroundColor: kTertiary,
-                //       backgroundImage: NetworkImage(profile),
-                //     ),
-                //     // Positioned(
-                //     //     child: userId != null
-                //     //         ? UpdatesWidget(id: jsonDecode(userId.toString()))
-                //     //         : const SizedBox.shrink())
-                //   ],
-                // ),
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0, bottom: 6),
                   child: Column(
@@ -83,40 +76,49 @@ class _CustomAppBarState extends State<CustomAppBar> {
                     children: [
                       Row(
                         children: [
-                      const Icon(
-                        Icons.location_on,
-                        color: kSecondary,
-                        size: 18,
-                      ),
-                      const SizedBox(width: 4),
-                      ReusableText(
-                          text: "Delivering to",
-                          style: appStyle(13, kSecondary, FontWeight.w600)),
-                        ],
+                          const Icon(
+                          Icons.location_on,
+                          color: kSecondary,
+                          size: 18,
+                          ),
+                          const SizedBox(width: 4),
+                          ReusableText(
+                            text: "Delivering to",
+                            style: appStyle(13, kSecondary, FontWeight.w600)
+                          ),
+                          const SizedBox(width: 2),
+                          const Icon(
+                            Icons.arrow_drop_down,
+                            color: kSecondary,
+                            size: 24,
+                          ),
+                        ]
                       ),
                       Obx(() => SizedBox(
-                            width: width * 0.75,
-                            child: Text(
-                                location.address.isNotEmpty
-                                    ? controller.defaultAddress == null
-                                        ? location.address
-                                        : controller.defaultAddress!.addressLine1
-                                    : "Fetching location...",
-                                overflow: TextOverflow.ellipsis,
-                                style: appStyle(11, kGray, FontWeight.normal)),
-                          ))
+                        width: width * 0.75,
+                        child: Text(
+                          location.address.isNotEmpty
+                              ? controller.defaultAddress == null
+                                  ? location.address
+                                  : controller.defaultAddress!.addressLine1
+                              : "Fetching location...",
+                          overflow: TextOverflow.ellipsis,
+                          style: appStyle(11, kGray, FontWeight.normal)
+                        ),
+                      )
+                      )
                     ],
                   ),
                 ),
               ],
             ),
+          ),
             // Text(
             //   getTimeOfDay(),
             //   style: const TextStyle(fontSize: 35),
             // )
           ],
         ),
-      ),
     );
   }
 

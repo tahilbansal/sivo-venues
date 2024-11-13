@@ -17,14 +17,18 @@ FetchHook useFetchClientOrders(String query, String paymentStatus) {
   final isLoading = useState(false);
   final error = useState<Exception?>(null);
 
+  final isMounted = useIsMounted();
+
   // Fetch Data Function
   Future<void> fetchData() async {
     String token = box.read('token');
     String accessToken = jsonDecode(token);
+
+    if (!isMounted()) return;
+
     isLoading.value = true;
     try {
-      Uri url = Uri.parse(
-          '${Environment.appBaseUrl}/api/orders?$query=$paymentStatus');
+      Uri url = Uri.parse('${Environment.appBaseUrl}/api/orders?$query=$paymentStatus');
 
       final response = await http.get(
         url,
@@ -35,23 +39,30 @@ FetchHook useFetchClientOrders(String query, String paymentStatus) {
       );
 
       if (response.statusCode == 200) {
-        print(response.body);
-        orders.value = clientOrdersFromJson(response.body);
+        if (isMounted()) {
+          orders.value = clientOrdersFromJson(response.body);
+        }
       } else {
         var error = apiErrorFromJson(response.body);
-        Get.snackbar(error.message, "Failed to get data, please try again",
+        if (isMounted()) {
+          Get.snackbar(error.message, "Failed to get data, please try again",
+              colorText: kLightWhite,
+              backgroundColor: kRed,
+              icon: const Icon(Icons.error));
+        }
+      }
+    } catch (e) {
+      if (isMounted()) {
+        Get.snackbar(e.toString(), "Failed to get data, please try again",
             colorText: kLightWhite,
             backgroundColor: kRed,
             icon: const Icon(Icons.error));
+        error.value = e as Exception?;
       }
-    } catch (e) {
-      Get.snackbar(e.toString(), "Failed to get data, please try again",
-          colorText: kLightWhite,
-          backgroundColor: kRed,
-          icon: const Icon(Icons.error));
-      error.value = e as Exception?;
     } finally {
-      isLoading.value = false;
+      if (isMounted()) {
+        isLoading.value = false;
+      }
     }
   }
 
@@ -63,8 +74,10 @@ FetchHook useFetchClientOrders(String query, String paymentStatus) {
 
   // Refetch Function
   void refetch() {
-    isLoading.value = true;
-    fetchData();
+    if (isMounted()) {
+      isLoading.value = true;
+      fetchData();
+    }
   }
 
   // Return values

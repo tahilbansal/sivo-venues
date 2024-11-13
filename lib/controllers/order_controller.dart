@@ -62,8 +62,7 @@ class OrderController extends GetxController {
     _iconChanger.value = newValue;
   }
 
-  void createOrder(List<CartItem> cartItems, String order, Order item,
-      Suppliers supplier) async {
+  void createOrder(List<CartItem> cartItems, String order, Order orderItem, Suppliers supplier) async {
     String token = box.read('token');
     String accessToken = jsonDecode(token);
 
@@ -92,7 +91,7 @@ class OrderController extends GetxController {
             icon: const Icon(Icons.money));
 
         // Clear the cart for the specific supplier
-        clearCartForSupplier(item.supplierId);
+        clearCartForSupplier(orderItem.supplierId);
 
         // Create order summary message
         String orderSummary = _createOrderSummary(cartItems);
@@ -108,17 +107,17 @@ class OrderController extends GetxController {
         // Ensure controllers are initialized properly
         chatController.sendOrderMessage(orderSummary, orderId);
 
-        Payment payment = Payment(userId: item.userId, cartItems: [
-          CartItemPayment(
-              name: item.orderItems[0].itemId,
-              id: orderId,
-              price: item.grandTotal,
-              quantity: 1,
-              supplierId: item.supplierId)
-        ]);
-
-        String paymentData = paymentToJson(payment);
-        paymentFunction(paymentData);
+        // Payment payment = Payment(userId: orderItem.userId, cartItems: [
+        //   CartItemPayment(
+        //       name: orderItem.orderItems[0].itemId,
+        //       id: orderId,
+        //       price: orderItem.grandTotal,
+        //       quantity: 1,
+        //       supplierId: orderItem.supplierId)
+        // ]);
+        //
+        // String paymentData = paymentToJson(payment);
+        // paymentFunction(paymentData);
       } else {
         var data = apiErrorFromJson(response.body);
 

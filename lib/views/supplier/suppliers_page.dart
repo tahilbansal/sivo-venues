@@ -165,19 +165,19 @@ class _SupplierPageState extends State<SupplierPage>
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CustomButton(
-                      onTap: () async {
-                        // Add your logic to move supplier to wishlist
-                        //ResponseModel status = await _controller.addToWishlist(widget.supplier);
-                      },
-                      radius: 9,
-                      color: Colors.grey, // Customize the color
-                      btnWidth: MediaQuery.of(context).size.width *
-                          0.45, // Half width minus padding
-                      btnHieght: 34.h,
-                      text: "Add to Wishlist",
-                    ),
-                    const SizedBox(width: 8),
+                    // CustomButton(
+                    //   onTap: () async {
+                    //     // Add your logic to move supplier to wishlist
+                    //     //ResponseModel status = await _controller.addToWishlist(widget.supplier);
+                    //   },
+                    //   radius: 9,
+                    //   color: Colors.grey, // Customize the color
+                    //   btnWidth: MediaQuery.of(context).size.width *
+                    //       0.45, // Half width minus padding
+                    //   btnHieght: 34.h,
+                    //   text: "Add to Wishlist",
+                    // ),
+                    // const SizedBox(width: 8),
                     CustomButton(
                       onTap: () async {
                         if (widget.supplier == null) {
@@ -200,7 +200,7 @@ class _SupplierPageState extends State<SupplierPage>
                       radius: 9,
                       color: kPrimary,
                       btnHieght: 34.h,
-                      btnWidth: width * 0.45,
+                      btnWidth: width * 0.8,
                       text: "Message Supplier",
                     ),
                   ],
@@ -353,9 +353,7 @@ class SupplierTopBar extends StatelessWidget {
           // ),
           GestureDetector(
             onTap: () {
-              Get.to(() => DirectionsPage(
-                    supplier: supplier,
-                  ));
+              Get.to(() => DirectionsPage(supplier: supplier,));
             },
             child: const Icon(
               Entypo.direction,

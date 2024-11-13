@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:rivus_user/common/entities/entities.dart';
 import 'package:rivus_user/common/entities/message.dart';
 import 'package:rivus_user/common/store/store.dart';
+import 'package:rivus_user/common/utils/firebase_messaging_handler.dart';
 import 'package:rivus_user/common/utils/http.dart';
 import 'package:rivus_user/models/environment.dart';
 import 'package:rivus_user/views/message/state.dart';
@@ -21,9 +22,11 @@ class MessageController extends GetxController {
   final db = FirebaseFirestore.instance;
   final MessageState state = MessageState();
   var listener;
+  // Add this variable to hold the search query
+  var searchQuery = ''.obs;
 
-  final RefreshController refreshController =
-      RefreshController(initialRefresh: true);
+
+  final RefreshController refreshController = RefreshController(initialRefresh: true);
 
   @override
   void onInit() {
@@ -42,26 +45,20 @@ class MessageController extends GetxController {
   }
 
   asyncLoadMsgData() async {
-    print(state.msgList.value);
 
-    var from_messages = await db
-      .collection("message")
-      .withConverter(
-        fromFirestore: Msg.fromFirestore,
-        toFirestore: (Msg msg, options) => msg.toFirestore(),
-      ).where("from_uid", isEqualTo: token).get();
-    print(from_messages.docs.length);
+    var from_messages = await db.collection("message")
+    .withConverter(
+      fromFirestore: Msg.fromFirestore,
+      toFirestore: (Msg msg, options) => msg.toFirestore(),
+    ).where("from_uid", isEqualTo: token).get();
 
-    var to_messages = await db
-        .collection("message")
-        .withConverter(
-          fromFirestore: Msg.fromFirestore,
-          toFirestore: (Msg msg, options) => msg.toFirestore(),
-        )
-        .where("to_uid", isEqualTo: token)
-        .get();
-    print("to_messages.docs.length------------");
-    print(to_messages.docs.length);
+    var to_messages = await db.collection("message")
+    .withConverter(
+      fromFirestore: Msg.fromFirestore,
+      toFirestore: (Msg msg, options) => msg.toFirestore(),
+    )
+    .where("to_uid", isEqualTo: token).get();
+
     state.msgList.clear();
 
     if (from_messages.docs.isNotEmpty) {
@@ -80,6 +77,9 @@ class MessageController extends GetxController {
       }
       return b.last_time!.compareTo(a.last_time!);
     });
+
+    // Initially set filtered list to msgList
+    state.filteredMsgList.assignAll(state.msgList);
   }
 
   addMessage(List<QueryDocumentSnapshot<Msg>> data) async {
@@ -109,20 +109,18 @@ class MessageController extends GetxController {
   }
 
   _snapshots() async {
-    final toMessageRef = db
-        .collection("message")
+    final toMessageRef = db.collection("message")
         .withConverter(
           fromFirestore: Msg.fromFirestore,
           toFirestore: (Msg msg, options) => msg.toFirestore(),
-        )
-        .where("to_uid", isEqualTo: token);
-    final fromMessageRef = db
-        .collection("message")
+        ).where("to_uid", isEqualTo: token);
+    final fromMessageRef = db.collection("message")
         .withConverter(
           fromFirestore: Msg.fromFirestore,
           toFirestore: (Msg msg, options) => msg.toFirestore(),
         )
         .where("from_uid", isEqualTo: token);
+
     toMessageRef.snapshots().listen(
       (event) async {
         await asyncLoadMsgData();
@@ -141,8 +139,9 @@ class MessageController extends GetxController {
     try {
       final location = await Location().getLocation();
       String address = "${location.latitude}, ${location.longitude}";
-      String url =
-          "https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${Environment.googleApiKey}";
+
+      String url = "https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${Environment.googleApiKey}";
+
       var response = await HttpUtil().get(url);
       MyLocation location_res = MyLocation.fromJson(response);
       if (location_res.status == "OK") {
@@ -195,14 +194,9 @@ class MessageController extends GetxController {
     );
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      print(
-          "onMessage: ${message.notification?.title}/${message.notification?.body}");
-      print(message.data);
-      //   HelperNotification.showNotification(message.notification!.title!, message.notification!.body!);
+      HelperNotification.showNotification(message.notification!.title!, message.notification!.body!);
     });
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      print(
-          "onOpenApp: ${message.notification?.title}/${message.notification?.body}");
       if (message.data != null) {
         var to_uid = message.data["to_uid"];
         var to_name = message.data["to_name"];
@@ -222,5 +216,19 @@ class MessageController extends GetxController {
   void reset() {
     state.msgList.clear();
     listener?.cancel();
+  }
+
+
+  // Adding the search functionality to filter through msgList
+  void searchMessages(String query) {
+    searchQuery.value = query;
+    if (searchQuery.value.isEmpty) {
+      state.filteredMsgList.assignAll(state.msgList);
+    } else {
+      state.filteredMsgList.value = state.msgList.where((message) {
+        return message.name!.toLowerCase().contains(searchQuery.value.toLowerCase()) ||
+            message.last_msg!.toLowerCase().contains(searchQuery.value.toLowerCase());
+      }).toList();
+    }
   }
 }

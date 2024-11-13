@@ -73,8 +73,6 @@ class CheckoutPage extends HookWidget {
     DistanceTime distanceTime;
 
     if (supplier != null) {
-      String jsonString = jsonEncode(supplier);
-      Map<String, dynamic> resData = jsonDecode(jsonString);
       Get.find<ContactController>().state.ownerId.value = supplier.owner;
       loadChatData();
 
@@ -158,7 +156,9 @@ class CheckoutPage extends HookWidget {
                             SizedBox(
                               width: width * 0.585,
                               child: Text(
-                                controller.userAddress ?? "Provide an address to proceed ordering",
+                                (controller.userAddress != null && controller.userAddress!.length > 50)
+                                    ? controller.userAddress!.substring(0, 50) + '...'
+                                    : (controller.userAddress ?? "Provide an address to proceed ordering"),
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 3,
                                 style: appStyle(10, kGray, FontWeight.w400),
@@ -236,8 +236,7 @@ class CheckoutPage extends HookWidget {
                         ),
                         SizedBox(width: 16),
                         Expanded(
-                          child: controller.defaultAddress == null
-                              ? CustomButton(
+                          child: controller.defaultAddress == null ? CustomButton(
                             onTap: () {
                               Get.to(() => const AddAddress());
                             },

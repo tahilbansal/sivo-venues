@@ -23,12 +23,13 @@ class PendingOrders extends HookWidget {
       child: isLoading
           ? const ItemsListShimmer()
           : ListView.builder(
-              padding: EdgeInsets.only(top: 10.h, left: 12.w, right: 12.w),
+              padding: EdgeInsets.only(top: 10.h, left: 12.w, right: 12.w, bottom:5.w),
               itemCount: orders!.length,
               itemBuilder: (context, i) {
                 ClientOrders order = orders[i];
                 return ClientOrderTile(order: order);
-              }),
+              }
+          ),
     );
   }
 }

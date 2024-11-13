@@ -8,6 +8,7 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:rivus_user/common/app_style.dart';
 import 'package:rivus_user/common/entities/message.dart';
 import 'package:rivus_user/common/reusable_text.dart';
+import 'package:rivus_user/common/shimmers/itemlist_shimmer.dart';
 import 'package:rivus_user/common/show_snack_bar.dart';
 import 'package:rivus_user/constants/constants.dart';
 import 'package:rivus_user/controllers/contact_controller.dart';
@@ -27,9 +28,6 @@ class ClientOrderTile extends HookWidget {
 
   final ClientOrders order;
   Future<ResponseModel> loadData() async {
-    //prepare the contact list for this user.
-    //get the supplier info from the firebase
-    //get only one supplier info
     return Get.find<ContactController>().asyncLoadSingleSupplier();
   }
 
@@ -56,10 +54,12 @@ class ClientOrderTile extends HookWidget {
       // Assigning the supplier ID to the controller state
       Get.find<ContactController>().state.supplierId.value = resData["owner"];
 
-      // Load chat data
-      loadChatData();
+      if (supplierData != null) {
+        Get.find<ContactController>().state.ownerId.value = supplierData.owner;
+        loadChatData();
+      }
     } else {
-      return Center(child: CircularProgressIndicator());
+      return const ItemsListShimmer();
     }
 
     return GestureDetector(
@@ -95,12 +95,12 @@ class ClientOrderTile extends HookWidget {
                         Positioned(
                             bottom: 0,
                             child: Container(
-                              padding:
-                                  const EdgeInsets.only(left: 6, bottom: 2),
+                              padding: const EdgeInsets.only(left: 6, bottom: 2),
                               color: kGray.withOpacity(0.6),
                               height: 16,
                               width: width,
-                            ))
+                            )
+                        )
                       ],
                     ),
                   ),
@@ -128,7 +128,7 @@ class ClientOrderTile extends HookWidget {
           ),
           Positioned(
             right: 5,
-            top: 6.h,
+            top: 8.h,
             child: Container(
               width: 60.h,
               height: 19.h,
@@ -139,7 +139,7 @@ class ClientOrderTile extends HookWidget {
                   )),
               child: Center(
                 child: ReusableText(
-                  text: "\$ ${order.grandTotal}",
+                  text: "₹ ${order.grandTotal}",
                   style: appStyle(12, kLightWhite, FontWeight.bold),
                 ),
               ),
@@ -147,7 +147,7 @@ class ClientOrderTile extends HookWidget {
           ),
           Positioned(
             right: 5,
-            bottom: 10.h,
+            bottom: 15.h,
             child: Container(
               width: 60.h,
               height: 19.h,
@@ -159,8 +159,7 @@ class ClientOrderTile extends HookWidget {
               child: Center(
                 child: GestureDetector(
                   onTap: () async {
-                    ResponseModel status = await Get.find<ContactController>()
-                        .goChat(supplierData);
+                    ResponseModel status = await Get.find<ContactController>().goChat(supplierData);
                     if (status.isSuccess == false) {
                       showCustomSnackBar(status.message!, title: status.title!);
                     }

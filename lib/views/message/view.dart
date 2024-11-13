@@ -1,3 +1,5 @@
+import 'package:rivus_user/common/app_style.dart';
+import 'package:rivus_user/common/search_bar.dart';
 import 'package:rivus_user/common/values/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +16,7 @@ class MessagePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(MessageController());
+    MessageController controller = Get.put(MessageController());
     return Scaffold(
       appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -27,7 +29,28 @@ class MessagePage extends StatelessWidget {
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w600),
           )),
-      body: const MessageList(),
+      body: SafeArea(
+        child: Column(
+          children: [
+            SizedBox(height: 8.h),
+            TextField(
+              onChanged: (value) {
+                controller.searchMessages(value);
+              },
+              decoration: InputDecoration(
+                hintText: 'Search...',
+                prefixIcon: Icon(Icons.search),
+              ),
+            ),
+            // Search Bar
+            chatSearchBar(),
+            // Expanded Message List
+            Expanded(
+              child: const MessageList(),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

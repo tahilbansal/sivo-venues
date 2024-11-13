@@ -33,8 +33,7 @@ class ChatPage extends GetView<ChatController> {
               child: InkWell(
                 onTap: () async {
                   if (controller.supplier.value != null) {
-                    Get.to(() =>
-                        SupplierPage(supplier: controller.supplier.value!));
+                    Get.to(() => SupplierPage(supplier: controller.supplier.value!));
                   }
                 },
                 child: SizedBox(
@@ -91,15 +90,16 @@ class ChatPage extends GetView<ChatController> {
                                 fontSize: 16.sp),
                           ),
                           Obx(() => Text(
-                                controller.state.to_location.value,
-                                overflow: TextOverflow.clip,
-                                maxLines: 1,
-                                style: TextStyle(
-                                    fontFamily: 'Avenir',
-                                    fontWeight: FontWeight.normal,
-                                    color: AppColors.primaryBackground,
-                                    fontSize: 14.sp),
-                              ))
+                            controller.state.to_location.value,
+                            overflow: TextOverflow.clip,
+                            maxLines: 1,
+                            style: TextStyle(
+                              fontFamily: 'Avenir',
+                              fontWeight: FontWeight.normal,
+                              color: AppColors.primaryBackground,
+                              fontSize: 14.sp),
+                            )
+                          )
                         ],
                       ),
                     ),
@@ -150,15 +150,12 @@ class ChatPage extends GetView<ChatController> {
     Get.lazyPut(() => ChatController());
     Get.lazyPut(() => LoginController());
 
-    return WillPopScope(
-      onWillPop: () async {
-        // Navigate to MessagePage when back button is pressed
-        // Navigate back to MainScreen with tabIndex set to 1 (Messages tab)
-        Get.offAll(() => MainScreen(),
-            arguments: 1); // Passing 1 as argument for tabIndex
-        return false; // Prevents the default back navigation
-      },
-      child: Scaffold(
+    // return WillPopScope(
+    //   onWillPop: () async {
+    //     //Get.off(() => MainScreen(), arguments: 1);
+    //     return false; // Prevents the default back navigation
+    //   },
+      return Scaffold(
           appBar: _buildAppBar(),
           body: SafeArea(
             child: ConstrainedBox(
@@ -239,7 +236,8 @@ class ChatPage extends GetView<ChatController> {
                 ],
               ),
             ),
-          )),
+          )
+                //),
     );
   }
 }

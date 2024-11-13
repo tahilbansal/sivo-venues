@@ -8,6 +8,7 @@ import 'package:rivus_user/models/all_addresses.dart';
 import 'package:rivus_user/models/api_error.dart';
 import 'package:rivus_user/models/environment.dart';
 import 'package:rivus_user/views/entrypoint.dart';
+import 'package:rivus_user/views/home/home_page.dart';
 import 'package:rivus_user/views/profile/address.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
@@ -20,24 +21,44 @@ class AddressController extends GetxController {
   Location? userLoc;
   String? userAddress;
 
+  // Reactive state for each address switch
+  var addressSwitches = <String, bool>{}.obs;
+
+  // Function to initialize switch state for an address
+  void initializeSwitchState(String addressId, bool initialValue) {
+    if (!addressSwitches.containsKey(addressId)) {
+      addressSwitches[addressId] = initialValue;
+    }
+  }
+
+  // Getter and setter for switch state
+  bool getSwitchState(String addressId) {
+    return addressSwitches[addressId] ?? false;
+  }
+  void setSwitchState(String addressId, bool newValue) {
+    addressSwitches[addressId] = newValue;
+  }
+
   // Reactive state
   var _address = false.obs;
+  var _dfSwitch = false.obs;
+  RxBool _isLoading = false.obs;
 
-  // Getter
+  // Getter and setter for address
   bool get address => _address.value;
-
-  // Setter
   set setAddress(bool newValue) {
     _address.value = newValue;
   }
 
-  RxBool _isLoading = false.obs;
-
+  // Getter and setter for loading
   bool get isLoading => _isLoading.value;
-
   set setLoading(bool newValue) {
     _isLoading.value = newValue;
   }
+
+  // Getter and Setter for the switch
+  bool get dfSwitch => _dfSwitch.value;
+  set setDfSwitch(bool newValue) => _dfSwitch.value = newValue;
 
   void addAddress(String address) async {
     String token = box.read('token');
@@ -106,13 +127,16 @@ class AddressController extends GetxController {
       if (response.statusCode == 200) {
         setLoading = false;
 
-        Get.snackbar("Default Address successfully updated",
-            "Thank you for updating the address, you can now order food",
-            colorText: kLightWhite,
-            backgroundColor: kPrimary,
-            icon: const Icon(Icons.add_alert));
+        // Get.snackbar("Default Address successfully updated",
+        //     "Thank you for updating the address, you can now order food",
+        //     colorText: kLightWhite,
+        //     backgroundColor: kPrimary,
+        //     icon: const Icon(Icons.add_alert));
 
-        Get.off(() => const Addresses(),
+        // Update the switches, ensuring only one is active at a time
+        addressSwitches.updateAll((key, value) => key == id);
+
+        Get.off(() => MainScreen(),
             transition: Transition.fade, duration: const Duration(seconds: 2));
       } else {
         var data = apiErrorFromJson(response.body);
@@ -141,15 +165,5 @@ class AddressController extends GetxController {
   // Setter
   set setIndex(int newValue) {
     _index.value = newValue;
-  }
-
-  var _dfSwitch = false;
-
-  // Getter
-  bool get dfSwitch => _dfSwitch;
-
-  // Setter
-  set setDfSwitch(bool newValue) {
-    _dfSwitch = newValue;
   }
 }

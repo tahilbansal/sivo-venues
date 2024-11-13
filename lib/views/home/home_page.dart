@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rivus_user/common/custom_appbar.dart';
 import 'package:rivus_user/common/custom_container.dart';
 import 'package:rivus_user/common/heading.dart';
+import 'package:rivus_user/common/search_bar.dart';
 import 'package:rivus_user/constants/constants.dart';
 import 'package:rivus_user/controllers/category_controller.dart';
 import 'package:rivus_user/controllers/counter_controller.dart';
@@ -33,71 +34,40 @@ class HomePage extends StatelessWidget {
         child: CustomContainer(
         containerContent: Column(
         children: [
-          GestureDetector(
-            onTap: () {
-              Get.to(() => const SearchPage(), arguments: {'focus': true});
-            },
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              height: 40.h,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8.r),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black12,
-                    blurRadius: 4.r,
-                    offset: Offset(0, 2.h),
-                  ),
-                ],
-              ),
-              child: Row(
-                children: [
-                  Icon(Icons.search, color: kGray),
-                  SizedBox(width: 8.w),
-                  Text(
-                    "Search for Supplier",
-                    style: appStyle(14, kGray, FontWeight.w400),
-                  ),
-                ],
-              ),
-            ),
-          ),
+          chatSearchBar(),
           const CategoriesWidget(),
           Obx(
             () => categoryController.categoryValue == ''
-                ? Column(
+            ? Column(
+                children: [
+                  HomeHeading(
+                    heading: "Suppliers",
+                    onTap: () {
+                      Get.to(() => const AllNearbySuppliers());
+                    },
+                  ),
+                  const NearbySuppliers(),
+                  HomeHeading(
+                    heading: "Try Something New",
+                    onTap: () {
+                      //Get.to(() => const Recommendations());
+                    },
+                  ),
+                  const NearbySuppliers(),
+                  //const ItemList(),
+                ],
+              )
+              : CustomContainer(
+                  containerContent: Column(
                     children: [
                       HomeHeading(
-                        heading: "Suppliers",
-                        onTap: () {
-                          Get.to(() => const AllNearbySuppliers());
-                        },
+                        heading: "Explore ${categoryController.titleValue} Category",
+                        restaurant: true,
                       ),
-                      const NearbySuppliers(),
-                      HomeHeading(
-                        heading: "Try Something New",
-                        onTap: () {
-                          //Get.to(() => const Recommendations());
-                        },
-                      ),
-                      const NearbySuppliers(),
-                      //const ItemList(),
+                      const CategorySupplierList(),
                     ],
-                  )
-                : CustomContainer(
-                    containerContent: Column(
-                      children: [
-                        HomeHeading(
-                          heading:
-                              "Explore ${categoryController.titleValue} Category",
-                          restaurant: true,
-                        ),
-                        const CategorySupplierList(),
-                      ],
-                    ),
                   ),
+                ),
           ),
         ],
       ))),

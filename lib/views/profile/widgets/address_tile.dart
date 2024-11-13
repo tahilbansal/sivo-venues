@@ -4,9 +4,11 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:rivus_user/common/app_style.dart';
 import 'package:rivus_user/common/reusable_text.dart';
 import 'package:rivus_user/constants/constants.dart';
+import 'package:rivus_user/controllers/address_controller.dart';
 import 'package:rivus_user/models/all_addresses.dart';
 //import 'package:rivus_user/views/profile/default_address_page.dart';
 import 'package:get/get.dart';
+import 'package:rivus_user/views/profile/default_address_page.dart';
 
 class AddressTile extends StatelessWidget {
   const AddressTile({
@@ -17,9 +19,10 @@ class AddressTile extends StatelessWidget {
   final AddressesList address;
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(AddressController());
     return ListTile(
       onTap: () {
-        //Get.to(() =>   SetDefaultAddressPage(address: address,));
+        Get.to(() =>  SetDefaultAddressPage(address: address,));
       },
       visualDensity: VisualDensity.compact,
       leading: Padding(
@@ -48,11 +51,15 @@ class AddressTile extends StatelessWidget {
           ),
         ],
       ),
-      trailing: Switch.adaptive(
-          value: address.addressesListDefault,
-          onChanged: (bool value) {
-            // controller.setDfSwitch = value;
-          }),
+      trailing: Obx(() => Switch.adaptive(
+        value: controller.getSwitchState(address.id),
+        onChanged: (bool value) {
+          controller.setSwitchState(address.id, value);
+          if (value) {
+            controller.setDefaultAddress(address.id);
+          }
+        },
+      )),
     );
   }
 }
