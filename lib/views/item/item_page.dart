@@ -23,6 +23,7 @@ import 'package:rivus_user/models/response_model.dart';
 import 'package:rivus_user/models/user_cart.dart';
 import 'package:rivus_user/views/auth/login_page.dart';
 import 'package:rivus_user/views/auth/phone_verification.dart';
+import 'package:rivus_user/views/cart/widgets/cart_bar.dart';
 import 'package:rivus_user/views/home/widgets/custom_btn.dart';
 import 'package:rivus_user/views/message/chat/index.dart';
 import 'package:rivus_user/views/message/index.dart';
@@ -57,9 +58,6 @@ class _ItemPageState extends State<ItemPage> {
   }
 
   Future<ResponseModel> loadData() async {
-    //prepare the contact list for this user.
-    //get the supplier info from the firebase
-    //get only one supplier info
     return _controller.asyncLoadSingleSupplier();
   }
 
@@ -117,21 +115,23 @@ class _ItemPageState extends State<ItemPage> {
           )
         : Scaffold(
             backgroundColor: kLightWhite,
-            body: ListView(
+            body: Stack(
+              children: [
+              ListView(
               padding: EdgeInsets.zero,
               physics: const NeverScrollableScrollPhysics(),
               children: [
                 Stack(
                   children: [
-                    ClipRRect(
-                      borderRadius: const BorderRadius.only(
-                          bottomRight: Radius.circular(25)),
+                    widget.item.imageUrl != null && widget.item.imageUrl!.isNotEmpty
+                        ? ClipRRect(
+                      borderRadius: const BorderRadius.only(bottomRight: Radius.circular(25)),
                       child: Stack(
                         children: [
                           SizedBox(
                             height: 230.h,
                             child: PageView.builder(
-                                itemCount: widget.item.imageUrl.length,
+                                itemCount: widget.item.imageUrl!.length,
                                 controller: _pageController,
                                 onPageChanged: (i) {
                                   itemController.currentPage(i);
@@ -143,36 +143,34 @@ class _ItemPageState extends State<ItemPage> {
                                     color: kLightWhite,
                                     child: CachedNetworkImage(
                                       fit: BoxFit.cover,
-                                      imageUrl: widget.item.imageUrl[i],
+                                      imageUrl: widget.item.imageUrl![i],
+                                      placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                                      errorWidget: (context, url, error) => const Icon(Icons.error),
                                     ),
                                   );
-                                }),
-                          ),
+                                }
+                              ),
+                          ), // Placeholder for missing image,
                           Positioned(
                             bottom: 10,
                             child: Obx(
                               () => Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: List.generate(
-                                  widget.item.imageUrl.length,
+                                  widget.item.imageUrl!.length,
                                   (index) {
                                     return Padding(
                                       padding: const EdgeInsets.only(left: 8.0),
                                       child: Container(
                                         margin: EdgeInsets.all(4.h),
-                                        width:
-                                            itemController.currentPage == index
-                                                ? 10
-                                                : 8,
+                                        width: itemController.currentPage == index
+                                                ? 10 : 8,
                                         // ignore: unrelated_type_equality_checks
-                                        height:
-                                            itemController.currentPage == index
-                                                ? 10
-                                                : 8,
+                                        height: itemController.currentPage == index
+                                                ? 10 : 8,
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
-                                          color: itemController.currentPage ==
-                                                  index
+                                          color: itemController.currentPage == index
                                               ? kSecondary
                                               : kGrayLight,
                                         ),
@@ -185,7 +183,7 @@ class _ItemPageState extends State<ItemPage> {
                           ),
                         ],
                       ),
-                    ),
+                    ): Image.asset('assets/images/No.png', height: 230.h),
                     Positioned(
                       top: 40.h,
                       left: 12,
@@ -200,7 +198,7 @@ class _ItemPageState extends State<ItemPage> {
                             child: const Icon(
                               Ionicons.chevron_back_circle,
                               color: kPrimary,
-                              size: 38,
+                              size: 32,
                             ),
                           ),
                           GestureDetector(
@@ -208,7 +206,7 @@ class _ItemPageState extends State<ItemPage> {
                             child: const Icon(
                               Entypo.share,
                               color: kPrimary,
-                              size: 38,
+                              size: 32,
                             ),
                           )
                         ],
@@ -216,9 +214,9 @@ class _ItemPageState extends State<ItemPage> {
                     ),
                     Positioned(
                         bottom: 10,
-                        right: 15,
+                        right: 12,
                         child: CustomButton(
-                            btnWidth: width / 7.5,
+                            btnWidth: width / 5,
                             radius: 30,
                             color: kPrimary,
                             onTap: () async {
@@ -239,10 +237,10 @@ class _ItemPageState extends State<ItemPage> {
                                 }
                               }
                             },
-                            text: "Chat")),
+                            text: "Message")),
                     Positioned(
                       bottom: 10,
-                      right: 75,
+                      right: 95,
                       child: CustomButton(
                       btnWidth: width / 2.9,
                       radius: 30,
@@ -263,7 +261,7 @@ class _ItemPageState extends State<ItemPage> {
                             transition: Transition.fade,
                             duration: const Duration(seconds: 1));
                       },
-                      text: "Open Supplier"))
+                      text: "View Supplier"))
                   ],
                 ),
                 Padding(
@@ -277,9 +275,11 @@ class _ItemPageState extends State<ItemPage> {
                           ReusableText(
                               text: widget.item.title,
                               style: appStyle(18, kDark, FontWeight.w600)),
-                          ReusableText(
-                              text: widget.item.price.toStringAsFixed(2),
-                              style: appStyle(18, kPrimary, FontWeight.w600)),
+                          widget.item.price != null
+                              ? ReusableText(
+                              text: widget.item.price!.toStringAsFixed(2),
+                              style: appStyle(18, kPrimary, FontWeight.w600))
+                              : const SizedBox.shrink(),
                         ],
                       ),
                       SizedBox(
@@ -322,37 +322,6 @@ class _ItemPageState extends State<ItemPage> {
                       SizedBox(
                         height: 15.h,
                       ),
-                      // ReusableText(
-                      //     text: "Additives and Toppings",
-                      //     style: appStyle(18, kDark, FontWeight.w600)),
-                      // Column(
-                      //   children: List.generate(
-                      //       itemController.additivesList.length, (i) {
-                      //     final additive = itemController.additivesList[i];
-                      //     return Obx(() => CheckboxListTile(
-                      //           title: RowText(
-                      //               first: additive.title,
-                      //               second: "\$ ${additive.price}"),
-                      //           contentPadding: EdgeInsets.zero,
-                      //           value: additive.isChecked.value,
-                      //           dense: true,
-                      //           visualDensity: VisualDensity.compact,
-                      //           onChanged: (bool? newValue) {
-                      //             additive.toggleChecked();
-                      //             itemController.getTotalPrice();
-                      //             itemController.getList();
-                      //           },
-                      //           activeColor: kPrimary,
-                      //           checkColor: Colors.white,
-                      //           controlAffinity:
-                      //               ListTileControlAffinity.leading,
-                      //           tristate: false,
-                      //         ));
-                      //   }),
-                      // ),
-                      // ReusableText(
-                      //     text: "Preferences",
-                      //     style: appStyle(18, kDark, FontWeight.w600)),
                       SizedBox(
                         height: 5.h,
                       ),
@@ -426,7 +395,7 @@ class _ItemPageState extends State<ItemPage> {
                               style: appStyle(18, kDark, FontWeight.w600)),
                           Obx(
                                 () => ReusableText(
-                                text: "\₹ ${((widget.item.price) * counterController.getItemCount(widget.item.supplier, widget.item.id).toDouble()).toStringAsFixed(2)}",
+                                text: "\₹ ${((widget.item.price ?? 0.0) * counterController.getItemCount(widget.item.supplier, widget.item.id).toDouble()).toStringAsFixed(2)}",
                                 style: appStyle(18, kPrimary, FontWeight.w600)),
                           ),
                         ],
@@ -437,110 +406,92 @@ class _ItemPageState extends State<ItemPage> {
                 SizedBox(
                   height: 20.h,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    height: 40.h,
-                    width: width,
-                    decoration: BoxDecoration(
-                      color: kPrimary,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(30.r),
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // GestureDetector(
-                        //   onTap: () {
-                        //     if (token == null) {
-                        //       Get.to(() => const Login(),
-                        //           transition: Transition.fade,
-                        //           duration: const Duration(seconds: 1));
-                        //     } else {
-                        //       double totalPrice = (widget.item.price +
-                        //               itemController.additiveTotal) *
-                        //           counterController.getItemCount(widget.item.supplier,widget.item.id).toDouble();
-                        //       ToCart item = ToCart(
-                        //           productId: widget.item.id,
-                        //           supplierId: widget.item.supplier,
-                        //           instructions: _preferences.text,
-                        //           additives: itemController.getList(),
-                        //           quantity: counterController.getItemCount(widget.item.supplier,widget.item.id),
-                        //           totalPrice: totalPrice);
-                        //
-                        //       String cart = toCartToJson(item);
-                        //
-                        //       cartController.addToCart(cart);
-                        //     }
-                        //   },
-                        //   child: CircleAvatar(
-                        //     backgroundColor: kSecondary,
-                        //     radius: 20.r,
-                        //     child: const Icon(
-                        //       Entypo.plus,
-                        //       color: kLightWhite,
-                        //     ),
-                        //   ),
-                        // ),
-                        GestureDetector(
-                          onTap: () {
-                            if (token == null) {
-                              Get.to(() => const Login(),
-                                  transition: Transition.fade,
-                                  duration: const Duration(seconds: 1));
-                            } else {
-                              //var user = controller.getUserData();
-                              if (phone_verification == false || phone_verification == null) {
-                                _showVerificationSheet(context);
-                              } else if (address == false) {
-                                showAddressSheet(context);
-                              } else {
-                                OrderItem orderItem = OrderItem(
-                                itemId: widget.item.id,
-                                additives: itemController.getList(),
-                                quantity: counterController.getItemCount(widget.item.supplier, widget.item.id).toString(),
-                                price: ((widget.item.price + itemController.additiveTotal) *
-                                        counterController.getItemCount(widget.item.supplier,
-                                            widget.item.id).toDouble()).toStringAsFixed(2),
-                                instructions: _preferences.text);
-                                Get.to(
-                                () => OrderPage(
-                                      item: widget.item,
-                                      supplier: supplierData,
-                                      orderItem: orderItem,
-                                    ),
-                                transition: Transition.fade,
-                                duration: const Duration(seconds: 1));
-                              }
-                            }
-                          },
-                          child: ReusableText(
-                              text: "Place Order",
-                              textAlign: TextAlign.center,
-                              style:
-                                  appStyle(18, kLightWhite, FontWeight.w600)),
-                        ),
-                        // CircleAvatar(
-                        //   backgroundColor: kSecondary,
-                        //   radius: 20.r,
-                        //   child: Badge(
-                        //     label: ReusableText(
-                        //         text: box.read('cart') ?? "0",
-                        //         style: appStyle(
-                        //             9, kLightWhite, FontWeight.normal)),
-                        //     child: const Icon(
-                        //       Ionicons.fast_food_outline,
-                        //       color: kLightWhite,
-                        //     ),
-                        //   ),
-                        // ),
-                      ],
-                    ),
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.all(8.0),
+                //   child: Container(
+                //     height: 40.h,
+                //     width: width,
+                //     decoration: BoxDecoration(
+                //       color: kPrimary,
+                //       borderRadius: BorderRadius.all(
+                //         Radius.circular(30.r),
+                //       ),
+                //     ),
+                //     child: Row(
+                //       mainAxisAlignment: MainAxisAlignment.center,
+                //       children: [
+                //         GestureDetector(
+                //           onTap: () {
+                //             if (token == null) {
+                //               Get.to(() => const Login(),
+                //                   transition: Transition.fade,
+                //                   duration: const Duration(seconds: 1));
+                //             } else {
+                //               //var user = controller.getUserData();
+                //               if (phone_verification == false || phone_verification == null) {
+                //                 _showVerificationSheet(context);
+                //               } else if (address == false) {
+                //                 showAddressSheet(context);
+                //               } else {
+                //                 OrderItem orderItem = OrderItem(
+                //                 itemId: widget.item.id,
+                //                 additives: itemController.getList(),
+                //                 quantity: counterController.getItemCount(widget.item.supplier, widget.item.id).toString(),
+                //                 price: ((widget.item.price + itemController.additiveTotal) *
+                //                         counterController.getItemCount(widget.item.supplier,
+                //                             widget.item.id).toDouble()).toStringAsFixed(2),
+                //                 instructions: _preferences.text);
+                //                 Get.to(
+                //                 () => OrderPage(
+                //                       item: widget.item,
+                //                       supplier: supplierData,
+                //                       orderItem: orderItem,
+                //                     ),
+                //                 transition: Transition.fade,
+                //                 duration: const Duration(seconds: 1));
+                //               }
+                //             }
+                //           },
+                //           child: ReusableText(
+                //               text: "Place Order",
+                //               textAlign: TextAlign.center,
+                //               style:
+                //                   appStyle(18, kLightWhite, FontWeight.w600)),
+                //         ),
+                //         // CircleAvatar(
+                //         //   backgroundColor: kSecondary,
+                //         //   radius: 20.r,
+                //         //   child: Badge(
+                //         //     label: ReusableText(
+                //         //         text: box.read('cart') ?? "0",
+                //         //         style: appStyle(
+                //         //             9, kLightWhite, FontWeight.normal)),
+                //         //     child: const Icon(
+                //         //       Ionicons.fast_food_outline,
+                //         //       color: kLightWhite,
+                //         //     ),
+                //         //   ),
+                //         // ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
               ],
-            ));
+            ),
+                Positioned(
+                  bottom: 0, // Positioned at the bottom of the screen
+                  left: 0,
+                  right: 0,
+                  child: Obx(() {
+                    // Only show the CartBar if items are in the cart
+                    return counterController.getSupplierItemCount(widget.item.supplier) > 0
+                        ? CartBar(supplierId: widget.item.supplier)
+                        : const SizedBox.shrink();
+                  }),
+                ),
+          ],
+        ),
+    );
   }
 
   Future<dynamic> _showVerificationSheet(BuildContext context) {
@@ -606,6 +557,7 @@ class _ItemPageState extends State<ItemPage> {
               ),
             ),
           );
-        });
+        }
+      );
   }
 }

@@ -24,8 +24,8 @@ class ItemSearchController extends GetxController {
     _isLoading.value = newValue;
   }
 
-  List<Item>? itemsResults; // List to store item results
-  List<Suppliers>? suppliersResults; // List to store supplier results
+  List<Item>? itemsResults;
+  List<Suppliers>? suppliersResults;
 
   void searchItems(String key) async {
     setLoading = true;
@@ -42,6 +42,29 @@ class ItemSearchController extends GetxController {
         suppliersResults = suppliersFromJson(jsonEncode(data['suppliers']));
         update();
 
+        return;
+      } else {
+        throw Exception('Failed to load data');
+      }
+    } catch (e) {
+      setLoading = false;
+      rethrow;
+    } finally {
+      setLoading = false;
+    }
+  }
+  void searchCatalogItems(String supplierId,String key) async {
+    setLoading = true;
+    var url = Uri.parse('${Environment.appBaseUrl}/api/items/search-catalog/$key?supplierId=$supplierId');
+
+    try {
+      var response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        setLoading = false;
+        var data = jsonDecode(response.body);
+        itemsResults = itemFromJson(jsonEncode(data['items']));
+        update();
         return;
       } else {
         throw Exception('Failed to load data');

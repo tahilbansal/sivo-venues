@@ -2,6 +2,8 @@ import 'package:rivus_user/common/cached_image_loader.dart';
 import 'package:rivus_user/common/entities/message.dart';
 import 'package:rivus_user/common/show_snack_bar.dart';
 import 'package:rivus_user/common/utils/date.dart';
+import 'package:rivus_user/constants/constants.dart';
+import 'package:rivus_user/controllers/counter_controller.dart';
 import 'package:rivus_user/main.dart';
 import 'package:rivus_user/views/message/chat/index.dart';
 import 'package:rivus_user/views/message/controller.dart';
@@ -18,6 +20,7 @@ class MessageList extends GetView<MessageController> {
   const MessageList({Key? key}) : super(key: key);
 
   Widget messageListItem(Message item) {
+    CounterController counterController = Get.put(CounterController());
     return Container(
       padding: EdgeInsets.only(top: 10.w, left: 15.w, right: 15.w),
       child: InkWell(
@@ -39,26 +42,49 @@ class MessageList extends GetView<MessageController> {
               child: SizedBox(
                 width: 54.w,
                 height: 54.w,
-                child: CachedNetworkImage(
-                  imageUrl: item.avatar!,
-                  imageBuilder: (context, imageProvider) => Container(
-                    width: 54.w,
-                    height: 54.w,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(54)),
-                        image: DecorationImage(
-                            image: imageProvider, fit: BoxFit.cover)),
-                  ),
-                  errorWidget: (context, url, error) => const Image(
-                      image: AssetImage('assets/images/feature-1.png')),
+                child: Stack(
+                  children: [
+                    CachedNetworkImage(
+                      imageUrl: item.avatar!,
+                      imageBuilder: (context, imageProvider) => Container(
+                        width: 54.w,
+                        height: 54.w,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(54)),
+                            image: DecorationImage(
+                                image: imageProvider, fit: BoxFit.cover)),
+                      ),
+                      errorWidget: (context, url, error) => const Image(
+                          image: AssetImage('assets/images/feature-1.png')
+                      ),
+                    ),
+                    if (counterController.hasSupplierItemCount(item.supplier_uid!)) // Check if cart icon is needed
+                    Positioned(
+                      top: 0,
+                      right: 0,
+                      child: Container(
+                        width: 18.w,
+                        height: 18.w,
+                        decoration: BoxDecoration(
+                          color: kPrimary,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(
+                          Icons.shopping_cart,
+                          color: Colors.white,
+                          size: 12.w,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
-            Container(
+          Expanded(
+            child: Container(
               padding: EdgeInsets.only(top: 0.w, left: 0.w, right: 5.w),
               decoration: const BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(width: 1, color: Color(0xffe5e5e5)))),
+                  border: Border(bottom: BorderSide(width: 1, color: Color(0xffe5e5e5)))),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -141,7 +167,8 @@ class MessageList extends GetView<MessageController> {
                   )
                 ],
               ),
-            )
+            ),
+          ),
           ],
         ),
       ),

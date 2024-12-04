@@ -39,7 +39,7 @@ class CartBar extends StatelessWidget {
           ),
         );
       } else {
-        return const SizedBox.shrink(); // Hide if cart is empty
+        return const SizedBox.shrink();
       }
     });
   }

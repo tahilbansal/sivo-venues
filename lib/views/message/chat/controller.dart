@@ -158,9 +158,9 @@ class ChatController extends GetxController {
     state.to_uid.value = data['to_uid'] ?? "";
     state.to_name.value = data['to_name'] ?? "";
     state.to_avatar.value = data['to_avatar'] ?? "";
-    state.supplier_uid.value = data['supplier_uid'] ?? "";
+    state.supplier_uid = data['supplier_uid'] ?? "";
     // Fetch supplier details when the controller is initialized
-    fetchSupplierDetails(state.supplier_uid.value);
+    fetchSupplierDetails(state.supplier_uid);
     clear_msg_num(doc_id);
   }
 

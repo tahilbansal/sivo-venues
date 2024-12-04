@@ -37,24 +37,7 @@ class CartController extends GetxController {
     _isLoading.value = newValue;
   }
 
-  // void loadCart() {
-  //   var cartData = box.read('cartItems');
-  //   if (cartData != null) {
-  //     List<UserCart> carts = (jsonDecode(cartData) as List)
-  //         .map((item) => UserCart.fromJson(item))
-  //         .toList();
-  //     rxUserCarts.assignAll(carts);
-  //     updateCartCount();
-  //   }
-  // }
-  //
-  // void updateCartCount() {
-  //   cartItemCount.value = rxUserCarts.fold(0, (sum, cart) {
-  //     return sum + cart.items.fold(0, (itemSum, item) => itemSum + item.quantity);
-  //   });
-  // }
-
-  void addToCart(String item) async {
+  Future<void> addToCart(String item) async {
     String token = box.read('token');
     String accessToken = jsonDecode(token);
 
@@ -78,34 +61,20 @@ class CartController extends GetxController {
 
         box.write("cart", jsonEncode(data.count));
 
-        // Update the cart item count
-        //cartItemCount.value = data.count ??0;
+        // //Update the cart item count
+        // cartItemCount.value = data.count ??0;
 
-        // Get.snackbar("Product added successfully to cart",
-        //     "You can now order multiple items via the cart",
-        //     colorText: kLightWhite,
-        //     backgroundColor: kPrimary,
-        //     icon: const Icon(Icons.add_alert));
       } else {
         var data = apiErrorFromJson(response.body);
-
-        // Get.snackbar(data.message, "Failed to add address, please try again",
-        //     colorText: kLightWhite,
-        //     backgroundColor: kRed,
-        //     icon: const Icon(Icons.error));
       }
     } catch (e) {
       setLoading = false;
-      // Get.snackbar(e.toString(), "Failed to add address, please try again",
-      //     colorText: kLightWhite,
-      //     backgroundColor: kRed,
-      //     icon: const Icon(Icons.error));
     } finally {
       setLoading = false;
     }
   }
 
-  void decrementFromCart(String productId) async {
+  Future<void> decrementFromCart(String productId) async {
     String token = box.read('token');
     String accessToken = jsonDecode(token);
 
@@ -134,17 +103,9 @@ class CartController extends GetxController {
 
       } else {
         var data = apiErrorFromJson(response.body);
-        // Get.snackbar(data.message, "Failed to update cart, please try again",
-        //     colorText: Colors.white,
-        //     backgroundColor: Colors.red,
-        //     icon: const Icon(Icons.error));
       }
     } catch (e) {
       setLoading = false;
-      // Get.snackbar(e.toString(), "Failed to update cart, please try again",
-      //     colorText: Colors.white,
-      //     backgroundColor: Colors.red,
-      //     icon: const Icon(Icons.error));
     } finally {
       setLoading = false;
     }
@@ -167,28 +128,15 @@ class CartController extends GetxController {
         setLoading = false;
         CartResponse data = cartResponseFromJson(response.body);
 
-        // Update the cart item count
-        //cartItemCount.value = data.count;
-
         Get.find<CounterController>().resetItemCount(supplierId, productId);
-
-        // rxUserCarts.removeWhere((cart) {
-        //   final initialLength = cart.items.length;
-        //   cart.items.removeWhere((item) => item.productId.id == productId);
-        //   return cart.items.length < initialLength; // Remove the cart if items were removed
-        // });
-        //
-        // box.write("cartItems", jsonEncode(rxUserCarts));
 
         box.write("cart", jsonEncode(data.count));
 
-        //update();
-
-        // Get.snackbar("Product removed",
-        //     "The product was removed from cart successfully",
-        //     colorText: kLightWhite,
-        //     backgroundColor: kPrimary,
-        //     icon: const Icon(Icons.add_alert));
+        Get.snackbar("Product removed",
+            "The product was removed from cart successfully",
+            colorText: kLightWhite,
+            backgroundColor: kPrimary,
+            icon: const Icon(Icons.add_alert));
         // Get.offAll(() =>  MainScreen());
       } else {
         var data = apiErrorFromJson(response.body);
@@ -230,23 +178,17 @@ class CartController extends GetxController {
         setLoading = false;
 
         if (supplierId != null) {
-          // Remove only the specific supplier's item counts from local storage
-          Map<String, dynamic> storedCounts =
-              box.read('supplierItemCounts') ?? {};
-          storedCounts
-              .remove(supplierId); // Remove the entry for the supplierId
-          box.write(
-              'supplierItemCounts', storedCounts); // Update the local storage
+          Map<String, dynamic> storedCounts = box.read('supplierItemCounts') ?? {};
+          storedCounts.remove(supplierId);
+          box.write('supplierItemCounts', storedCounts);
 
           // Update the counter_controller's supplierItemCounts observable
           final counterController = Get.find<CounterController>();
           counterController.supplierItemCounts.remove(supplierId);
         } else {
-          box.remove(
-              "supplierItemCounts"); // Clear all if no supplierId is provided
+          box.remove("supplierItemCounts");
           final counterController = Get.find<CounterController>();
-          counterController.supplierItemCounts
-              .clear(); // Clear the observable as well
+          counterController.supplierItemCounts.clear();
         }
       } else {
         var data = apiErrorFromJson(response.body);

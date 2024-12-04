@@ -1,14 +1,16 @@
 import 'package:rivus_user/common/values/colors.dart';
 import 'package:rivus_user/constants/constants.dart';
+import 'package:rivus_user/controllers/counter_controller.dart';
 import 'package:rivus_user/controllers/login_controller.dart';
+import 'package:rivus_user/views/cart/cart_page.dart';
+import 'package:rivus_user/views/message/chat/widgets/chat_bar.dart';
 import 'package:rivus_user/views/message/chat/widgets/chat_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rivus_user/views/message/view.dart';
-
-import '../../../hooks/fetchSupplier.dart';
+import 'package:rivus_user/views/supplier/supplier_catalog_page.dart';
 import '../../entrypoint.dart';
 import '../../supplier/suppliers_page.dart';
 import 'controller.dart';
@@ -33,7 +35,8 @@ class ChatPage extends GetView<ChatController> {
               child: InkWell(
                 onTap: () async {
                   if (controller.supplier.value != null) {
-                    Get.to(() => SupplierPage(supplier: controller.supplier.value!));
+                    Get.to(() =>
+                        SupplierPage(supplier: controller.supplier.value!));
                   }
                 },
                 child: SizedBox(
@@ -90,16 +93,15 @@ class ChatPage extends GetView<ChatController> {
                                 fontSize: 16.sp),
                           ),
                           Obx(() => Text(
-                            controller.state.to_location.value,
-                            overflow: TextOverflow.clip,
-                            maxLines: 1,
-                            style: TextStyle(
-                              fontFamily: 'Avenir',
-                              fontWeight: FontWeight.normal,
-                              color: AppColors.primaryBackground,
-                              fontSize: 14.sp),
-                            )
-                          )
+                                controller.state.to_location.value,
+                                overflow: TextOverflow.clip,
+                                maxLines: 1,
+                                style: TextStyle(
+                                    fontFamily: 'Avenir',
+                                    fontWeight: FontWeight.normal,
+                                    color: AppColors.primaryBackground,
+                                    fontSize: 14.sp),
+                              ))
                         ],
                       ),
                     ),
@@ -149,95 +151,119 @@ class ChatPage extends GetView<ChatController> {
   Widget build(BuildContext context) {
     Get.lazyPut(() => ChatController());
     Get.lazyPut(() => LoginController());
+    CounterController counterController = Get.put(CounterController());
 
     // return WillPopScope(
     //   onWillPop: () async {
     //     //Get.off(() => MainScreen(), arguments: 1);
     //     return false; // Prevents the default back navigation
     //   },
-      return Scaffold(
-          appBar: _buildAppBar(),
-          body: SafeArea(
-            child: ConstrainedBox(
-              constraints: BoxConstraints.expand(),
-              child: Stack(
-                children: [
-                  const ChatList(),
-                  Positioned(
-                    bottom: 0.h,
+    return Scaffold(
+        appBar: _buildAppBar(),
+        body: SafeArea(
+          child: ConstrainedBox(
+            constraints: BoxConstraints.expand(),
+            child: Stack(
+              children: [
+                const ChatList(),
+                // Start Order Bar
+                Positioned(
+                  bottom: 52.h,
+                  // Position it just above the Send messages container
+                  left: 0.w,
+                  right: 0.w,
+                  child: Obx(() {
+                    return ChatBar(
+                      hasItemsInCart: counterController
+                          .hasSupplierItemCount(controller.state.supplier_uid),
+                      onStartOrder: () {
+                        Get.to(() => SupplierCatalogPage(
+                            supplierId: controller.state.supplier_uid));
+                      },
+                      onGoToCart: () {
+                        Get.to(() => SupplierCatalogPage(
+                            supplierId: controller.state.supplier_uid));
+                        //Get.to(() => CartPage(supplierId: controller.state.supplier_uid));
+                      },
+                    );
+                  }),
+                ),
+                // Send Messages Container
+                Positioned(
+                  bottom: 0.h,
+                  height: 50.h,
+                  left: 0.h,
+                  right: 0.h,
+                  child: Container(
                     height: 50.h,
-                    left: 0.h,
-                    right: 0.h,
-                    child: Container(
-                      height: 50.h,
-                      color: AppColors.primaryBackground,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20),
-                            child: SizedBox(
-                              width: 217.w,
-                              height: 50.h,
-                              child: TextField(
-                                keyboardType: TextInputType.multiline,
-                                maxLines: 3,
-                                controller: controller.textController,
-                                autofocus: false,
-                                focusNode: controller.contentNode,
-                                decoration: const InputDecoration(
-                                    hintText: "Send messages..."),
-                              ),
+                    color: AppColors.primaryBackground,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: SizedBox(
+                            width: 217.w,
+                            height: 50.h,
+                            child: TextField(
+                              keyboardType: TextInputType.multiline,
+                              maxLines: 3,
+                              controller: controller.textController,
+                              autofocus: false,
+                              focusNode: controller.contentNode,
+                              decoration: const InputDecoration(
+                                  hintText: "Send messages..."),
                             ),
                           ),
-                          Container(
-                            height: 30.h,
-                            width: 30.w,
-                            margin: EdgeInsets.only(left: 5.w),
-                            child: GestureDetector(
-                              child: Icon(
-                                Icons.photo_outlined,
-                                size: 35.w,
-                                color: Colors.blue,
-                              ),
+                        ),
+                        Container(
+                          height: 30.h,
+                          width: 30.w,
+                          margin: EdgeInsets.only(left: 5.w),
+                          child: GestureDetector(
+                            child: Icon(
+                              Icons.photo_outlined,
+                              size: 35.w,
+                              color: Colors.blue,
+                            ),
+                            onTap: () {
+                              _showPicker(context);
+                            },
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 10.w, top: 5.h),
+                          width: 85.w,
+                          height: 35.h,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: kPrimary,
+                              boxShadow: [
+                                BoxShadow(
+                                    blurRadius: 1.0,
+                                    spreadRadius: 2.0,
+                                    offset: const Offset(0, 1),
+                                    color: kPrimary.withOpacity(0.5))
+                              ]),
+                          child: GestureDetector(
+                              child: const Center(
+                                  child: Text(
+                                "Send",
+                                style: TextStyle(color: kOffWhite),
+                              )),
                               onTap: () {
-                                _showPicker(context);
-                              },
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(left: 10.w, top: 5.h),
-                            width: 85.w,
-                            height: 35.h,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: kPrimary,
-                                boxShadow: [
-                                  BoxShadow(
-                                      blurRadius: 1.0,
-                                      spreadRadius: 2.0,
-                                      offset: const Offset(0, 1),
-                                      color: kPrimary.withOpacity(0.5))
-                                ]),
-                            child: GestureDetector(
-                                child: const Center(
-                                    child: Text(
-                                  "Send",
-                                  style: TextStyle(color: kOffWhite),
-                                )),
-                                onTap: () {
-                                  controller.sendMessage();
-                                }),
-                          )
-                        ],
-                      ),
+                                controller.sendMessage();
+                              }),
+                        )
+                      ],
                     ),
-                  )
-                ],
-              ),
+                  ),
+                )
+              ],
             ),
-          )
-                //),
-    );
+          ),
+        )
+        //),
+        );
   }
 }

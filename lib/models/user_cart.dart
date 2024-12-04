@@ -76,8 +76,8 @@ class CartItem {
       isAvailable: true,
       supplier: productId.supplier.id,
       description: '',
-      price: productId.price,
-      imageUrl: productId.imageUrl,
+      price: productId.price?? 0.0,
+      imageUrl: productId.imageUrl ?? [],
       v: 0,
       category: '',
     );
@@ -87,9 +87,9 @@ class CartItem {
 class ProductId {
   final String id;
   final String title;
-  final double price;
+  final double? price;
   final Supplier supplier;
-  final List<String> imageUrl;
+  final List<String>? imageUrl;
 
   ProductId({
     required this.id,
@@ -108,12 +108,14 @@ class ProductId {
       );
 
   Map<String, dynamic> toJson() => {
-        "_id": id,
-        "title": title,
-        "price": price,
-        "supplier": supplier.toJson(),
-        "imageUrl": List<dynamic>.from(imageUrl.map((x) => x)),
-      };
+      "_id": id,
+      "title": title,
+      "price": price,
+      "supplier": supplier.toJson(),
+      "imageUrl": imageUrl != null
+          ? List<dynamic>.from(imageUrl!.map((x) => x))
+          : null,
+    };
 }
 
 class Supplier {

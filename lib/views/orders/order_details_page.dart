@@ -36,14 +36,18 @@ class OrderDetailsPage extends StatelessWidget {
           body: controller.loading == true
               ? const ItemsListShimmer()
               : BackGroundContainer(
-                  child: Column(
+                  child: controller.order == null
+                      ? Center(
+                    child: ReusableText(
+                      text: "The order has been deleted",
+                      style: appStyle(16, kGray, FontWeight.bold),
+                    ),
+                  )
+                  :Column(
                     children: [
-                      SizedBox(
-                        height: 20.h,
-                      ),
                       Container(
                         width: width,
-                        height: hieght / 4.5,
+                        height: hieght / 4.2,
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.r)),
                         child: Container(
                           padding: EdgeInsets.symmetric(horizontal: 12.w),
@@ -119,6 +123,15 @@ class OrderDetailsPage extends StatelessWidget {
                                         text: controller.order!.id.substring(0,8),
                                         style: appStyle(
                                             11, kGray, FontWeight.normal)),
+                                  ]),
+                                  TableRow(children: [
+                                    ReusableText(
+                                        text: "Order Status",
+                                        style: appStyle(
+                                            11, kGray, FontWeight.w600)),
+                                    ReusableText(
+                                        text: controller.order!.orderStatus,
+                                        style: appStyle(10, kPrimary, FontWeight.w600)),
                                   ]),
                                 ],
                               ),

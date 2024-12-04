@@ -6,18 +6,21 @@ import 'package:rivus_user/common/custom_textfield.dart';
 import 'package:rivus_user/common/shimmers/itemlist_shimmer.dart';
 import 'package:rivus_user/constants/constants.dart';
 import 'package:rivus_user/controllers/search_controller.dart';
+import 'package:rivus_user/views/search/catalog_search_results.dart';
 import 'package:rivus_user/views/search/search_results.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
-class SearchPage extends StatefulWidget {
-  const SearchPage({super.key});
+class CatalogSearchPage extends StatefulWidget {
+  const CatalogSearchPage({super.key, required this.supplierId});
+
+  final String supplierId;
 
   @override
-  State<SearchPage> createState() => _SearchPageState();
+  State<CatalogSearchPage> createState() => _SearchPageState();
 }
 
-class _SearchPageState extends State<SearchPage> {
+class _SearchPageState extends State<CatalogSearchPage> {
   final TextEditingController controller = TextEditingController();
   final FocusNode focusNode = FocusNode();
 
@@ -35,56 +38,55 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     final searchController = Get.put(ItemSearchController());
     return Obx(() => Scaffold(
-          backgroundColor: kPrimary,
-          appBar: AppBar(
-            toolbarHeight: 74.h,
-            elevation: 0,
-            automaticallyImplyLeading: false,
-            backgroundColor: kOffWhite,
-            title: Padding(
-              padding: EdgeInsets.only(top: 12.h),
-              child: Row(
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.arrow_back, color: kPrimary),
-                    onPressed: () {
-                      Get.back();
+      backgroundColor: kPrimary,
+      appBar: AppBar(
+        toolbarHeight: 74.h,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        backgroundColor: kOffWhite,
+        title: Padding(
+          padding: EdgeInsets.only(top: 12.h),
+          child: Row(
+            children: [
+              IconButton(
+                icon: Icon(Icons.arrow_back, color: kPrimary),
+                onPressed: () {
+                  Get.back();
+                },
+              ),
+              Expanded(
+                child: CustomTextField(
+                  controller: controller,
+                  hintText: "Search Catalog",
+                  keyboardType: TextInputType.text,
+                  suffixIcon: GestureDetector(
+                    onTap: () {
+                      searchController.searchCatalogItems(widget.supplierId ,controller.text);
                     },
-                  ),
-                  Expanded(
-                    child: CustomTextField(
-                      controller: controller,
-                      hintText: "Search for Suppliers",
-                      keyboardType: TextInputType.text,
-                      suffixIcon: GestureDetector(
-                        onTap: () {
-                          searchController.searchItems(controller.text);
-                        },
-                        child: Icon(
-                          Ionicons.search_circle,
-                          size: 36.h,
-                          color: kPrimary,
-                        ),
-                      ),
+                    child: Icon(
+                      Ionicons.search_circle,
+                      size: 36.h,
+                      color: kPrimary,
                     ),
                   ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
-          body: CustomContainer(
-              containerContent: Column(
-              children: [
+        ),
+      ),
+      body: CustomContainer(
+          containerContent: Column(
+            children: [
               searchController.isLoading
                   ? const ItemsListShimmer()
-                  : searchController.itemsResults == null ||
-                          searchController.suppliersResults == null
-                      ? const LoadingWidget()
-                      : const SearchResults(),
+                  : searchController.itemsResults == null
+                  ? const LoadingWidget()
+                  : const CatalogSearchResults(),
             ],
-          )),
-        )
-    );
+          )
+      ),
+    ));
   }
 }
 

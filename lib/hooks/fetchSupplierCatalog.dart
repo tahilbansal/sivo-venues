@@ -14,18 +14,15 @@ FetchHook useFetchCatalog(id) {
   Future<void> fetchData() async {
     isLoading.value = true;
     try {
-      final response = await http.get(
-          Uri.parse('${Environment.appBaseUrl}/api/items/supplier-items/$id'));
+      final response = await http.get(Uri.parse('${Environment.appBaseUrl}/api/items/supplier-items/$id'));
 
       if (response.statusCode == 200) {
-        print("response body:" + response.body.toString());
         items.value = itemFromJson(response.body);
       } else {
         throw Exception('Failed to load data');
       }
     } catch (e) {
-      print(e.toString());
-      // error.value = e as Exception?;
+      error.value = e as Exception?;
     } finally {
       isLoading.value = false;
     }

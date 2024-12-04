@@ -62,7 +62,9 @@ class OrderTile extends StatelessWidget {
                       ),
                       // Product total price
                       ReusableText(
-                        text: '₹${cartItem.totalPrice.toStringAsFixed(2)}',
+                        text: cartItem.totalPrice == 0.0
+                         ? '--'
+                         : '₹${cartItem.totalPrice.toStringAsFixed(2)}',
                         style: appStyle(12, kDark, FontWeight.w500),
                       ),
                     ],

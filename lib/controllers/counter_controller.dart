@@ -27,21 +27,21 @@ class CounterController extends GetxController {
     }));
   }
 
-  void increment(Item item) {
+  void increment(Item item) async{
     String supplierId = item.supplier;
     String itemId = item.id;
+    supplierItemCounts[supplierId] ??= <String, RxInt>{}.obs;
     if (_debounce?.isActive ?? false) _debounce?.cancel();
-    _debounce = Timer(const Duration(milliseconds: 100), () {
-      supplierItemCounts[supplierId] ??= <String, RxInt>{}.obs;
+    _debounce = Timer(const Duration(milliseconds: 200), () async {
       supplierItemCounts[supplierId]![itemId] ??= RxInt(0);
       supplierItemCounts[supplierId]![itemId]!.value++;
-      rxCartTotal.value += item.price;
+      rxCartTotal.value += item.price ?? 0.0;
       _saveItemCountsAndTotalToLocalStorage();
-      updateCart(item);
+      await updateCart(item);
     });
   }
 
-  void decrement(Item item) {
+  void decrement(Item item) async {
     String supplierId = item.supplier;
     String itemId = item.id;
     if (supplierItemCounts[supplierId] != null &&
@@ -50,25 +50,19 @@ class CounterController extends GetxController {
 
       if (_debounce?.isActive ?? false) _debounce?.cancel();
 
-      _debounce = Timer(const Duration(milliseconds: 100), () {
+      _debounce = Timer(const Duration(milliseconds: 200), () async {
         supplierItemCounts[supplierId]![itemId]!.value--;
 
         if (supplierItemCounts[supplierId]![itemId]!.value >= 0) {
-          rxCartTotal.value -= item.price;
-        }
-
-        if (supplierItemCounts[supplierId]![itemId]!.value < 1) {
-          cartController.decrementFromCart(item.id);
-        }
-        else{
-          cartController.decrementFromCart(item.id);
+          rxCartTotal.value -= item.price ?? 0.0;
+          await cartController.decrementFromCart(item.id);
         }
         _saveItemCountsAndTotalToLocalStorage();
       });
       }
   }
 
-  void updateCart(Item item) {
+  Future<void> updateCart(Item item) async {
     String supplierId = item.supplier;
     String itemId = item.id;
     int count = supplierItemCounts[supplierId]?[itemId]?.value ?? 0;
@@ -81,7 +75,7 @@ class CounterController extends GetxController {
       quantity: count,
       totalPrice: 0,
     );
-    cartController.addToCart(toCartToJson(cartItem));
+    await cartController.addToCart(toCartToJson(cartItem));
   }
 
   void _saveItemCountsAndTotalToLocalStorage() {
@@ -102,6 +96,13 @@ class CounterController extends GetxController {
       return supplierItemCounts[supplierId]!.values.fold(0, (sum, count) => sum + count.value);
     }
     return 0;
+  }
+
+  bool hasSupplierItemCount(String supplierId) {
+    if (supplierItemCounts.containsKey(supplierId)) {
+      return supplierItemCounts[supplierId]!.values.fold(0, (sum, count) => sum + count.value) > 0;
+    }
+    return false;
   }
 
   void resetItemCount(String supplierId, String itemId) {

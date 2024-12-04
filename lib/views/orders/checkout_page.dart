@@ -35,9 +35,7 @@ import 'package:intl/intl.dart';
 // ignore: must_be_immutable
 class CheckoutPage extends HookWidget {
   CheckoutPage(
-      {super.key,
-      required this.supplierId,
-      required this.deliveryDate});
+      {super.key, required this.supplierId, required this.deliveryDate});
 
   final String? supplierId;
   final DateTime deliveryDate;
@@ -93,218 +91,264 @@ class CheckoutPage extends HookWidget {
         cartItems.addAll(userCart.items);
         grandTotal = userCart.grandTotal;
       }
-    }
-    else {
+    } else {
       return Center(child: CircularProgressIndicator());
     }
 
     //double totalTime = 25 + distanceTime.time;
     double grandPriceDelivery = grandTotal + distanceTime.price;
 
-    return Obx(() => orderController.paymentUrl.contains("https")
-        ? const PaymentWebView()
-        : Scaffold(
-            backgroundColor: kOffWhite,
-            appBar: AppBar(
-              backgroundColor: kLightWhite,
-              elevation: 0,
-              centerTitle: true,
-              leading: InkWell(
-                  onTap: () {
-                    Get.back();
-                  },
-                  child: const Icon(CupertinoIcons.back)),
-              title: Text(
+    return Obx(
+      () => orderController.paymentUrl.contains("https")
+          ? const PaymentWebView()
+          : Scaffold(
+              backgroundColor: kOffWhite,
+              appBar: AppBar(
+                backgroundColor: kLightWhite,
+                elevation: 0,
+                centerTitle: true,
+                leading: InkWell(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: const Icon(CupertinoIcons.back)),
+                title: Text(
                   "Order Details",
-                  style: appStyle(14, kDark, FontWeight.w500),),
-            ),
-            body: SafeArea(
-            child: Container(
-              color: kOffWhite,
-              child: Column(
-                children: [
-                  Container(
-                    width: width,
-                    padding: EdgeInsets.symmetric(horizontal: 18.w),
-                    decoration: BoxDecoration(
-                        color: kLightWhite,
-                        borderRadius: BorderRadius.circular(18.r)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  style: appStyle(14, kDark, FontWeight.w500),
+                ),
+              ),
+              body: SafeArea(
+                child: Container(
+                  color: kOffWhite,
+                  child: Column(
+                    children: [
+                      Container(
+                        width: width,
+                        padding: EdgeInsets.symmetric(horizontal: 18.w),
+                        decoration: BoxDecoration(
+                            color: kLightWhite,
+                            borderRadius: BorderRadius.circular(18.r)),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            ReusableText(
-                                text: supplier.title!,
-                                style: appStyle(20, kGray, FontWeight.bold)),
-                            CircleAvatar(
-                              radius: 18,
-                              backgroundColor: kTertiary,
-                              backgroundImage: NetworkImage(supplier.imageUrl!),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                ReusableText(
+                                    text: supplier.title!,
+                                    style:
+                                        appStyle(20, kGray, FontWeight.bold)),
+                                CircleAvatar(
+                                  radius: 18,
+                                  backgroundColor: kTertiary,
+                                  backgroundImage:
+                                      NetworkImage(supplier.imageUrl!),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 5.h),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SizedBox(
+                                  width: width * 0.3,
+                                  child: ReusableText(
+                                      text: "Delivering to",
+                                      style:
+                                          appStyle(10, kGray, FontWeight.w500)),
+                                ),
+                                SizedBox(
+                                  width: width * 0.585,
+                                  child: Text(
+                                    (controller.userAddress != null &&
+                                            controller.userAddress!.length > 50)
+                                        ? controller.userAddress!
+                                                .substring(0, 50) +
+                                            '...'
+                                        : (controller.userAddress ??
+                                            "Provide an address to proceed ordering"),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 3,
+                                    style: appStyle(10, kGray, FontWeight.w400),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            RowText(
+                                first: "Business Hours", second: supplier.time),
+                            SizedBox(
+                              height: 5.h,
+                            ),
+                            RowText(
+                                first: "Order Delivery Date",
+                                second:
+                                    "${DateFormat('yyyy-MM-dd').format(deliveryDate)}"),
+                            SizedBox(
+                              height: 5.h,
                             ),
                           ],
                         ),
-                        SizedBox(height: 5.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(
-                              width: width * 0.3,
-                              child: ReusableText(text: "Delivering to", style: appStyle(10, kGray, FontWeight.w500)),
-                            ),
-                            SizedBox(
-                              width: width * 0.585,
-                              child: Text(
-                                (controller.userAddress != null && controller.userAddress!.length > 50)
-                                    ? controller.userAddress!.substring(0, 50) + '...'
-                                    : (controller.userAddress ?? "Provide an address to proceed ordering"),
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 3,
-                                style: appStyle(10, kGray, FontWeight.w400),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 5.h,
-                        ),
-                        RowText(first: "Business Hours", second: supplier.time),
-                        SizedBox(
-                          height: 5.h,
-                        ),
-                        RowText(
-                            first: "Order Delivery Date",
-                            second: "${DateFormat('yyyy-MM-dd').format(deliveryDate)}"),
-                        SizedBox(
-                          height: 5.h,
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15.h,
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 12.w),
-                    height: 0.58 * hieght,
-                    decoration: BoxDecoration(
-                        color: kLightWhite,
-                        borderRadius: BorderRadius.circular(18.r)),
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: const BouncingScrollPhysics(),
-                      itemCount: cartItems.length,
-                      itemBuilder: (context, index) {
-                        return OrderTile(cartItem: cartItems[index]);
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 16.0),
-                    color: kLightWhite,
-                    child: Column(
-                      children: [
-                      TextButton(
-                        onPressed: () {
-                          showModalBottomSheet(
-                            context: context,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.vertical(top: Radius.circular(12.r)),
-                            ),
-                            backgroundColor: kLightWhite,
-                            builder: (context) => SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.25,
-                              child: buildBillDetails(context, width, grandTotal, grandPriceDelivery, distanceTime, controller),
-                            ),
-                          );
-                        },
-                        child: Text("View Bill Details",
-                            style: appStyle(14, kPrimary, FontWeight.w500)),
                       ),
-                      SizedBox(height: 5.h),
-                      Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ReusableText(
-                          //text :  "₹${userCarts?.fold(0, (sum, cart) => sum + cart.grandTotal)?.toStringAsFixed(2) ?? '0.00'}",
-                          text :  "₹${grandPriceDelivery.toStringAsFixed(2)}",
-                          style: appStyle(18, kDark, FontWeight.bold),
+                      SizedBox(
+                        height: 15.h,
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 12.w),
+                        height: 0.58 * hieght,
+                        decoration: BoxDecoration(
+                            color: kLightWhite,
+                            borderRadius: BorderRadius.circular(18.r)),
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: const BouncingScrollPhysics(),
+                          itemCount: cartItems.length,
+                          itemBuilder: (context, index) {
+                            return OrderTile(cartItem: cartItems[index]);
+                          },
                         ),
-                        SizedBox(width: 16),
-                        Expanded(
-                          child: controller.defaultAddress == null ? CustomButton(
-                            onTap: () {
-                              Get.to(() => const AddAddress());
-                            },
-                            radius: 9,
-                            color: kPrimary,
-                            btnWidth: width * 0.95,
-                            btnHieght: 34.h,
-                            text: "Add  Default Address",
-                          )
-                              : orderController.isLoading
-                              ? const CircularProgressIndicator.adaptive(
-                            valueColor: AlwaysStoppedAnimation<Color>(kPrimary),
-                          )
-                              : CustomButton(
-                            onTap: () {
-                              // Convert cartItems to orderItems
-                              List<OrderItem> orderItems = cartItems.map((cartItem) {
-                                return OrderItem(
-                                  itemId: cartItem.productId.id,
-                                  quantity: cartItem.quantity.toString(),
-                                  price: cartItem.totalPrice.toString(),
-                                  additives: [],
-                                  instructions: '',
-                                );}).toList();
-                              Order order = Order(
-                                  userId: controller.defaultAddress!.userId,
-                                  orderItems: orderItems,
-                                  orderTotal: grandTotal.toStringAsFixed(2),
-                                  supplierAddress: supplier.coords.address,
-                                  supplierCoords: [
-                                    supplier.coords.latitude,
-                                    supplier.coords.longitude
-                                  ],
-                                  recipientCoords: [
-                                    controller.defaultAddress!.latitude,
-                                    controller.defaultAddress!.longitude
-                                  ],
-                                  deliveryFee: distanceTime.price.toStringAsFixed(2),
-                                  grandTotal: grandPriceDelivery.toStringAsFixed(2),
-                                  deliveryAddress: controller.defaultAddress!.id,
-                                  deliveryDate: deliveryDate,
-                                  paymentMethod: "STRIPE",
-                                  supplierId: supplier.id!);
+                      ),
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 2.h, horizontal: 16.0),
+                        color: kLightWhite,
+                        child: Column(
+                          children: [
+                            TextButton(
+                              onPressed: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(12.r)),
+                                  ),
+                                  backgroundColor: kLightWhite,
+                                  builder: (context) => SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.25,
+                                    child: buildBillDetails(
+                                        context,
+                                        width,
+                                        grandTotal,
+                                        grandPriceDelivery,
+                                        distanceTime,
+                                        controller),
+                                  ),
+                                );
+                              },
+                              child: Text("View Bill Details",
+                                  style:
+                                      appStyle(14, kPrimary, FontWeight.w500)),
+                            ),
+                            SizedBox(height: 5.h),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                ReusableText(
+                                  text:
+                                      "₹${grandPriceDelivery.toStringAsFixed(2)}",
+                                  style: appStyle(18, kDark, FontWeight.bold),
+                                ),
+                                SizedBox(width: 16),
+                                Expanded(
+                                  child: controller.defaultAddress == null
+                                      ? CustomButton(
+                                          onTap: () {
+                                            Get.to(() => const AddAddress());
+                                          },
+                                          radius: 9,
+                                          color: kPrimary,
+                                          btnWidth: width * 0.95,
+                                          btnHieght: 34.h,
+                                          text: "Add  Default Address",
+                                        )
+                                      : orderController.isLoading
+                                          ? const CircularProgressIndicator
+                                              .adaptive(
+                                              valueColor:
+                                                  AlwaysStoppedAnimation<Color>(
+                                                      kPrimary),
+                                            )
+                                          : CustomButton(
+                                              onTap: () {
+                                                // Convert cartItems to orderItems
+                                                List<OrderItem> orderItems =
+                                                    cartItems.map((cartItem) {
+                                                  return OrderItem(
+                                                    itemId:
+                                                        cartItem.productId.id,
+                                                    quantity: cartItem.quantity
+                                                        .toString(),
+                                                    price: cartItem.totalPrice
+                                                        .toString(),
+                                                    additives: [],
+                                                    instructions: '',
+                                                  );
+                                                }).toList();
+                                                Order order = Order(
+                                                    userId: controller
+                                                        .defaultAddress!.userId,
+                                                    orderItems: orderItems,
+                                                    orderTotal: grandTotal
+                                                        .toStringAsFixed(2),
+                                                    supplierAddress:
+                                                        supplier.coords.address,
+                                                    supplierCoords: [
+                                                      supplier.coords.latitude,
+                                                      supplier.coords.longitude
+                                                    ],
+                                                    recipientCoords: [
+                                                      controller.defaultAddress!
+                                                          .latitude,
+                                                      controller.defaultAddress!
+                                                          .longitude
+                                                    ],
+                                                    deliveryFee: distanceTime
+                                                        .price
+                                                        .toStringAsFixed(2),
+                                                    grandTotal:
+                                                        grandPriceDelivery
+                                                            .toStringAsFixed(2),
+                                                    deliveryAddress: controller
+                                                        .defaultAddress!.id,
+                                                    deliveryDate: deliveryDate,
+                                                    paymentMethod: "STRIPE",
+                                                    supplierId: supplier.id!);
 
-                              String orderData = orderToJson(order);
+                                                String orderData =
+                                                    orderToJson(order);
 
-                              orderController.order = order;
+                                                orderController.order = order;
 
-                              orderController.createOrder(cartItems, orderData, order, supplier);
-                            },
-                            radius: 9,
-                            color: kPrimary,
-                            btnWidth: width * 0.95,
-                            btnHieght: 45.h,
-                            text: "PLACE ORDER",
-                          ),
+                                                orderController.createOrder(
+                                                    cartItems,
+                                                    orderData,
+                                                    order,
+                                                    supplier);
+                                              },
+                                              radius: 9,
+                                              color: kPrimary,
+                                              btnWidth: width * 0.95,
+                                              btnHieght: 45.h,
+                                              text: "PLACE ORDER",
+                                            ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 8.h)
+                          ],
                         ),
-                      ],
-                    ),
-                      SizedBox(height: 8.h)
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
-          ),
-        ),
     );
   }
 }

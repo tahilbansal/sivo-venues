@@ -35,7 +35,7 @@ class SearchResults extends StatelessWidget {
                 if (index < searchController.itemsResults!.length) {
                   // Display items
                   Item item = searchController.itemsResults![index];
-                  //return ItemTile(item: item);
+                  return ItemTile(item: item);
                 } else {
                   // Display suppliers
                   Suppliers supplier = searchController.suppliersResults![

@@ -32,6 +32,8 @@ class OrderPageTile extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                if (item.itemId.imageUrl.isNotEmpty &&
+                    item.itemId.imageUrl[0].isNotEmpty)
                 ClipRRect(
                   borderRadius: const BorderRadius.all(Radius.circular(12)),
                   child: Stack(
@@ -42,7 +44,8 @@ class OrderPageTile extends StatelessWidget {
                           child: Image.network(
                             item.itemId.imageUrl[0],
                             fit: BoxFit.cover,
-                          )),
+                          )
+                      ),
                       Positioned(
                           bottom: 0,
                           child: Container(
@@ -83,6 +86,7 @@ class OrderPageTile extends StatelessWidget {
                     const SizedBox(
                       height: 5,
                     ),
+                    if (item.price != null)
                     ReusableText(
                         text: "Price: ${item.price}",
                         style: appStyle(9, kGray, FontWeight.w500))

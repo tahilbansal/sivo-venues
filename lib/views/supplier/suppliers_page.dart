@@ -29,7 +29,9 @@ import 'package:rivus_user/views/supplier/widgets/catalog.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:glass/glass.dart';
+import 'package:rivus_user/views/supplier/widgets/catalog_search.dart';
 import 'package:rivus_user/views/supplier/widgets/my_catalog.dart';
+import 'package:rivus_user/views/supplier/widgets/top_bar.dart';
 
 import '../../controllers/counter_controller.dart';
 import '../cart/widgets/cart_bar.dart';
@@ -44,8 +46,7 @@ class SupplierPage extends StatefulWidget {
   State<SupplierPage> createState() => _SupplierPageState();
 }
 
-class _SupplierPageState extends State<SupplierPage>
-    with TickerProviderStateMixin {
+class _SupplierPageState extends State<SupplierPage> with TickerProviderStateMixin {
   late TabController _tabController = TabController(
     length: 2,
     vsync: this,
@@ -107,6 +108,7 @@ class _SupplierPageState extends State<SupplierPage>
 
     loadChatData();
     _controller.state.ownerId.value = widget.supplier.owner;
+    _controller.state.supplierId.value = widget.supplier.id!;
 
     // String numberString = widget.supplier.time.substring(0, 2);
     double totalTime = 25 + distanceTime.time;
@@ -114,7 +116,7 @@ class _SupplierPageState extends State<SupplierPage>
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        backgroundColor: kLightWhite,
+        backgroundColor: kOffWhite,
         body: Stack(
           children: [
             ListView(
@@ -125,45 +127,62 @@ class _SupplierPageState extends State<SupplierPage>
                 Stack(
                   children: [
                     SizedBox(
-                      height: 180.h,
+                      height: 200.h,
                       width: MediaQuery.of(context).size.width,
                       child: CachedNetworkImage(
                         fit: BoxFit.cover,
                         imageUrl: widget.supplier.imageUrl!,
                       ),
                     ),
-                    Positioned(
-                      left: 0,
-                      right: 0,
+                    // Container(
+                    //   height: 180.h,
+                    //   width: MediaQuery.of(context).size.width,
+                    //   color: Colors.black.withOpacity(0.4),
+                    // ),
+                    // Top bar overlay
+                    Positioned.fill(
                       child: SupplierTopBar(
                         title: widget.supplier.title!,
                         supplier: widget.supplier,
                       ),
                     ),
+                    Positioned(
+                      bottom: 12.h,
+                      left: 0,
+                      right: 10.h,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        CustomButton(
+                          onTap: () async {
+                            if (widget.supplier == null) {
+                              Get.to(
+                                      () => const NotFoundPage(
+                                    text: "Can not open supplier page",),
+                                  transition: Transition.fade,
+                                  duration: const Duration(seconds: 1),
+                                  arguments: {});
+                            } else {
+                              ResponseModel status = await _controller.goChat(widget.supplier);
+                              if (status.isSuccess == false) {
+                                showCustomSnackBar(status.message!, title: status.title!);
+                              }
+                            }
+                          },
+                          radius: 30,
+                          color: kPrimary,
+                          btnHieght: 34.h,
+                          btnWidth: width * 0.3,
+                          text: "Message",
+                        ),
+                      ],
+                    ),
+                    ),
                   ],
                 ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8.w),
-                  height: 80.h,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: 10.h,
-                      ),
-                      // Distance and other info
-                      RowText(
-                        first: "Distance To Supplier",
-                        second:
-                            "${distanceTime.distance.toStringAsFixed(3)} km",
-                      ),
-                      SizedBox(
-                        height: 10.h,
-                      ),
-                    ],
-                  ),
-                ),
+                const SizedBox(height: 8),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     // CustomButton(
                     //   onTap: () async {
@@ -177,37 +196,40 @@ class _SupplierPageState extends State<SupplierPage>
                     //   btnHieght: 34.h,
                     //   text: "Add to Wishlist",
                     // ),
-                    // const SizedBox(width: 8),
-                    CustomButton(
-                      onTap: () async {
-                        if (widget.supplier == null) {
-                          Get.to(
-                              () => const NotFoundPage(
-                                    text: "Can not open supplier page",
-                                  ),
-                              transition: Transition.fade,
-                              duration: const Duration(seconds: 1),
-                              arguments: {});
-                        } else {
-                          ResponseModel status =
-                              await _controller.goChat(widget.supplier);
-                          if (status.isSuccess == false) {
-                            showCustomSnackBar(status.message!,
-                                title: status.title!);
-                          }
-                        }
-                      },
-                      radius: 9,
-                      color: kPrimary,
-                      btnHieght: 34.h,
-                      btnWidth: width * 0.8,
-                      text: "Message Supplier",
-                    ),
+                    const SizedBox(width: 18),
+                    ReusableText(
+                        text: widget.supplier.title!,
+                        style: appStyle(18, kDark, FontWeight.w600)),
+                    const SizedBox(width: 5),
+                    // CustomButton(
+                    //   onTap: () async {
+                    //     if (widget.supplier == null) {
+                    //       Get.to(
+                    //           () => const NotFoundPage(
+                    //                 text: "Can not open supplier page",),
+                    //           transition: Transition.fade,
+                    //           duration: const Duration(seconds: 1),
+                    //           arguments: {});
+                    //     } else {
+                    //       ResponseModel status = await _controller.goChat(widget.supplier);
+                    //       if (status.isSuccess == false) {
+                    //         showCustomSnackBar(status.message!, title: status.title!);
+                    //       }
+                    //     }
+                    //   },
+                    //   radius: 9,
+                    //   color: kPrimary,
+                    //   btnHieght: 34.h,
+                    //   btnWidth: width * 0.6,
+                    //   text: "Message Supplier",
+                    // ),
                   ],
                 ),
                 const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
-                  child: Divida(),
+                  padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 2),
+                  child: Divider(
+                    color: kGrayLight,
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.w),
@@ -236,12 +258,14 @@ class _SupplierPageState extends State<SupplierPage>
                       blurX: 8,
                       blurY: 8),
                 ),
+                const SizedBox(height: 4),
+                catalogSearchBar(supplierId: widget.supplier.id!),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 1.3,
                   child: TabBarView(
                     controller: _tabController,
                     children: [
-                      SupplierCatalog(supplierId: widget.supplier.id!),
+                      SupplierCatalog(supplierId: widget.supplier.id!, heightFactor: 0.62),
                       MyCatalog(supplierId: widget.supplier.id!),
                     ],
                   ),
@@ -314,59 +338,6 @@ class SupplierRatingBar extends StatelessWidget {
   }
 }
 
-class SupplierTopBar extends StatelessWidget {
-  const SupplierTopBar({
-    super.key,
-    required this.title,
-    required this.supplier,
-  });
-
-  final String title;
-  final Suppliers supplier;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 90,
-      color: Colors.transparent,
-      padding: EdgeInsets.fromLTRB(12.w, 30.h, 12.w, 0.h),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          GestureDetector(
-            onTap: () {
-              Get.back();
-            },
-            child: const Icon(
-              Ionicons.chevron_back_circle,
-              color: kPrimary,
-              size: 38,
-            ),
-          ),
-          // Padding(
-          //   padding: const EdgeInsets.only(top: 8.0),
-          //   child: Container(
-          //     padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-          //     decoration: BoxDecoration(color: kPrimary, borderRadius: BorderRadius.circular(10)),
-          //     child: ReusableText(text: title, style: appStyle(14, kOffWhite, FontWeight.w500)),
-          //   ),
-          // ),
-          GestureDetector(
-            onTap: () {
-              Get.to(() => DirectionsPage(supplier: supplier,));
-            },
-            child: const Icon(
-              Entypo.direction,
-              color: kPrimary,
-              size: 38,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 class RowText extends StatelessWidget {
   const RowText({
     super.key,
@@ -385,9 +356,10 @@ class RowText extends StatelessWidget {
         ReusableText(text: first, style: appStyle(10, kGray, FontWeight.w500)),
         Flexible(
             child: Text(second,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
-                style: appStyle(10, kGray, FontWeight.w400)))
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+            style: appStyle(10, kGray, FontWeight.w400))
+        )
       ],
     );
   }

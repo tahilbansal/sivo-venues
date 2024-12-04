@@ -12,8 +12,8 @@ class Item {
   final bool isAvailable;
   final String supplier;
   final String description;
-  final double price;
-  final List<String> imageUrl;
+  final double? price;
+  final List<String>? imageUrl;
   final int v;
   final String category;
 
@@ -46,18 +46,20 @@ class Item {
       );
 
   Map<String, dynamic> toJson() => {
-        "_id": id,
-        "title": title,
-        "itemTags": List<dynamic>.from(itemTags.map((x) => x)),
-        "code": code,
-        "isAvailable": isAvailable,
-        "supplier": supplier,
-        "description": description,
-        "price": price,
-        "imageUrl": List<dynamic>.from(imageUrl.map((x) => x)),
-        "__v": v,
-        "category": category
-      };
+    "_id": id,
+    "title": title,
+    "itemTags": List<dynamic>.from(itemTags.map((x) => x)),
+    "code": code,
+    "isAvailable": isAvailable,
+    "supplier": supplier,
+    "description": description,
+    "price": price,
+    "imageUrl": imageUrl != null
+        ? List<dynamic>.from(imageUrl!.map((x) => x))
+        : null,
+    "__v": v,
+    "category": category
+  };
 }
 
 // class Additive {

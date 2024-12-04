@@ -13,9 +13,11 @@ class SupplierCatalog extends HookWidget {
   const SupplierCatalog({
     super.key,
     required this.supplierId,
+    this.heightFactor = 0.5,
   });
 
   final String supplierId;
+  final double heightFactor;
 
   @override
   Widget build(BuildContext context) {
@@ -31,20 +33,21 @@ class SupplierCatalog extends HookWidget {
     }, []);
 
     return Scaffold(
-      backgroundColor: kLightWhite,
-      body: isLoading
-          ? const ItemsListShimmer()
-          : Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10),
-              height: hieght * 0.5,
-              child: ListView.builder(
-                  padding: const EdgeInsets.only(bottom: 50.0),
-                  itemCount: items?.length ?? 0,
-                  itemBuilder: (context, i) {
-                    Item item = items[i];
-                    return ItemTile(item: item);
-                  }),
-            ),
+      backgroundColor: kOffWhite,
+      body: isLoading ?
+      const ItemsListShimmer()
+      : Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10),
+        height: hieght * heightFactor,
+        child: ListView.builder(
+          padding: const EdgeInsets.only(bottom: 80.0),
+          itemCount: items?.length ?? 0,
+          itemBuilder: (context, i) {
+            Item item = items[i];
+            return ItemTile(item: item);
+          }
+        ),
+      ),
     );
   }
 }

@@ -14,7 +14,7 @@ class ChatList extends GetView<ChatController> {
   Widget build(BuildContext context) {
     return Obx(() => Container(
           color: AppColors.chatbg,
-          padding: EdgeInsets.only(bottom: 50.h),
+          padding: EdgeInsets.only(bottom: 102.h),
           child: CustomScrollView(
             reverse: true,
             controller: controller.msgScrolling,
@@ -24,8 +24,6 @@ class ChatList extends GetView<ChatController> {
                 sliver: SliverList(
                   delegate: SliverChildBuilderDelegate((context, index) {
                     var item = controller.state.msgcontentList[index];
-                    print(controller.user_id);
-                    print(item.uid);
                     if (controller.user_id == item.uid) {
                       return ChatRightItem(item);
                     }

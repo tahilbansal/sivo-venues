@@ -8,5 +8,5 @@ class ChatState {
   var to_name = "".obs;
   var to_avatar = "".obs;
   var to_location = "unknown".obs;
-  var supplier_uid = "".obs;
+  var supplier_uid = "";
 }

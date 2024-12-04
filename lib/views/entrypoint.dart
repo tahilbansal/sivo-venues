@@ -13,7 +13,6 @@ import 'package:rivus_user/views/profile/profile_page.dart';
 import 'package:rivus_user/views/search/seach_page.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-
 import 'orders/client_orders.dart';
 
 // ignore: must_be_immutable
@@ -44,7 +43,7 @@ class MainScreen extends HookWidget {
     final args = Get.arguments;
     if (args != null && args == 1) {
       Future.delayed(Duration(milliseconds: 50), () {
-        entryController.setTabIndex = 1; // Set tabIndex to 1
+        entryController.setTabIndex = 1;
       });
     }
     return Obx(() => Scaffold(
@@ -61,8 +60,7 @@ class MainScreen extends HookWidget {
                       elevation: 0,
                       showSelectedLabels: false,
                       showUnselectedLabels: false,
-                      unselectedIconTheme:
-                          const IconThemeData(color: Colors.black38),
+                      unselectedIconTheme: const IconThemeData(color: Colors.black38),
                       items: [
                         BottomNavigationBarItem(
                           icon: entryController.tabIndex == 0
@@ -82,30 +80,26 @@ class MainScreen extends HookWidget {
                                   size: 28,
                                 )
                               : const Icon(Ionicons.chatbubble_ellipses),
-                          label: 'Notifications',
+                          label: 'Inbox',
                         ),
                         BottomNavigationBarItem(
                           icon: entryController.tabIndex == 2
                               ? Badge(
                                   label: ReusableText(
                                       text: box.read('cart') ?? "0",
-                                      style: appStyle(
-                                          8, kLightWhite, FontWeight.normal)),
+                                      style: appStyle(8, kLightWhite, FontWeight.normal)),
                                   child: const Icon(
-                                    FontAwesome.opencart,
+                                    FontAwesome.truck,
                                     color: kSecondary,
                                     size: 24,
                                   ))
                               : Badge(
                                   label: ReusableText(
                                       text: box.read('cart') ?? "0",
-                                      style: appStyle(
-                                          8, kLightWhite, FontWeight.normal)),
-                                  child: const Icon(
-                                    FontAwesome.opencart,
-                                  ),
+                                      style: appStyle(8, kLightWhite, FontWeight.normal)),
+                                  child: const Icon(FontAwesome.truck,),
                                 ),
-                          label: 'Profile',
+                          label: 'Orders',
                         ),
                         BottomNavigationBarItem(
                           icon: entryController.tabIndex == 3
@@ -121,12 +115,8 @@ class MainScreen extends HookWidget {
                         ),
                       ],
                       currentIndex: entryController.tabIndex,
-                      unselectedItemColor: Theme.of(context)
-                          .bottomNavigationBarTheme
-                          .unselectedItemColor,
-                      selectedItemColor: Theme.of(context)
-                          .bottomNavigationBarTheme
-                          .selectedItemColor,
+                      unselectedItemColor: Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+                      selectedItemColor: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
                       onTap: ((value) {
                         entryController.setTabIndex = value;
                       })),

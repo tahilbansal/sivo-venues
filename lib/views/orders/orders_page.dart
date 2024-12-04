@@ -17,6 +17,7 @@ import 'package:rivus_user/models/items.dart';
 import 'package:rivus_user/models/order_item.dart';
 import 'package:rivus_user/models/suppliers.dart';
 import 'package:rivus_user/services/distance.dart';
+import 'package:rivus_user/views/auth/phone_verification.dart';
 import 'package:rivus_user/views/home/widgets/custom_btn.dart';
 import 'package:rivus_user/views/orders/payment.dart';
 import 'package:rivus_user/views/orders/widgets/order_tile.dart';
@@ -185,7 +186,9 @@ class OrderPage extends HookWidget {
                             height: 5.h,
                           ),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Get.to(() => const PhoneVerificationPage());
+                            },
                             child: RowText(
                                 first: "Phone ",
                                 second: _phone.text.isEmpty

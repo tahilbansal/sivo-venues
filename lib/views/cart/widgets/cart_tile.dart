@@ -46,23 +46,24 @@ class CartTile extends HookWidget {
                   borderRadius: const BorderRadius.all(Radius.circular(12)),
                   child: Stack(
                     children: [
-                      SizedBox(
-                          height: 75.h,
-                          width: 75.h,
-                          child: Image.network(
-                            cartItem.productId.imageUrl.isNotEmpty
-                                ? cartItem.productId.imageUrl[0]
-                                : 'https://via.placeholder.com/150',
-                            fit: BoxFit.cover,
-                          )),
+                      cartItem.productId.imageUrl?.isNotEmpty == true
+                          ? SizedBox(
+                              height: 75.h,
+                              width: 75.h,
+                              child: Image.network(
+                                cartItem.productId.imageUrl![0],
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          : const SizedBox.shrink(),
                       Positioned(
-                        bottom: 0,
-                        child: Container(
-                          padding: const EdgeInsets.only(left: 6, bottom: 2),
-                          color: kGray.withOpacity(0.6),
-                          height: 16,
-                          width: width,
-                        )
+                          bottom: 0,
+                          child: Container(
+                            padding: const EdgeInsets.only(left: 6, bottom: 2),
+                            color: kGray.withOpacity(0.6),
+                            height: 16,
+                            width: width,
+                          )
                       )
                     ],
                   ),
@@ -83,7 +84,8 @@ class CartTile extends HookWidget {
                           text: cartItem.productId.title,
                           style: appStyle(11, kDark, FontWeight.w400)),
                       ReusableText(
-                          text: "Delivery time: ${cartItem.productId.supplier.time}",
+                          text:
+                              "Delivery time: ${cartItem.productId.supplier.time}",
                           style: appStyle(9, kGray, FontWeight.w400)),
                       const SizedBox(
                         height: 5,
@@ -118,19 +120,22 @@ class CartTile extends HookWidget {
                   ),
                   SizedBox(width: 6.w),
                   Obx(
-                        () => ReusableText(
-                      text: "${counterController.getItemCount(toItem.supplier, toItem.id)}",
+                    () => ReusableText(
+                      text:
+                          "${counterController.getItemCount(toItem.supplier, toItem.id)}",
                       style: appStyle(16, kDark, FontWeight.w500),
                     ),
                   ),
                   SizedBox(width: 6.w),
                   GestureDetector(
                     onTap: () {
-                      if (counterController.getItemCount(cartItem.productId.supplier.id, cartItem.productId.id) <= 1) {
+                      if (counterController.getItemCount(
+                              cartItem.productId.supplier.id,
+                              cartItem.productId.id) <=
+                          1) {
                         counterController.decrement(toItem);
                         onItemRemoved();
-                      }
-                      else{
+                      } else {
                         counterController.decrement(toItem);
                       }
                       // if (counterController.getItemCount(toItem.supplier, toItem.id) == 0) {
@@ -188,10 +193,24 @@ class CartTile extends HookWidget {
                 ),
                 child: Center(
                   child: Obx(
-                    () => ReusableText(
-                      text: "\₹ ${((cartItem.productId.price) * counterController.getItemCount(cartItem.productId.supplier.id, cartItem.productId.id).toDouble()).toStringAsFixed(2)}",
-                    style: appStyle(12, kLightWhite, FontWeight.bold),
-                    ),
+                    () {
+                      final price = cartItem.productId.price;
+                      final itemCount = counterController.getItemCount(
+                          cartItem.productId.supplier.id, cartItem.productId.id);
+
+                      if (price == null) {
+                        return ReusableText(
+                          text: "--", // Display two dashes when price is null
+                          style: appStyle(12, kLightWhite, FontWeight.bold),
+                        );
+                      }
+
+                      return ReusableText(
+                        text:
+                        "\₹ ${(price * itemCount.toDouble()).toStringAsFixed(2)}",
+                        style: appStyle(12, kLightWhite, FontWeight.bold),
+                      );
+                    },
                   ),
                 ),
               ),

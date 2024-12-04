@@ -97,7 +97,12 @@ class NotificationsController extends GetxController {
       if (response.statusCode == 200) {
         order = getOrderFromJson(response.body);
         setLoader = false;
-      } else {
+      }
+      else if (response.statusCode == 500) {
+        setLoader = false;
+        order = null;
+      }
+      else {
         var data = apiErrorFromJson(response.body);
         setLoader = false;
         Get.snackbar(data.message, "Failed to login, please try again",
