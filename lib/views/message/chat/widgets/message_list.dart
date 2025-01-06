@@ -183,9 +183,9 @@ class MessageList extends GetView<MessageController> {
               padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 0.w),
               sliver: SliverList(
                 delegate: SliverChildBuilderDelegate((context, index) {
-                  var item = controller.state.filteredMsgList[index];
+                  var item = controller.state.msgList[index];
                   return messageListItem(item);
-                }, childCount: controller.state.filteredMsgList.length),
+                }, childCount: controller.state.msgList.length),
               ),
             ),
           ],

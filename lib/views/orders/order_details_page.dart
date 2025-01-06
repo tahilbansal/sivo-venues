@@ -147,7 +147,7 @@ class OrderDetailsPage extends StatelessWidget {
                       ),
                       Container(
                         color: kLightWhite,
-                        height: 0.6 * hieght,
+                        height: 0.53 * hieght,
                         child: ListView.builder(
                           shrinkWrap: true,
                           itemCount: controller.order!.orderItems.length,
@@ -161,6 +161,16 @@ class OrderDetailsPage extends StatelessWidget {
                       ),
                       SizedBox(
                         height: 20.h,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(12.h),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("Total Price", style: appStyle(16, Colors.black, FontWeight.bold)),
+                            Text("₹${controller.order?.orderTotal.toStringAsFixed(2)}", style: appStyle(17, Colors.black, FontWeight.bold)),
+                          ],
+                        ),
                       ),
                     ],
                   ),

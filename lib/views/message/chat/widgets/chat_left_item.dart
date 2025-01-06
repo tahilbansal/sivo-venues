@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:rivus_user/constants/constants.dart';
 import 'package:get/get.dart';
+import 'package:rivus_user/views/orders/invoice_page.dart';
 
 import '../../../../common/routes/names.dart';
 import '../../../home/widgets/custom_btn.dart';
@@ -57,20 +58,48 @@ Widget ChatLeftItem(Msgcontent item) {
                               SizedBox(height: 4.w),
                             ],
                           )
-                        : ConstrainedBox(
-                            constraints: BoxConstraints(
-                              maxWidth: 200.w,
-                            ),
-                            child: GestureDetector(
-                              onTap: () {
-                                Get.toNamed(AppRoutes.Photoimgview,
-                                    parameters: {"url": item.content ?? ""});
-                              },
-                              child: CachedNetworkImage(
-                                imageUrl: "${item.content}",
-                              ),
-                            ),
-                          )))
+                        : item.type == "invoice"
+                            ? Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "${item.content}",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16.sp,
+                                    ),
+                                  ),
+                                  SizedBox(height: 8.w),
+                                  CustomButton(
+                                    onTap: () {
+                                      // Navigate to invoice page or perform action
+                                      Get.to(() => InvoicePage(orderId: item.orderId));
+                                    },
+                                    radius: 9,
+                                    color: kPrimary,
+                                    btnWidth: width * 0.95,
+                                    btnHieght: 34.h,
+                                    text: "VIEW INVOICE",
+                                  ),
+                                  SizedBox(height: 4.w),
+                                ],
+                              )
+                            : ConstrainedBox(
+                                constraints: BoxConstraints(
+                                  maxWidth: 200.w,
+                                ),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Get.toNamed(AppRoutes.Photoimgview,
+                                        parameters: {
+                                          "url": item.content ?? ""
+                                        });
+                                  },
+                                  child: CachedNetworkImage(
+                                    imageUrl: "${item.content}",
+                                  ),
+                                ),
+                              )))
       ],
     ),
   );

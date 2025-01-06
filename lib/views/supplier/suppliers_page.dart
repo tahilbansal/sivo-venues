@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_final_fields
 
 import 'dart:convert';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -22,7 +21,7 @@ import 'package:rivus_user/models/suppliers.dart';
 import 'package:rivus_user/services/distance.dart';
 import 'package:rivus_user/views/auth/login_page.dart';
 import 'package:rivus_user/views/home/widgets/custom_btn.dart';
-// import 'package:rivus_user/views/supplier/directions_page.dart';
+//import 'package:rivus_user/views/supplier/directions_page.dart';
 //import 'package:rivus_user/views/supplier/rating_page.dart';
 //import 'package:rivus_user/views/supplier/widgets/explore.dart';
 import 'package:rivus_user/views/supplier/widgets/catalog.dart';

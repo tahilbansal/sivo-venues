@@ -23,7 +23,7 @@ class ClientOrderPage extends StatefulHookWidget {
 class _ClientOrderPageState extends State<ClientOrderPage>
     with TickerProviderStateMixin {
   late final TabController _tabController = TabController(
-    length: 6,
+    length: 4,
     vsync: this,
   );
   final box = GetStorage();
@@ -31,7 +31,7 @@ class _ClientOrderPageState extends State<ClientOrderPage>
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 6,
+      length: 4,
       child: Scaffold(
         backgroundColor: kPrimary,
         appBar: AppBar(
@@ -68,8 +68,8 @@ class _ClientOrderPageState extends State<ClientOrderPage>
                   tabs: <Widget>[
                     Tab(
                       child: Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 5),
-                        width: MediaQuery.of(context).size.width / 6,
+                        margin: const EdgeInsets.symmetric(horizontal: 2),
+                        width: MediaQuery.of(context).size.width / 4,
                         // margin: EdgeInsets.only(left: 20, right: 20),
                         height: 25,
                         child: const Center(child: Text("Pending")),
@@ -77,35 +77,35 @@ class _ClientOrderPageState extends State<ClientOrderPage>
                     ),
                     Tab(
                       child: Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 5),
-                        width: MediaQuery.of(context).size.width / 6,
+                        margin: const EdgeInsets.symmetric(horizontal: 2),
+                        width: MediaQuery.of(context).size.width / 4,
                         //margin: EdgeInsets.only(left: 20, right: 20),
                         height: 25,
-                        child: const Center(child: Text("Paid")),
+                        child: const Center(child: Text("Confirmed")),
                       ),
                     ),
+                    // Tab(
+                    //   child: Container(
+                    //     margin: const EdgeInsets.symmetric(horizontal: 5),
+                    //     width: MediaQuery.of(context).size.width / 6,
+                    //     //margin: EdgeInsets.only(left: 20, right: 20),
+                    //     height: 25,
+                    //     child: const Center(child: Text("Preparing")),
+                    //   ),
+                    // ),
+                    // Tab(
+                    //   child: Container(
+                    //     margin: const EdgeInsets.symmetric(horizontal: 5),
+                    //     width: MediaQuery.of(context).size.width / 6,
+                    //     //margin: EdgeInsets.only(left: 20, right: 20),
+                    //     height: 25,
+                    //     child: const Center(child: Text("Delivering")),
+                    //   ),
+                    // ),
                     Tab(
                       child: Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 5),
-                        width: MediaQuery.of(context).size.width / 6,
-                        //margin: EdgeInsets.only(left: 20, right: 20),
-                        height: 25,
-                        child: const Center(child: Text("Preparing")),
-                      ),
-                    ),
-                    Tab(
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 5),
-                        width: MediaQuery.of(context).size.width / 6,
-                        //margin: EdgeInsets.only(left: 20, right: 20),
-                        height: 25,
-                        child: const Center(child: Text("Delivering")),
-                      ),
-                    ),
-                    Tab(
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 5),
-                        width: MediaQuery.of(context).size.width / 6,
+                        margin: const EdgeInsets.symmetric(horizontal: 2),
+                        width: MediaQuery.of(context).size.width / 4,
                         //margin: EdgeInsets.only(left: 20, right: 20),
                         height: 25,
                         child: const Center(child: Text("Delivered")),
@@ -113,8 +113,8 @@ class _ClientOrderPageState extends State<ClientOrderPage>
                     ),
                     Tab(
                       child: Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 5),
-                        width: MediaQuery.of(context).size.width / 6,
+                        margin: const EdgeInsets.symmetric(horizontal: 2),
+                        width: MediaQuery.of(context).size.width / 4,
                         //margin: EdgeInsets.only(left: 20, right: 20),
                         height: 25,
                         child: const Center(child: Text("Canceled")),
@@ -132,9 +132,9 @@ class _ClientOrderPageState extends State<ClientOrderPage>
               height: hieght,
               child: TabBarView(controller: _tabController, children: const [
                 PendingOrders(),
-                PaidOrders(),
+                // PaidOrders(),
                 PreparingOrders(),
-                ActiveOrders(),
+                // ActiveOrders(),
                 DeliveredOrders(),
                 CancelledOrders(),
               ]),

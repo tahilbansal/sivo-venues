@@ -10,6 +10,7 @@ class GetOrder {
   final String id;
   final UserId userId;
   final List<OrderItem> orderItems;
+  final double orderTotal;
   final double deliveryFee;
   final DeliveryAddress deliveryAddress;
   final DateTime deliveryDate;
@@ -22,6 +23,7 @@ class GetOrder {
     required this.id,
     required this.userId,
     required this.orderItems,
+    required this.orderTotal,
     required this.deliveryFee,
     required this.deliveryAddress,
     required this.deliveryDate,
@@ -35,6 +37,7 @@ class GetOrder {
         id: json["_id"],
         userId: UserId.fromJson(json["userId"]),
         orderItems: List<OrderItem>.from(json["orderItems"].map((x) => OrderItem.fromJson(x))),
+        orderTotal: json["orderTotal"]?.toDouble(),
         deliveryFee: json["deliveryFee"]?.toDouble(),
         deliveryAddress: DeliveryAddress.fromJson(json["deliveryAddress"]),
         deliveryDate: DateTime.parse(json["deliveryDate"]),
@@ -48,6 +51,7 @@ class GetOrder {
         "_id": id,
         "userId": userId.toJson(),
         "orderItems": List<dynamic>.from(orderItems.map((x) => x.toJson())),
+        "orderTotal": orderTotal,
         "deliveryFee": deliveryFee,
         "deliveryAddress": deliveryAddress.toJson(),
         "deliveryDate": DateFormat('yyyy-MM-dd').format(deliveryDate),
@@ -114,23 +118,27 @@ class OrderItem {
 class ItemId {
   final String id;
   final String title;
+  final String? unit;
   final List<String> imageUrl;
 
   ItemId({
     required this.id,
     required this.title,
+    required this.unit,
     required this.imageUrl,
   });
 
   factory ItemId.fromJson(Map<String, dynamic> json) => ItemId(
         id: json["_id"],
         title: json["title"],
+        unit: json["unit"],
         imageUrl: List<String>.from(json["imageUrl"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
         "_id": id,
         "title": title,
+        "unit": unit,
         "imageUrl": List<dynamic>.from(imageUrl.map((x) => x)),
       };
 }

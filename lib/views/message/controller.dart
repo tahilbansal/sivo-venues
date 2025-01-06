@@ -25,7 +25,6 @@ class MessageController extends GetxController {
   // Add this variable to hold the search query
   var searchQuery = ''.obs;
 
-
   final RefreshController refreshController = RefreshController(initialRefresh: true);
 
   @override
@@ -218,16 +217,16 @@ class MessageController extends GetxController {
     listener?.cancel();
   }
 
-
-  // Adding the search functionality to filter through msgList
   void searchMessages(String query) {
-    searchQuery.value = query;
-    if (searchQuery.value.isEmpty) {
+    searchQuery.value = query.trim();
+
+    if (query.isEmpty) {
       state.filteredMsgList.assignAll(state.msgList);
     } else {
       state.filteredMsgList.value = state.msgList.where((message) {
-        return message.name!.toLowerCase().contains(searchQuery.value.toLowerCase()) ||
-            message.last_msg!.toLowerCase().contains(searchQuery.value.toLowerCase());
+        return message.name?.toLowerCase().contains(query.toLowerCase()) ??
+            false ||
+                message.last_msg!.toLowerCase().contains(query.toLowerCase()) ?? false;
       }).toList();
     }
   }

@@ -13,6 +13,7 @@ import 'package:rivus_user/models/user_cart.dart';
 import 'package:rivus_user/views/auth/widgets/login_redirect.dart';
 import 'package:rivus_user/views/cart/widgets/cart_tile.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:rivus_user/views/supplier/supplier_catalog_page.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:rivus_user/views/cart/widgets/delivery_date_selector.dart';
 import 'package:rivus_user/views/orders/checkout_page.dart';
@@ -97,14 +98,32 @@ class CartPage extends HookWidget {
                 containerContent: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 16.0, top: 2.0),
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        child: TextButton(
+                          onPressed: () {
+                            // Navigate to the supplier catalog page
+                            Get.to(() => SupplierCatalogPage(supplierId: supplierId!));
+                          },
+                          style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            textStyle: appStyle(14, kPrimary, FontWeight.bold),
+                          ),
+                          child: Text("Add more +",
+                              style: appStyle(14, kPrimary, FontWeight.bold)),
+                        ),
+                      ),
+                    ),
                     isLoading
                         ? const ItemsListShimmer()
                         : Obx(
                             () => Container(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 12.w, vertical: 10.h),
+                                  horizontal: 12.w, vertical: 2.h),
                               width: width,
-                              height: 0.7 * hieght,
+                              height: 0.64 * hieght,
                               color: kOffWhite,
                               child: ListView.builder(
                                 padding: EdgeInsets.zero,

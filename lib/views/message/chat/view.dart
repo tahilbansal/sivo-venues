@@ -181,9 +181,9 @@ class ChatPage extends GetView<ChatController> {
                             supplierId: controller.state.supplier_uid));
                       },
                       onGoToCart: () {
-                        Get.to(() => SupplierCatalogPage(
-                            supplierId: controller.state.supplier_uid));
-                        //Get.to(() => CartPage(supplierId: controller.state.supplier_uid));
+                        // Get.to(() => SupplierCatalogPage(
+                        //     supplierId: controller.state.supplier_uid));
+                        Get.to(() => CartPage(supplierId: controller.state.supplier_uid));
                       },
                     );
                   }),

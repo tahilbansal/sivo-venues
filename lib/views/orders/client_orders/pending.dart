@@ -12,7 +12,7 @@ class PendingOrders extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hookResult = useFetchClientOrders('paymentStatus', 'Pending');
+    final hookResult = useFetchClientOrders('orderStatus', 'Placed');
     List<ClientOrders>? orders = hookResult.data;
     final isLoading = hookResult.isLoading;
 

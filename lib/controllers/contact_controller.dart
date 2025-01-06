@@ -61,7 +61,7 @@ class ContactController extends GetxController {
           message: "Corrupted user account",
           title: "Serious issue");
     }
-    to_userdata.id = state.ownerId.value;
+    to_userdata.id =  to_userdata.owner;
     bool supplierOwner = CheckUser.isValidId(to_userdata.id!);
 
     if (to_userdata.id == null) {

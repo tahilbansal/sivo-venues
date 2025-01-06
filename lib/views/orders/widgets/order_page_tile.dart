@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,127 +20,65 @@ class OrderPageTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          margin: EdgeInsets.only(bottom: 8.h, right: 8.w, left: 8.w),
-          height: 80,
-          width: width,
-          decoration: const BoxDecoration(
-              color: kLightWhite,
-              borderRadius: BorderRadius.all(Radius.circular(9))),
-          child: Container(
-            padding: const EdgeInsets.all(4),
-            child: Row(
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 8.h, horizontal: 8.w),
+      padding: EdgeInsets.all(12.w),
+      decoration: BoxDecoration(
+        color: kLightWhite,
+        borderRadius: BorderRadius.circular(12.r),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.1),
+            spreadRadius: 1,
+            blurRadius: 5,
+            offset: Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (item.itemId.imageUrl.isNotEmpty && item.itemId.imageUrl[0].isNotEmpty)
+            ClipRRect(
+              borderRadius: BorderRadius.circular(12.r),
+              child: Image.network(
+                item.itemId.imageUrl[0],
+                height: 70.h,
+                width: 70.h,
+                fit: BoxFit.cover,
+              ),
+            ),
+          SizedBox(width: 12.w),
+          Expanded(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (item.itemId.imageUrl.isNotEmpty &&
-                    item.itemId.imageUrl[0].isNotEmpty)
-                ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(12)),
-                  child: Stack(
-                    children: [
-                      SizedBox(
-                          height: 75.h,
-                          width: 80.h,
-                          child: Image.network(
-                            item.itemId.imageUrl[0],
-                            fit: BoxFit.cover,
-                          )
-                      ),
-                      Positioned(
-                          bottom: 0,
-                          child: Container(
-                            padding: const EdgeInsets.only(left: 6, bottom: 2),
-                            color: kGray.withOpacity(0.6),
-                            height: 16,
-                            width: width,
-                            // child: RatingBarIndicator(
-                            //   rating: 5,
-                            //   itemBuilder: (context, index) => const Icon(
-                            //     Icons.star,
-                            //     color: Colors.amber,
-                            //   ),
-                            //   itemCount: 5,
-                            //   itemSize: 15.0,
-                            //   direction: Axis.horizontal,
-                            // ),
-                          ))
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const SizedBox(
-                      height: 5,
+                    Flexible(
+                      child: Text(
+                        item.itemId.title,
+                        style: appStyle(13, kDark, FontWeight.w600),
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                     ReusableText(
-                        text: item.itemId.title,
-                        style: appStyle(11, kDark, FontWeight.w500)),
-                    ReusableText(
-                        text: "Quanitty: ${item.quantity}",
-                        style: appStyle(9, kGray, FontWeight.w500)),
-                    const SizedBox(
-                      height: 5,
+                      text: item.price != null ? "\u20B9${item.price}" : "",
+                      style: appStyle(14, kPrimary, FontWeight.bold),
                     ),
-                    if (item.price != null)
-                    ReusableText(
-                        text: "Price: ${item.price}",
-                        style: appStyle(9, kGray, FontWeight.w500))
-                    // SizedBox(
-                    //   height: 18,
-                    //   width: width * 0.67,
-                    //   child: ListView.builder(
-                    //       scrollDirection: Axis.horizontal,
-                    //       itemCount: item.additives.length,
-                    //       itemBuilder: (context, i) {
-                    //         final addittives = item.additives[i];
-                    //         return Container(
-                    //           margin: const EdgeInsets.only(right: 5),
-                    //           decoration: const BoxDecoration(
-                    //               color: kSecondaryLight,
-                    //               borderRadius:
-                    //                   BorderRadius.all(Radius.circular(9))),
-                    //           child: Center(
-                    //             child: Padding(
-                    //               padding: const EdgeInsets.all(2.0),
-                    //               child: ReusableText(
-                    //                   text: addittives,
-                    //                   style:
-                    //                       appStyle(8, kGray, FontWeight.w400)),
-                    //             ),
-                    //           ),
-                    //         );
-                    //       }),
-                    // ),
                   ],
-                )
+                ),
+                SizedBox(height: 6.h),
+                ReusableText(
+                  text: "Quantity: ${item.quantity}",
+                  style: appStyle(11, kGray, FontWeight.w500),
+                ),
               ],
             ),
           ),
-        ),
-        Positioned(
-          top: 10,
-          right: 20,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            height: 18.h,
-            decoration: const BoxDecoration(
-                color: kPrimary,
-                borderRadius: BorderRadius.all(Radius.circular(12))),
-            child: Center(
-              child: ReusableText(
-                  text: status,
-                  style: appStyle(10, kLightWhite, FontWeight.w600)),
-            ),
-          ),
-        )
-      ],
+        ],
+      ),
     );
   }
 }

@@ -110,6 +110,7 @@ class MyApp extends StatelessWidget {
               // '/message': (context) => const MessagePage()
             },
           );
-        });
+        }
+      );
   }
 }
