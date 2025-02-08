@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:rivus_user/models/environment.dart';
-import 'package:rivus_user/models/items.dart';
-import 'package:rivus_user/models/hook_models/hook_result.dart';
+import 'package:sivo_venues/models/environment.dart';
+import 'package:sivo_venues/models/items.dart';
+import 'package:sivo_venues/models/hook_models/hook_result.dart';
 import 'package:http/http.dart' as http;
 
 // Custom Hook

@@ -1,12 +1,12 @@
 // ignore_for_file: unused_local_variable
 
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:rivus_user/constants/constants.dart';
-import 'package:rivus_user/controllers/location_controller.dart';
-import 'package:rivus_user/models/api_error.dart';
-import 'package:rivus_user/models/environment.dart';
-import 'package:rivus_user/models/suppliers.dart';
-import 'package:rivus_user/models/hook_models/hook_result.dart';
+import 'package:sivo_venues/constants/constants.dart';
+import 'package:sivo_venues/controllers/location_controller.dart';
+import 'package:sivo_venues/models/api_error.dart';
+import 'package:sivo_venues/models/environment.dart';
+import 'package:sivo_venues/models/suppliers.dart';
+import 'package:sivo_venues/models/hook_models/hook_result.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 

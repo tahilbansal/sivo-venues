@@ -1,13 +1,13 @@
-import 'package:rivus_user/common/app_style.dart';
-import 'package:rivus_user/common/search_bar.dart';
-import 'package:rivus_user/common/search_results_page.dart';
-import 'package:rivus_user/common/values/colors.dart';
+import 'package:sivo_venues/common/app_style.dart';
+import 'package:sivo_venues/common/search_bar.dart';
+import 'package:sivo_venues/common/search_results_page.dart';
+import 'package:sivo_venues/common/values/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:rivus_user/constants/constants.dart';
-import 'package:rivus_user/views/message/index.dart';
-import 'package:rivus_user/views/search/seach_page.dart';
+import 'package:sivo_venues/constants/constants.dart';
+import 'package:sivo_venues/views/message/index.dart';
+import 'package:sivo_venues/views/search/seach_page.dart';
 import 'chat/widgets/message_list.dart';
 import 'package:get/get.dart';
 

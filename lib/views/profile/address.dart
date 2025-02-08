@@ -2,15 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:rivus_user/common/app_style.dart';
-import 'package:rivus_user/common/back_ground_container.dart';
-import 'package:rivus_user/common/reusable_text.dart';
-import 'package:rivus_user/common/shimmers/itemlist_shimmer.dart';
-import 'package:rivus_user/constants/constants.dart';
-import 'package:rivus_user/hooks/fetchAddresses.dart';
-import 'package:rivus_user/models/all_addresses.dart';
-import 'package:rivus_user/views/profile/shipping_address.dart';
-import 'package:rivus_user/views/profile/widgets/addresses_list.dart';
+import 'package:sivo_venues/common/app_style.dart';
+import 'package:sivo_venues/common/back_ground_container.dart';
+import 'package:sivo_venues/common/reusable_text.dart';
+import 'package:sivo_venues/common/shimmers/itemlist_shimmer.dart';
+import 'package:sivo_venues/constants/constants.dart';
+import 'package:sivo_venues/hooks/fetchAddresses.dart';
+import 'package:sivo_venues/models/all_addresses.dart';
+import 'package:sivo_venues/views/profile/shipping_address.dart';
+import 'package:sivo_venues/views/profile/widgets/addresses_list.dart';
 import 'package:get/get.dart';
 
 class Addresses extends HookWidget {

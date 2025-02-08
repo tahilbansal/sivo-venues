@@ -1,8 +1,8 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:rivus_user/constants/constants.dart';
-import 'package:rivus_user/models/environment.dart';
-import 'package:rivus_user/models/hook_models/hook_result.dart';
-import 'package:rivus_user/models/suppliers.dart';
+import 'package:sivo_venues/constants/constants.dart';
+import 'package:sivo_venues/models/environment.dart';
+import 'package:sivo_venues/models/hook_models/hook_result.dart';
+import 'package:sivo_venues/models/suppliers.dart';
 import 'package:http/http.dart' as http;
 
 // Custom Hook

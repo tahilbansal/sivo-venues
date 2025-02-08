@@ -2,10 +2,10 @@
 // import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-// import 'package:rivus_user/common/app_style.dart';
-// import 'package:rivus_user/common/reusable_text.dart';
-// import 'package:rivus_user/constants/constants.dart';
-// import 'package:rivus_user/models/foods.dart';
+// import 'package:sivo_venues/common/app_style.dart';
+// import 'package:sivo_venues/common/reusable_text.dart';
+// import 'package:sivo_venues/constants/constants.dart';
+// import 'package:sivo_venues/models/foods.dart';
 //
 // class CategoryFoodTile extends StatelessWidget {
 //   const CategoryFoodTile({

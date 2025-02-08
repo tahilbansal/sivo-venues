@@ -4,8 +4,8 @@ import 'dart:convert';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:rivus_user/controllers/notifications_controller.dart';
-import 'package:rivus_user/main.dart';
+import 'package:sivo_venues/controllers/notifications_controller.dart';
+import 'package:sivo_venues/main.dart';
 import 'package:get/get.dart';
 
 class NotificationService {
@@ -40,7 +40,8 @@ class NotificationService {
       sound: true,
     );
 
-    final token = await _messaging.getToken();
+    final token = await _messaging.getAPNSToken();
+    print("FCM Token: $token");
     if (token != null) {
       controller.setFcm = token;
     }

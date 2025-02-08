@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:rivus_user/common/shimmers/itemlist_shimmer.dart';
-import 'package:rivus_user/constants/constants.dart';
-import 'package:rivus_user/hooks/fetchOrders.dart';
-import 'package:rivus_user/models/client_orders.dart';
-import 'package:rivus_user/views/orders/widgets/client_order_tile.dart';
+import 'package:sivo_venues/common/shimmers/itemlist_shimmer.dart';
+import 'package:sivo_venues/constants/constants.dart';
+import 'package:sivo_venues/hooks/fetchOrders.dart';
+import 'package:sivo_venues/models/client_orders.dart';
+import 'package:sivo_venues/views/orders/widgets/client_order_tile.dart';
 
 class CancelledOrders extends HookWidget {
   const CancelledOrders({Key? key}) : super(key: key);

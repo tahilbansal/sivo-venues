@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:rivus_user/common/entities/entities.dart';
+import 'package:sivo_venues/common/entities/entities.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:rivus_user/constants/constants.dart';
+import 'package:sivo_venues/constants/constants.dart';
 import 'package:get/get.dart';
 
 import '../../../../common/routes/names.dart';

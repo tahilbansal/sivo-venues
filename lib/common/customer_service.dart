@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 //import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:rivus_user/common/app_style.dart';
-import 'package:rivus_user/constants/constants.dart';
+import 'package:sivo_venues/common/app_style.dart';
+import 'package:sivo_venues/constants/constants.dart';
 
 Future<dynamic> customerService(BuildContext context, String service) {
   return showDialog(

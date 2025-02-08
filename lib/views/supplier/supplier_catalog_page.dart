@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rivus_user/constants/constants.dart';
-import 'package:rivus_user/controllers/counter_controller.dart';
-import 'package:rivus_user/views/cart/widgets/cart_bar.dart';
-import 'package:rivus_user/views/supplier/widgets/catalog.dart';
-import 'package:rivus_user/views/supplier/widgets/my_catalog.dart';
+import 'package:sivo_venues/constants/constants.dart';
+import 'package:sivo_venues/controllers/counter_controller.dart';
+import 'package:sivo_venues/views/cart/widgets/cart_bar.dart';
+import 'package:sivo_venues/views/supplier/widgets/catalog.dart';
+import 'package:sivo_venues/views/supplier/widgets/my_catalog.dart';
 
 class SupplierCatalogPage extends StatelessWidget {
   final String supplierId;

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:rivus_user/constants/constants.dart';
-import 'package:rivus_user/models/api_error.dart';
-import 'package:rivus_user/models/environment.dart';
-import 'package:rivus_user/models/sucess_model.dart';
-import 'package:rivus_user/views/auth/login_page.dart';
+import 'package:sivo_venues/constants/constants.dart';
+import 'package:sivo_venues/models/api_error.dart';
+import 'package:sivo_venues/models/environment.dart';
+import 'package:sivo_venues/models/sucess_model.dart';
+import 'package:sivo_venues/views/auth/login_page.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 

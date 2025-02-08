@@ -3,12 +3,12 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:rivus_user/common/address_modal.dart';
-import 'package:rivus_user/constants/constants.dart';
-import 'package:rivus_user/controllers/address_controller.dart';
-import 'package:rivus_user/models/all_addresses.dart';
-import 'package:rivus_user/models/environment.dart';
-import 'package:rivus_user/models/hook_models/hook_result.dart';
+import 'package:sivo_venues/common/address_modal.dart';
+import 'package:sivo_venues/constants/constants.dart';
+import 'package:sivo_venues/controllers/address_controller.dart';
+import 'package:sivo_venues/models/all_addresses.dart';
+import 'package:sivo_venues/models/environment.dart';
+import 'package:sivo_venues/models/hook_models/hook_result.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;

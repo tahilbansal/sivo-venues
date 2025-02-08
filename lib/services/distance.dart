@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:rivus_user/models/distance_time.dart';
+import 'package:sivo_venues/models/distance_time.dart';
 
 class Distance {
   DistanceTime calculateDistanceTimePrice(double lat1, double lon1, double lat2,

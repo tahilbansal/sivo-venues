@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rivus_user/models/all_addresses.dart';
-import 'package:rivus_user/views/profile/widgets/address_tile.dart';
+import 'package:sivo_venues/models/all_addresses.dart';
+import 'package:sivo_venues/views/profile/widgets/address_tile.dart';
 
 class AddressList extends StatelessWidget {
   const AddressList({

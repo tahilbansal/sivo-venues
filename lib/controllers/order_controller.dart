@@ -3,15 +3,15 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:rivus_user/constants/constants.dart';
-import 'package:rivus_user/controllers/contact_controller.dart';
-import 'package:rivus_user/controllers/login_controller.dart';
-import 'package:rivus_user/models/api_error.dart';
-import 'package:rivus_user/models/environment.dart';
-import 'package:rivus_user/models/order_item.dart';
-import 'package:rivus_user/models/order_response.dart';
-import 'package:rivus_user/models/payment_request.dart';
-import 'package:rivus_user/models/user_cart.dart';
+import 'package:sivo_venues/constants/constants.dart';
+import 'package:sivo_venues/controllers/contact_controller.dart';
+import 'package:sivo_venues/controllers/login_controller.dart';
+import 'package:sivo_venues/models/api_error.dart';
+import 'package:sivo_venues/models/environment.dart';
+import 'package:sivo_venues/models/order_item.dart';
+import 'package:sivo_venues/models/order_response.dart';
+import 'package:sivo_venues/models/payment_request.dart';
+import 'package:sivo_venues/models/user_cart.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;

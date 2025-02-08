@@ -4,14 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:rivus_user/common/app_style.dart';
-import 'package:rivus_user/common/divida.dart';
-import 'package:rivus_user/common/reusable_text.dart';
-import 'package:rivus_user/constants/constants.dart';
-import 'package:rivus_user/controllers/address_controller.dart';
-import 'package:rivus_user/models/distance_time.dart';
-import 'package:rivus_user/views/auth/phone_verification.dart';
-import 'package:rivus_user/views/supplier/suppliers_page.dart';
+import 'package:sivo_venues/common/app_style.dart';
+import 'package:sivo_venues/common/divida.dart';
+import 'package:sivo_venues/common/reusable_text.dart';
+import 'package:sivo_venues/constants/constants.dart';
+import 'package:sivo_venues/controllers/address_controller.dart';
+import 'package:sivo_venues/models/distance_time.dart';
+import 'package:sivo_venues/views/auth/phone_verification.dart';
+import 'package:sivo_venues/views/supplier/suppliers_page.dart';
 
 
 // Add any other necessary imports for DistanceTime, AddressController, etc.

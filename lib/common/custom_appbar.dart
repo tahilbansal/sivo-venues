@@ -2,19 +2,19 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:rivus_user/common/app_style.dart';
-import 'package:rivus_user/common/reusable_text.dart';
-import 'package:rivus_user/constants/constants.dart';
-import 'package:rivus_user/controllers/address_controller.dart';
-import 'package:rivus_user/controllers/location_controller.dart';
-import 'package:rivus_user/hooks/fetchDefaultAddress.dart';
-import 'package:rivus_user/views/orders/widgets/updates.dart';
+import 'package:sivo_venues/common/app_style.dart';
+import 'package:sivo_venues/common/reusable_text.dart';
+import 'package:sivo_venues/constants/constants.dart';
+import 'package:sivo_venues/controllers/address_controller.dart';
+import 'package:sivo_venues/controllers/location_controller.dart';
+import 'package:sivo_venues/hooks/fetchDefaultAddress.dart';
+import 'package:sivo_venues/views/orders/widgets/updates.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:rivus_user/views/profile/address.dart';
+import 'package:sivo_venues/views/profile/address.dart';
 
 class CustomAppBar extends StatefulHookWidget {
   const CustomAppBar({

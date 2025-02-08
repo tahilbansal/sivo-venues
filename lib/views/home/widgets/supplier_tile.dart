@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:rivus_user/common/app_style.dart';
-import 'package:rivus_user/common/reusable_text.dart';
-import 'package:rivus_user/common/show_snack_bar.dart';
-import 'package:rivus_user/constants/constants.dart';
-import 'package:rivus_user/controllers/contact_controller.dart';
-import 'package:rivus_user/models/response_model.dart';
-import 'package:rivus_user/models/suppliers.dart';
-import 'package:rivus_user/views/supplier/suppliers_page.dart';
+import 'package:sivo_venues/common/app_style.dart';
+import 'package:sivo_venues/common/reusable_text.dart';
+import 'package:sivo_venues/common/show_snack_bar.dart';
+import 'package:sivo_venues/constants/constants.dart';
+import 'package:sivo_venues/controllers/contact_controller.dart';
+import 'package:sivo_venues/models/response_model.dart';
+import 'package:sivo_venues/models/suppliers.dart';
+import 'package:sivo_venues/views/supplier/suppliers_page.dart';
 import 'package:get/get.dart';
 
 class SupplierTile extends StatelessWidget {

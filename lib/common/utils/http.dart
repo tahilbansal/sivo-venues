@@ -2,9 +2,9 @@ import 'dart:async';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
-import 'package:rivus_user/common/store/store.dart';
-import 'package:rivus_user/common/utils/utils.dart';
-import 'package:rivus_user/common/values/values.dart';
+import 'package:sivo_venues/common/store/store.dart';
+import 'package:sivo_venues/common/utils/utils.dart';
+import 'package:sivo_venues/common/values/values.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart' hide FormData;
 

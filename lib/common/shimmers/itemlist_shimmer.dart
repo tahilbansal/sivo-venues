@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:rivus_user/common/shimmers/shimmer_widget.dart';
-import 'package:rivus_user/constants/constants.dart';
+import 'package:sivo_venues/common/shimmers/shimmer_widget.dart';
+import 'package:sivo_venues/constants/constants.dart';
 
 class ItemsListShimmer extends StatelessWidget {
   const ItemsListShimmer({super.key});

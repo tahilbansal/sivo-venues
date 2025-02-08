@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:rivus_user/common/shimmers/shimmer_widget.dart';
+import 'package:sivo_venues/common/shimmers/shimmer_widget.dart';
 
 class CatergoriesShimmer extends StatelessWidget {
   const CatergoriesShimmer({super.key});

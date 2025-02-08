@@ -3,11 +3,11 @@
 // import 'package:flutter/material.dart';
 // import 'package:flutter_hooks/flutter_hooks.dart';
 // import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:rivus_user/views/home/widgets/food_widget.dart';
-// import 'package:rivus_user/common/shimmers/nearby_shimmer.dart';
-// import 'package:rivus_user/hooks/fetchFoods.dart';
-// import 'package:rivus_user/models/foods.dart';
-// import 'package:rivus_user/views/food/item_page.dart';
+// import 'package:sivo_venues/views/home/widgets/food_widget.dart';
+// import 'package:sivo_venues/common/shimmers/nearby_shimmer.dart';
+// import 'package:sivo_venues/hooks/fetchFoods.dart';
+// import 'package:sivo_venues/models/foods.dart';
+// import 'package:sivo_venues/views/food/item_page.dart';
 // import 'package:get/get.dart';
 //
 // class FoodList extends HookWidget {

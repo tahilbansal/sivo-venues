@@ -2,17 +2,15 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:rivus_user/common/utils/security.dart';
-import 'package:rivus_user/controllers/login_controller.dart';
-import 'package:rivus_user/models/environment.dart';
+import 'package:sivo_venues/common/utils/security.dart';
+import 'package:sivo_venues/controllers/login_controller.dart';
+import 'package:sivo_venues/models/environment.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:rivus_user/common/entities/entities.dart';
+import 'package:sivo_venues/common/entities/entities.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:rivus_user/models/suppliers.dart';
-import '../../../hooks/fetchSupplier.dart';
-import '../../orders/order_details_page.dart';
+import 'package:sivo_venues/models/suppliers.dart';
 import 'index.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:path/path.dart';
@@ -65,8 +63,17 @@ class ChatController extends GetxController {
     }
   }
 
+  Future imgFromCamera() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.camera);
+    if (pickedFile != null) {
+      _photo = File(pickedFile.path);
+      uploadFile();
+    } else {
+      print("No image captured");
+    }
+  }
+
   Future getImgUrl(String name) async {
-    print("...my image name is $name..");
     final spaceRef = FirebaseStorage.instance.ref("chat").child(name);
     var str = await spaceRef.getDownloadURL();
     return str ?? "";
@@ -119,24 +126,16 @@ class ChatController extends GetxController {
       ref.putFile(_photo!).snapshotEvents.listen((event) async {
         switch (event.state) {
           case TaskState.running:
-            print("...uploading file ${fileName}");
             break;
-
           case TaskState.paused:
-            print("...uploading file paused ${fileName}");
             break;
           case TaskState.success:
             String imgUrl = await getImgUrl(fileName);
             sendImageMessage(imgUrl);
-            print("...uploading file succeed ${fileName}");
             break;
           case TaskState.error:
-            print("...uploading file error ${fileName}");
-            // ...
-            //toastInfo(msg:"upload image error");
             break;
           case TaskState.canceled:
-            print("...uploading file canceled ${fileName}");
             break;
         }
       });

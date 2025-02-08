@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:rivus_user/common/entities/entities.dart';
-import 'package:rivus_user/common/utils/check_user.dart';
-import 'package:rivus_user/models/login_response.dart';
-import 'package:rivus_user/models/response_model.dart';
-import 'package:rivus_user/models/suppliers.dart';
-import 'package:rivus_user/views/message/chat/index.dart';
+import 'package:sivo_venues/common/entities/entities.dart';
+import 'package:sivo_venues/common/utils/check_user.dart';
+import 'package:sivo_venues/models/login_response.dart';
+import 'package:sivo_venues/models/response_model.dart';
+import 'package:sivo_venues/models/suppliers.dart';
+import 'package:sivo_venues/views/message/chat/index.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_storage/get_storage.dart';

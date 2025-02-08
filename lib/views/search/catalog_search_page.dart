@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:rivus_user/common/custom_container.dart';
-import 'package:rivus_user/common/custom_textfield.dart';
-import 'package:rivus_user/common/shimmers/itemlist_shimmer.dart';
-import 'package:rivus_user/constants/constants.dart';
-import 'package:rivus_user/controllers/search_controller.dart';
-import 'package:rivus_user/views/search/catalog_search_results.dart';
-import 'package:rivus_user/views/search/search_results.dart';
+import 'package:sivo_venues/common/custom_container.dart';
+import 'package:sivo_venues/common/custom_textfield.dart';
+import 'package:sivo_venues/common/shimmers/itemlist_shimmer.dart';
+import 'package:sivo_venues/constants/constants.dart';
+import 'package:sivo_venues/controllers/search_controller.dart';
+import 'package:sivo_venues/views/search/catalog_search_results.dart';
+import 'package:sivo_venues/views/search/search_results.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 

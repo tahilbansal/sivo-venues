@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:rivus_user/models/api_error.dart';
-import 'package:rivus_user/models/cart_response.dart';
-import 'package:rivus_user/models/environment.dart';
-import 'package:rivus_user/models/user_cart.dart';
-import 'package:rivus_user/views/entrypoint.dart';
+import 'package:sivo_venues/models/api_error.dart';
+import 'package:sivo_venues/models/cart_response.dart';
+import 'package:sivo_venues/models/environment.dart';
+import 'package:sivo_venues/models/user_cart.dart';
+import 'package:sivo_venues/views/entrypoint.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;

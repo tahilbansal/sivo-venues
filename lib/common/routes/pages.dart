@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-//import 'package:rivus_user/common/middlewares/middlewares.dart';
+//import 'package:sivo_venues/common/middlewares/middlewares.dart';
 
 import 'package:get/get.dart';
-
-//import 'package:rivus_user/pages/profile/index.dart';
-import 'package:rivus_user/views/message/chat/index.dart';
-import 'package:rivus_user/views/message/photoview/index.dart';
+import 'package:sivo_venues/views/message/chat/index.dart';
+import 'package:sivo_venues/views/message/photoview/index.dart';
 import 'routes.dart';
 
 class AppPages {

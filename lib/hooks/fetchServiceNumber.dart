@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:rivus_user/models/environment.dart';
+import 'package:sivo_venues/models/environment.dart';
 import 'package:http/http.dart' as http;
 
 // Custom Hook

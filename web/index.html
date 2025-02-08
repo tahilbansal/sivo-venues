@@ -33,6 +33,33 @@
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
+  <script>
+    <!--Update with yours config-->
+    const firebaseConfig = {
+      apiKey: "AIzaSyDa12MRCZSQUlNCg9hcy3XGm9Dk1AWC07Y",
+      authDomain: "rivus-flutter.firebaseapp.com",
+      databaseURL: "https://rivus-flutter-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "rivus-flutter",
+      storageBucket: "rivus-flutter.appspot.com",
+      messagingSenderId: "615943697958",
+      appId: "1:615943697958:web:a4171a969ee78012b618e7",
+      measurementId: "G-SQ1BE51PK1"
+    };
+    firebase.initializeApp(firebaseConfig);
+  </script>
+  <script src="main.dart.js" type="application/javascript"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker
+              .register('/firebase-messaging-sw.js')
+              .then(function (registration) {
+                console.log('Service Worker registered with scope:', registration.scope);
+              })
+              .catch(function (err) {
+                console.log('Service Worker registration failed:', err);
+              });
+    }
+  </script>
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>

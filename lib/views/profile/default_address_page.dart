@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:rivus_user/common/app_style.dart';
-import 'package:rivus_user/common/back_ground_container.dart';
-import 'package:rivus_user/common/reusable_text.dart';
-import 'package:rivus_user/constants/constants.dart';
-import 'package:rivus_user/controllers/address_controller.dart';
-import 'package:rivus_user/models/all_addresses.dart';
-import 'package:rivus_user/views/home/widgets/custom_btn.dart';
+import 'package:sivo_venues/common/app_style.dart';
+import 'package:sivo_venues/common/back_ground_container.dart';
+import 'package:sivo_venues/common/reusable_text.dart';
+import 'package:sivo_venues/constants/constants.dart';
+import 'package:sivo_venues/controllers/address_controller.dart';
+import 'package:sivo_venues/models/all_addresses.dart';
+import 'package:sivo_venues/views/home/widgets/custom_btn.dart';
 import 'package:get/get.dart';
 
 class SetDefaultAddressPage extends StatelessWidget {

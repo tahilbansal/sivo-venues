@@ -5,20 +5,20 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:rivus_user/common/app_style.dart';
-import 'package:rivus_user/common/entities/message.dart';
-import 'package:rivus_user/common/reusable_text.dart';
-import 'package:rivus_user/common/shimmers/itemlist_shimmer.dart';
-import 'package:rivus_user/common/show_snack_bar.dart';
-import 'package:rivus_user/constants/constants.dart';
-import 'package:rivus_user/controllers/contact_controller.dart';
-import 'package:rivus_user/hooks/fetchSupplier.dart';
-import 'package:rivus_user/models/client_orders.dart';
-import 'package:rivus_user/models/response_model.dart';
-import 'package:rivus_user/views/message/chat/view.dart';
-//import 'package:rivus_user/views/reviews/review_page.dart';
+import 'package:sivo_venues/common/app_style.dart';
+import 'package:sivo_venues/common/entities/message.dart';
+import 'package:sivo_venues/common/reusable_text.dart';
+import 'package:sivo_venues/common/shimmers/itemlist_shimmer.dart';
+import 'package:sivo_venues/common/show_snack_bar.dart';
+import 'package:sivo_venues/constants/constants.dart';
+import 'package:sivo_venues/controllers/contact_controller.dart';
+import 'package:sivo_venues/hooks/fetchSupplier.dart';
+import 'package:sivo_venues/models/client_orders.dart';
+import 'package:sivo_venues/models/response_model.dart';
+import 'package:sivo_venues/views/message/chat/view.dart';
+//import 'package:sivo_venues/views/reviews/review_page.dart';
 import 'package:get/get.dart';
-import 'package:rivus_user/views/orders/order_details_page.dart';
+import 'package:sivo_venues/views/orders/order_details_page.dart';
 
 class ClientOrderTile extends HookWidget {
   const ClientOrderTile({

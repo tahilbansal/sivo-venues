@@ -3,7 +3,7 @@
 //     final userCart = userCartFromJson(jsonString);
 
 import 'dart:convert';
-import 'package:rivus_user/models/items.dart';
+import 'package:sivo_venues/models/items.dart';
 
 List<UserCart> userCartFromJson(String str) =>
     List<UserCart>.from(json.decode(str).map((x) => UserCart.fromJson(x)));

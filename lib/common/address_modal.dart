@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:rivus_user/common/app_style.dart';
-import 'package:rivus_user/common/reusable_text.dart';
-import 'package:rivus_user/constants/constants.dart';
-import 'package:rivus_user/views/home/widgets/custom_btn.dart';
-import 'package:rivus_user/views/profile/shipping_address.dart';
+import 'package:sivo_venues/common/app_style.dart';
+import 'package:sivo_venues/common/reusable_text.dart';
+import 'package:sivo_venues/constants/constants.dart';
+import 'package:sivo_venues/views/home/widgets/custom_btn.dart';
+import 'package:sivo_venues/views/profile/shipping_address.dart';
 import 'package:get/get.dart';
 
 Future<dynamic> showAddressSheet(BuildContext context) {

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:rivus_user/constants/constants.dart';
+import 'package:sivo_venues/constants/constants.dart';
 
 class CachedImageLoader extends StatelessWidget {
   CachedImageLoader(

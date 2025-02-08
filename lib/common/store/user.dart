@@ -1,17 +1,16 @@
 import 'dart:convert';
-import 'package:rivus_user/common/entities/entities.dart';
-import 'package:rivus_user/common/services/services.dart';
-import 'package:rivus_user/common/values/values.dart';
+import 'package:sivo_venues/common/entities/entities.dart';
+import 'package:sivo_venues/common/services/services.dart';
+import 'package:sivo_venues/common/values/values.dart';
 import 'package:get/get.dart';
 
 class UserStore extends GetxController {
   static UserStore get to => Get.find();
 
-  // 是否登录
   final _isLogin = false.obs;
-  // 令牌 token
+
   String token = '';
-  // 用户 profile
+
   final _profile = UserLoginResponseEntity().obs;
 
   bool get isLogin => _isLogin.value;

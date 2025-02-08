@@ -1,11 +1,11 @@
 // ignore_for_file: unused_element
 
 import 'package:flutter/material.dart';
-import 'package:rivus_user/common/app_style.dart';
-import 'package:rivus_user/constants/constants.dart';
-import 'package:rivus_user/controllers/phone_verification_controller.dart';
+import 'package:sivo_venues/common/app_style.dart';
+import 'package:sivo_venues/constants/constants.dart';
+import 'package:sivo_venues/controllers/phone_verification_controller.dart';
 
-import 'package:rivus_user/services/verification.dart';
+import 'package:sivo_venues/services/verification.dart';
 
 import 'package:get/get.dart';
 import 'package:phone_otp_verification/phone_verification.dart';

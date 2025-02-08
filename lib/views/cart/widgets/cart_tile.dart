@@ -3,12 +3,12 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:rivus_user/common/app_style.dart';
-import 'package:rivus_user/common/reusable_text.dart';
-import 'package:rivus_user/constants/constants.dart';
-import 'package:rivus_user/controllers/cart_controller.dart';
-import 'package:rivus_user/controllers/counter_controller.dart';
-import 'package:rivus_user/models/user_cart.dart';
+import 'package:sivo_venues/common/app_style.dart';
+import 'package:sivo_venues/common/reusable_text.dart';
+import 'package:sivo_venues/constants/constants.dart';
+import 'package:sivo_venues/controllers/cart_controller.dart';
+import 'package:sivo_venues/controllers/counter_controller.dart';
+import 'package:sivo_venues/models/user_cart.dart';
 import 'package:get/get.dart';
 
 class CartTile extends HookWidget {

@@ -1,6 +1,6 @@
 // import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';
-// import 'package:rivus_user/views/cart/widgets/delivery_date_selector.dart';
+// import 'package:sivo_venues/views/cart/widgets/delivery_date_selector.dart';
 // import 'package:sliding_up_panel/sliding_up_panel.dart';
 //
 // @override

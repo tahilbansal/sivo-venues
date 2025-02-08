@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rivus_user/common/entities/message.dart';
-import 'package:rivus_user/constants/constants.dart';
-import 'package:rivus_user/views/message/controller.dart';
+import 'package:sivo_venues/common/entities/message.dart';
+import 'package:sivo_venues/constants/constants.dart';
+import 'package:sivo_venues/views/message/controller.dart';
 
 class SearchResultsPage extends StatelessWidget {
   const SearchResultsPage({Key? key}) : super(key: key);

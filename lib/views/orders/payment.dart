@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:rivus_user/controllers/order_controller.dart';
-import 'package:rivus_user/views/orders/payments/failed.dart';
-import 'package:rivus_user/views/orders/payments/successful.dart';
+import 'package:sivo_venues/controllers/order_controller.dart';
+import 'package:sivo_venues/views/orders/payments/failed.dart';
+import 'package:sivo_venues/views/orders/payments/successful.dart';
 import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';

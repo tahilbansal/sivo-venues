@@ -1,27 +1,28 @@
 import 'package:feedback/feedback.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:rivus_user/constants/constants.dart';
-import 'package:rivus_user/controllers/cart_controller.dart';
-import 'package:rivus_user/firebase_options.dart';
-import 'package:rivus_user/models/environment.dart';
-import 'package:rivus_user/services/notification_service.dart';
-import 'package:rivus_user/views/auth/login_page.dart';
-import 'package:rivus_user/views/auth/phone_verification.dart';
-import 'package:rivus_user/views/auth/verification_page.dart';
-import 'package:rivus_user/views/entrypoint.dart';
-import 'package:rivus_user/views/home/home_page.dart';
-import 'package:rivus_user/views/message/chat/index.dart';
+import 'package:sivo_venues/constants/constants.dart';
+import 'package:sivo_venues/controllers/cart_controller.dart';
+import 'package:sivo_venues/firebase_options.dart';
+import 'package:sivo_venues/models/environment.dart';
+import 'package:sivo_venues/services/notification_service.dart';
+import 'package:sivo_venues/views/auth/login_page.dart';
+import 'package:sivo_venues/views/auth/phone_verification.dart';
+import 'package:sivo_venues/views/auth/verification_page.dart';
+import 'package:sivo_venues/views/entrypoint.dart';
+import 'package:sivo_venues/views/home/home_page.dart';
+import 'package:sivo_venues/views/message/chat/index.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:rivus_user/views/message/controller.dart';
-import 'package:rivus_user/views/message/view.dart';
-import 'package:rivus_user/views/orders/order_details_page.dart';
-import 'package:rivus_user/views/orders/order_notification_details_page.dart';
+import 'package:sivo_venues/views/message/controller.dart';
+import 'package:sivo_venues/views/message/view.dart';
+import 'package:sivo_venues/views/orders/order_details_page.dart';
+import 'package:sivo_venues/views/orders/order_notification_details_page.dart';
 
 import 'common/routes/pages.dart';
 import 'controllers/contact_controller.dart';
@@ -50,7 +51,9 @@ Future<void> main() async {
   Get.put(CounterController());
   Get.put(LoginController());
 
-  await NotificationService().initialize(flutterLocalNotificationsPlugin);
+  if(!kIsWeb) {
+    await NotificationService().initialize(flutterLocalNotificationsPlugin);
+  }
 
   runApp(const BetterFeedback(child: MyApp()));
 }

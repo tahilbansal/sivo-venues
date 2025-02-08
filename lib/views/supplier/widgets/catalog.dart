@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get/get.dart';
-import 'package:rivus_user/common/shimmers/itemlist_shimmer.dart';
-import 'package:rivus_user/constants/constants.dart';
-import 'package:rivus_user/controllers/item_controller.dart';
-import 'package:rivus_user/hooks/fetchSupplierCatalog.dart';
-import 'package:rivus_user/models/items.dart';
-import 'package:rivus_user/views/item/widgets/item_tile.dart';
-import 'package:rivus_user/controllers/counter_controller.dart';
+import 'package:sivo_venues/common/shimmers/itemlist_shimmer.dart';
+import 'package:sivo_venues/constants/constants.dart';
+import 'package:sivo_venues/controllers/item_controller.dart';
+import 'package:sivo_venues/hooks/fetchSupplierCatalog.dart';
+import 'package:sivo_venues/models/items.dart';
+import 'package:sivo_venues/views/item/widgets/item_tile.dart';
+import 'package:sivo_venues/controllers/counter_controller.dart';
 
 class SupplierCatalog extends HookWidget {
   const SupplierCatalog({

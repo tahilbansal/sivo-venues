@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:rivus_user/controllers/cart_controller.dart';
-import 'package:rivus_user/models/cart_request.dart';
-import 'package:rivus_user/models/items.dart';
-import 'package:rivus_user/models/user_cart.dart';
+import 'package:sivo_venues/controllers/cart_controller.dart';
+import 'package:sivo_venues/models/cart_request.dart';
+import 'package:sivo_venues/models/items.dart';
+import 'package:sivo_venues/models/user_cart.dart';
 
 class CounterController extends GetxController {
   final box = GetStorage();

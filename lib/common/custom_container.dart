@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:rivus_user/constants/constants.dart';
+import 'package:sivo_venues/constants/constants.dart';
 
 // ignore: must_be_immutable
 class CustomContainer extends StatelessWidget {

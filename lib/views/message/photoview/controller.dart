@@ -1,4 +1,4 @@
-import 'package:rivus_user/views/message/photoview/state.dart';
+import 'package:sivo_venues/views/message/photoview/state.dart';
 import 'package:get/get.dart';
 
 class PhotoImageViewController extends GetxController {

@@ -1,9 +1,9 @@
 // import 'package:flutter/material.dart';
 // import 'package:firebase_database/firebase_database.dart';
-// import 'package:rivus_user/controllers/updates_controllers/cancelled_controller.dart';
-// import 'package:rivus_user/controllers/updates_controllers/delivered_controller.dart';
-// import 'package:rivus_user/controllers/updates_controllers/picked_controller.dart';
-// import 'package:rivus_user/controllers/updates_controllers/preparing_controller.dart';
+// import 'package:sivo_venues/controllers/updates_controllers/cancelled_controller.dart';
+// import 'package:sivo_venues/controllers/updates_controllers/delivered_controller.dart';
+// import 'package:sivo_venues/controllers/updates_controllers/picked_controller.dart';
+// import 'package:sivo_venues/controllers/updates_controllers/preparing_controller.dart';
 // import 'package:get/get.dart';
 //
 // class UpdatesWidget extends StatelessWidget {

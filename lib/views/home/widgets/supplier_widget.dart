@@ -2,10 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:rivus_user/common/app_style.dart';
-import 'package:rivus_user/common/cached_image_loader.dart';
-import 'package:rivus_user/common/reusable_text.dart';
-import 'package:rivus_user/constants/constants.dart';
+import 'package:sivo_venues/common/app_style.dart';
+import 'package:sivo_venues/common/cached_image_loader.dart';
+import 'package:sivo_venues/common/reusable_text.dart';
+import 'package:sivo_venues/constants/constants.dart';
 
 class SupplierWidget extends StatelessWidget {
   const SupplierWidget(

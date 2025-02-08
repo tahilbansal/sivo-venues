@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rivus_user/controllers/counter_controller.dart';
+import 'package:sivo_venues/controllers/counter_controller.dart';
 import '../../../constants/constants.dart';
 import '../../../controllers/cart_controller.dart';
 import '../cart_page.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rivus_user/constants/constants.dart';
+import 'package:sivo_venues/constants/constants.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class DeliveryDateSelector extends StatelessWidget {

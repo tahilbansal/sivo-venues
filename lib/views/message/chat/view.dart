@@ -1,20 +1,19 @@
-import 'package:rivus_user/common/values/colors.dart';
-import 'package:rivus_user/constants/constants.dart';
-import 'package:rivus_user/controllers/counter_controller.dart';
-import 'package:rivus_user/controllers/login_controller.dart';
-import 'package:rivus_user/views/cart/cart_page.dart';
-import 'package:rivus_user/views/message/chat/widgets/chat_bar.dart';
-import 'package:rivus_user/views/message/chat/widgets/chat_list.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:rivus_user/views/message/view.dart';
-import 'package:rivus_user/views/supplier/supplier_catalog_page.dart';
+import 'package:get/get.dart';
+import 'package:sivo_venues/common/values/colors.dart';
+import 'package:sivo_venues/constants/constants.dart';
+import 'package:sivo_venues/controllers/counter_controller.dart';
+import 'package:sivo_venues/controllers/login_controller.dart';
+import 'package:sivo_venues/views/cart/cart_page.dart';
+import 'package:sivo_venues/views/message/chat/widgets/chat_bar.dart';
+import 'package:sivo_venues/views/message/chat/widgets/chat_list.dart';
+import 'package:sivo_venues/views/supplier/supplier_catalog_page.dart';
+
 import '../../entrypoint.dart';
 import '../../supplier/suppliers_page.dart';
 import 'controller.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 class ChatPage extends GetView<ChatController> {
   const ChatPage({Key? key}) : super(key: key);
@@ -90,7 +89,7 @@ class ChatPage extends GetView<ChatController> {
                                 fontFamily: 'Avenir',
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.primaryBackground,
-                                fontSize: 16.sp),
+                                fontSize: 16.sp.clamp(16,20)),
                           ),
                           Obx(() => Text(
                                 controller.state.to_location.value,
@@ -100,7 +99,7 @@ class ChatPage extends GetView<ChatController> {
                                     fontFamily: 'Avenir',
                                     fontWeight: FontWeight.normal,
                                     color: AppColors.primaryBackground,
-                                    fontSize: 14.sp),
+                                    fontSize: 14.sp.clamp(14,20)),
                               ))
                         ],
                       ),
@@ -139,7 +138,10 @@ class ChatPage extends GetView<ChatController> {
                 ListTile(
                   leading: Icon(Icons.photo_camera),
                   title: Text("Camera"),
-                  onTap: () {},
+                  onTap: () {
+                    controller.imgFromCamera();
+                    Get.back();
+                  },
                 )
               ],
             ),

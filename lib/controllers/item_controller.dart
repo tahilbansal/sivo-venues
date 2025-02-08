@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:get_storage/get_storage.dart';
-import 'package:rivus_user/models/environment.dart';
-import 'package:rivus_user/models/items.dart';
+import 'package:sivo_venues/models/environment.dart';
+import 'package:sivo_venues/models/items.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 

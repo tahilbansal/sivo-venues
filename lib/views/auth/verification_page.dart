@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:rivus_user/common/app_style.dart';
-import 'package:rivus_user/common/reusable_text.dart';
-import 'package:rivus_user/constants/constants.dart';
-import 'package:rivus_user/controllers/email_verification_controller.dart';
-import 'package:rivus_user/controllers/login_controller.dart';
+import 'package:sivo_venues/common/app_style.dart';
+import 'package:sivo_venues/common/reusable_text.dart';
+import 'package:sivo_venues/constants/constants.dart';
+import 'package:sivo_venues/controllers/email_verification_controller.dart';
+import 'package:sivo_venues/controllers/login_controller.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
-import 'package:rivus_user/models/login_response.dart';
-import 'package:rivus_user/views/home/widgets/custom_btn.dart';
+import 'package:sivo_venues/models/login_response.dart';
+import 'package:sivo_venues/views/home/widgets/custom_btn.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 

@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:rivus_user/common/entities/entities.dart';
-import 'package:rivus_user/common/entities/message.dart';
-import 'package:rivus_user/common/store/store.dart';
-import 'package:rivus_user/common/utils/firebase_messaging_handler.dart';
-import 'package:rivus_user/common/utils/http.dart';
-import 'package:rivus_user/models/environment.dart';
-import 'package:rivus_user/views/message/state.dart';
+import 'package:sivo_venues/common/entities/entities.dart';
+import 'package:sivo_venues/common/entities/message.dart';
+import 'package:sivo_venues/common/store/store.dart';
+import 'package:sivo_venues/common/utils/firebase_messaging_handler.dart';
+import 'package:sivo_venues/common/utils/http.dart';
+import 'package:sivo_venues/models/environment.dart';
+import 'package:sivo_venues/views/message/state.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_storage/get_storage.dart';

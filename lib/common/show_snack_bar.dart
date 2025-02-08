@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rivus_user/constants/constants.dart';
+import 'package:sivo_venues/constants/constants.dart';
 import 'package:get/get.dart';
 
 void showCustomSnackBar(String message,

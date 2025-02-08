@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:rivus_user/common/app_style.dart';
-import 'package:rivus_user/common/reusable_text.dart';
-import 'package:rivus_user/controllers/order_controller.dart';
-import 'package:rivus_user/views/entrypoint.dart';
+import 'package:sivo_venues/common/app_style.dart';
+import 'package:sivo_venues/common/reusable_text.dart';
+import 'package:sivo_venues/controllers/order_controller.dart';
+import 'package:sivo_venues/views/entrypoint.dart';
 import 'package:get/get.dart';
 
 class PaymentFailed extends StatelessWidget {

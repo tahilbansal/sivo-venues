@@ -3,7 +3,7 @@
 import 'dart:convert';
 
 import 'package:geolocator/geolocator.dart';
-import 'package:rivus_user/models/environment.dart';
+import 'package:sivo_venues/models/environment.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
