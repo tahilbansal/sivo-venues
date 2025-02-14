@@ -26,7 +26,7 @@ class MessagePage extends StatelessWidget {
             "Message",
             style: TextStyle(
                 color: AppColors.primaryBackground,
-                fontSize: 18.sp,
+                fontSize: 18.sp.clamp(18,24),
                 fontWeight: FontWeight.w600),
           )),
       body: SafeArea(
@@ -48,7 +48,7 @@ class MessagePage extends StatelessWidget {
                     SizedBox(width: 8.0),
                     Text(
                       "Search...",
-                      style: TextStyle(color: Colors.grey, fontSize: 16.sp),
+                      style: TextStyle(color: Colors.grey, fontSize: 16.sp.clamp(16, 24)),
                     ),
                   ],
                 ),
@@ -75,7 +75,7 @@ class MessagePage extends StatelessWidget {
                     SizedBox(width: 2.0),
                     Text(
                       "Add Supplier >",
-                      style: TextStyle(color: kPrimary, fontSize: 16.sp, fontWeight: FontWeight.w600),
+                      style: TextStyle(color: kPrimary, fontSize: 16, fontWeight: FontWeight.w600),
                     ),
                   ],
                 ),

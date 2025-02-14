@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:sivo_venues/common/app_style.dart';
 import 'package:sivo_venues/constants/constants.dart';
 import 'package:sivo_venues/controllers/registration_controller.dart';
@@ -8,8 +10,6 @@ import 'package:sivo_venues/models/registration.dart';
 import 'package:sivo_venues/views/auth/widgets/email_textfield.dart';
 import 'package:sivo_venues/views/auth/widgets/password_field.dart';
 import 'package:sivo_venues/views/home/widgets/custom_btn.dart';
-import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({Key? key}) : super(key: key);
@@ -19,14 +19,12 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegistrationPageState extends State<RegistrationPage> {
-  late final TextEditingController _emailController = TextEditingController();
-  late final TextEditingController _passwordController =
-      TextEditingController();
-  late final TextEditingController _usernameController =
-      TextEditingController();
-
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
   final FocusNode _passwordFocusNode = FocusNode();
-  final _loginFormKey = GlobalKey<FormState>();
+  final _registrationFormKey = GlobalKey<FormState>();
+  final controller = Get.put(RegistrationController());
 
   @override
   void dispose() {
@@ -38,126 +36,104 @@ class _RegistrationPageState extends State<RegistrationPage> {
   }
 
   bool validateAndSave() {
-    final form = _loginFormKey.currentState;
+    final form = _registrationFormKey.currentState;
     if (form!.validate()) {
       form.save();
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(RegistrationController());
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        title: Container(
-          padding: EdgeInsets.only(top: 5.w),
-          height: 50.h,
-          child: Center(
-            child: Text(
-              "Rivus Family",
-              style: appStyle(24, kPrimary, FontWeight.bold),
+        title: Text(
+          "Sivo",
+          style: appStyle(30, kPrimary, FontWeight.bold),
+        ),
+        centerTitle: true,
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: Column(
+              children: [
+                SizedBox(height: 20.h),
+                Lottie.asset('assets/anime/delivery.json', height: 200.h),
+                SizedBox(height: 20.h),
+                Form(
+                  key: _registrationFormKey,
+                  child: Column(
+                    children: [
+                      _buildTextField(
+                        controller: _usernameController,
+                        hintText: "Username",
+                        icon: CupertinoIcons.person,
+                        keyboardType: TextInputType.text,
+                      ),
+                      SizedBox(height: 15.h),
+                      _buildTextField(
+                        controller: _emailController,
+                        hintText: "Email",
+                        icon: CupertinoIcons.mail,
+                        keyboardType: TextInputType.emailAddress,
+                      ),
+                      SizedBox(height: 15.h),
+                      PasswordField(
+                        controller: _passwordController,
+                        focusNode: _passwordFocusNode,
+                      ),
+                      SizedBox(height: 20.h),
+                      _buildRegisterButton(),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
         ),
       ),
-      body: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          SizedBox(
-            height: 30.h,
-          ),
-          Lottie.asset('assets/anime/delivery.json'),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Form(
-              key: _loginFormKey,
-              child: Column(
-                children: [
-                  //email
-                  EmailTextField(
-                    focusNode: _passwordFocusNode,
-                    hintText: "Username",
-                    controller: _usernameController,
-                    prefixIcon: Icon(
-                      CupertinoIcons.person,
-                      color: Theme.of(context).dividerColor,
-                      size: 20.h,
-                    ),
-                    keyboardType: TextInputType.text,
-                    onEditingComplete: () =>
-                        FocusScope.of(context).requestFocus(_passwordFocusNode),
-                  ),
-
-                  SizedBox(
-                    height: 15.h,
-                  ),
-
-                  EmailTextField(
-                    focusNode: _passwordFocusNode,
-                    hintText: "Email",
-                    controller: _emailController,
-                    prefixIcon: Icon(
-                      CupertinoIcons.mail,
-                      color: Theme.of(context).dividerColor,
-                      size: 20.h,
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-                    onEditingComplete: () =>
-                        FocusScope.of(context).requestFocus(_passwordFocusNode),
-                  ),
-
-                  SizedBox(
-                    height: 15.h,
-                  ),
-
-                  PasswordField(
-                    controller: _passwordController,
-                    focusNode: _passwordFocusNode,
-                  ),
-
-                  SizedBox(
-                    height: 6.h,
-                  ),
-
-                  SizedBox(
-                    height: 12.h,
-                  ),
-
-                  Obx(
-                    () => controller.isLoading
-                        ? const Center(
-                            child: CircularProgressIndicator.adaptive(
-                            backgroundColor: kPrimary,
-                            valueColor:
-                                AlwaysStoppedAnimation<Color>(kLightWhite),
-                          ))
-                        : CustomButton(
-                            btnHieght: 37.h,
-                            color: kPrimary,
-                            text: "R E G I S T E R",
-                            onTap: () {
-                              Registration model = Registration(
-                                  username: _usernameController.text,
-                                  email: _emailController.text,
-                                  password: _passwordController.text);
-
-                              String userdata = registrationToJson(model);
-
-                              controller.registration(userdata);
-                            }),
-                  )
-                ],
-              ),
-            ),
-          )
-        ],
-      ),
     );
   }
+
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String hintText,
+    required IconData icon,
+    required TextInputType keyboardType,
+  }) {
+    return EmailTextField(
+      hintText: hintText,
+      controller: controller,
+      prefixIcon: Icon(icon, color: kGrayLight, size: 20.sp.clamp(20,30)),
+      keyboardType: keyboardType,
+    );
+  }
+
+  Widget _buildRegisterButton() {
+    return Obx(() => controller.isLoading
+        ? CircularProgressIndicator(color: kPrimary)
+        : CustomButton(
+      btnHieght: 50.h,
+      color: kPrimary,
+      text: "REGISTER",
+      onTap: () {
+        if (validateAndSave()) {
+          Registration model = Registration(
+            username: _usernameController.text,
+            email: _emailController.text,
+            password: _passwordController.text,
+          );
+          String userdata = registrationToJson(model);
+          controller.registration(userdata);
+        }
+      },
+    ));
+  }
 }
+

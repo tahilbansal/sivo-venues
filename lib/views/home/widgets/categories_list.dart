@@ -24,63 +24,76 @@ class CategoriesWidget extends HookWidget {
     final hookResult = useFetchCategories();
     final categoryItems = hookResult.data;
     final isLoading = hookResult.isLoading;
-    final error = hookResult.error;
 
     return isLoading
         ? const CatergoriesShimmer()
-        : Container(
-            padding: const EdgeInsets.only(left: 12, top: 10),
-            height: 80,
-            child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: categoryItems?.length ?? 0,
-                itemBuilder: (context, index) {
-                  Categories category = categoryItems[index];
-                  return GestureDetector(
-                    onTap: () {
-                      if (categoryController.categoryValue == category.id) {
-                        categoryController.updateCategory = '';
-                        categoryController.updateTitle = '';
-                      } else if (category.value == 'more') {
-                        // Get.to(() => const AllCategories(),
-                        //     transition: Transition.fade,
-                        //     duration: const Duration(seconds: 1));
-                      } else {
-                        categoryController.updateCategory = category.id;
-                        categoryController.updateTitle = category.title;
-                      }
-                    },
-                    child: Obx(() => Container(
-                          margin: const EdgeInsets.only(right: 5),
-                          padding: const EdgeInsets.only(top: 4),
-                          width: width * 0.19,
-                          height: 84.h,
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: categoryController.categoryValue ==
-                                          category.id
-                                      ? kPrimary
-                                      : kOffWhite,
-                                  width: 0.5),
-                              borderRadius: BorderRadius.circular(12.r)),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                  height: 35,
-                                  child: CachedImageLoader(
-                                    image: category.imageUrl,
-                                    imageHeight: 35.w,
-                                    imageWidth: 35.w,
-                                  )),
-                              ReusableText(
-                                  text: category.title,
-                                  style:
-                                      appStyle(12, kDark, FontWeight.normal)),
-                            ],
-                          ),
-                        )),
-                  );
-                }),
-          );
+        : LayoutBuilder(
+      builder: (context, constraints) {
+        return Container(
+          padding: EdgeInsets.only(left: 12, top: 8),
+          height: 90.h,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: categoryItems?.length ?? 0,
+            itemBuilder: (context, index) {
+              Categories category = categoryItems[index];
+
+              return GestureDetector(
+                onTap: () {
+                  if (categoryController.categoryValue == category.id) {
+                    categoryController.updateCategory = '';
+                    categoryController.updateTitle = '';
+                  } else if (category.value == 'more') {
+                    // Get.to(() => const AllCategories(),
+                    //     transition: Transition.fade,
+                    //     duration: const Duration(seconds: 1));
+                  } else {
+                    categoryController.updateCategory = category.id;
+                    categoryController.updateTitle = category.title;
+                  }
+                },
+                child: Obx(
+                      () => AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    margin: EdgeInsets.only(right: 6.w),
+                    padding: EdgeInsets.symmetric(vertical: 5.h),
+                    width: 80.w,
+                    height: 90.h,
+                    decoration: BoxDecoration(
+                      color: categoryController.categoryValue == category.id
+                          ? kPrimary.withOpacity(0.1) // Highlight selected category
+                          : Colors.transparent,
+                      border: Border.all(
+                        color: categoryController.categoryValue == category.id
+                            ? kPrimary
+                            : kOffWhite,
+                        width: 0.8,
+                      ),
+                      borderRadius: BorderRadius.circular(12.r),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CachedImageLoader(
+                          image: category.imageUrl,
+                          imageHeight: 40.w.clamp(40, 50),
+                          imageWidth: 40.w.clamp(40, 50),
+                        ),
+                        SizedBox(height: 5.h),
+                        ReusableText(
+                          text: category.title,
+                          style: appStyle(12, kDark, FontWeight.w500),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        );
+      },
+    );
   }
 }

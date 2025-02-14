@@ -6,50 +6,49 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:sivo_venues/constants/constants.dart';
 import 'package:sivo_venues/controllers/cart_controller.dart';
 import 'package:sivo_venues/firebase_options.dart';
 import 'package:sivo_venues/models/environment.dart';
 import 'package:sivo_venues/services/notification_service.dart';
 import 'package:sivo_venues/views/auth/login_page.dart';
-import 'package:sivo_venues/views/auth/phone_verification.dart';
 import 'package:sivo_venues/views/auth/verification_page.dart';
 import 'package:sivo_venues/views/entrypoint.dart';
-import 'package:sivo_venues/views/home/home_page.dart';
 import 'package:sivo_venues/views/message/chat/index.dart';
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:sivo_venues/views/message/controller.dart';
 import 'package:sivo_venues/views/message/view.dart';
 import 'package:sivo_venues/views/orders/order_details_page.dart';
 import 'package:sivo_venues/views/orders/order_notification_details_page.dart';
-
 import 'common/routes/pages.dart';
 import 'controllers/contact_controller.dart';
-
 import 'controllers/counter_controller.dart';
 import 'controllers/login_controller.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 
 Future<dynamic> myBackgroundMessageHandler(RemoteMessage message) async {
   print("onBackground: ${message.notification?.title}/${message.notification?.body}/${message.notification?.titleLocKey}");
 }
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
+FlutterLocalNotificationsPlugin();
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  usePathUrlStrategy();
   await dotenv.load(fileName: Environment.fileName);
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await GetStorage.init();
+
   Get.put(CartController());
   Get.put(ContactController());
   Get.put(CounterController());
   Get.put(LoginController());
+
 
   if(!kIsWeb) {
     await NotificationService().initialize(flutterLocalNotificationsPlugin);
@@ -68,7 +67,7 @@ class MyApp extends StatelessWidget {
     Widget defaultHome;
     final box = GetStorage();
     String? token = box.read('token');
-    bool? verification = box.read("verificatio1n");
+    bool? verification = box.read("verification");
     /*return Scaffold(
       body: Container(
         child: Image.network("https://dbestech-code.oss-ap-southeast-1.aliyuncs.com/foodly_flutter/icons/fried%20rice.png?OSSAccessKeyId=LTAI5t8cUzUwGV1jf4n5JVfD&Expires=36001719651337&Signature=OLAAucrHwJmYVbU9FU1kLCjhCXE%3D"),
@@ -95,25 +94,40 @@ class MyApp extends StatelessWidget {
         builder: (context, child) {
           return GetMaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'Rivus Ordering App',
+            title: 'Sivo Ordering App',
             theme: ThemeData(
               scaffoldBackgroundColor: Color(kOffWhite.value),
               iconTheme: IconThemeData(color: Color(kDark.value)),
               primarySwatch: Colors.grey,
             ),
-            home: defaultHome,
+            // home: defaultHome,
+            initialRoute: _getInitialRoute(),
             navigatorKey: navigatorKey,
             getPages: AppPages.routes,
             routes: {
               '/order_notification_details_page': (context) =>
-                  const OrderNotificationDetailsPage(),
+              const OrderNotificationDetailsPage(),
               '/order_details_page': (context) =>
                   OrderDetailsPage(orderId: Get.parameters['orderId']!),
               '/chat': (context) => const ChatPage(),
-              // '/message': (context) => const MessagePage()
+              '/message': (context) => const MessagePage()
             },
           );
         }
-      );
+    );
+  }
+}
+
+String _getInitialRoute() {
+  final box = GetStorage();
+  String? token = box.read('token');
+  bool? verification = box.read("verification");
+
+  if (token == null) {
+    return '/login';
+  } else if (verification == false) {
+    return '/verification';
+  } else {
+    return '/';
   }
 }

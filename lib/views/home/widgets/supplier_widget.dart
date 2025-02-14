@@ -15,13 +15,15 @@ class SupplierWidget extends StatelessWidget {
       required this.title,
       required this.time,
       this.onTap,
-      required this.rating});
+      // required this.rating
+      });
+
 
   final String image;
   final String logo;
   final String title;
   final String time;
-  final String rating;
+  // final String rating;
   final void Function()? onTap;
 
   @override
@@ -119,9 +121,9 @@ class SupplierWidget extends StatelessWidget {
                         const SizedBox(
                           width: 10,
                         ),
-                        ReusableText(
-                            text: rating,
-                            style: appStyle(9, kGray, FontWeight.w500)),
+                        // ReusableText(
+                        //     text: rating,
+                        //     style: appStyle(9, kGray, FontWeight.w500)),
                       ],
                     ),
                   ],

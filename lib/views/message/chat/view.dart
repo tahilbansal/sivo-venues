@@ -39,16 +39,16 @@ class ChatPage extends GetView<ChatController> {
                   }
                 },
                 child: SizedBox(
-                  width: 44.w,
-                  height: 44.w,
+                  width: 44.w.clamp(44,52),
+                  height: 44.w.clamp(44,52),
                   child: CachedNetworkImage(
                     imageUrl: controller.state.to_avatar.value,
                     imageBuilder: (context, imageProvider) => Container(
-                      height: 44.w,
-                      width: 44.w,
+                      height: 44.w.clamp(44,52),
+                      width: 44.w.clamp(44,52),
                       margin: null,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(44.w)),
+                          borderRadius: BorderRadius.all(Radius.circular(44.w.clamp(44,52))),
                           image: DecorationImage(
                               image: imageProvider, fit: BoxFit.cover)),
                     ),
@@ -60,16 +60,16 @@ class ChatPage extends GetView<ChatController> {
               ),
             ),
             SizedBox(
-              width: 15.w,
+              width: 15.w.clamp(15,19),
             ),
             Container(
-              width: 180.w,
+              width: 180.w.clamp(180,240),
               padding: EdgeInsets.only(top: 0.w, bottom: 0.w, right: 0.w),
               child: Row(
                 children: [
                   SizedBox(
-                    width: 180.w,
-                    height: 44.w,
+                    width: 180.w.clamp(180,240),
+                    height: 44.w.clamp(44,52),
                     child: GestureDetector(
                       onTap: () {
                         if (controller.supplier.value != null) {
@@ -171,7 +171,6 @@ class ChatPage extends GetView<ChatController> {
                 // Start Order Bar
                 Positioned(
                   bottom: 52.h,
-                  // Position it just above the Send messages container
                   left: 0.w,
                   right: 0.w,
                   child: Obx(() {
@@ -183,8 +182,6 @@ class ChatPage extends GetView<ChatController> {
                             supplierId: controller.state.supplier_uid));
                       },
                       onGoToCart: () {
-                        // Get.to(() => SupplierCatalogPage(
-                        //     supplierId: controller.state.supplier_uid));
                         Get.to(() => CartPage(supplierId: controller.state.supplier_uid));
                       },
                     );
@@ -219,13 +216,13 @@ class ChatPage extends GetView<ChatController> {
                           ),
                         ),
                         Container(
-                          height: 30.h,
-                          width: 30.w,
+                          height: 30.h.clamp(30, 40),
+                          width: 30.w.clamp(30, 40),
                           margin: EdgeInsets.only(left: 5.w),
                           child: GestureDetector(
                             child: Icon(
                               Icons.photo_outlined,
-                              size: 35.w,
+                              size: 35.w.clamp(35, 45),
                               color: Colors.blue,
                             ),
                             onTap: () {

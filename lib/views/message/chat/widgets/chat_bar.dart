@@ -31,7 +31,7 @@ class ChatBar extends StatelessWidget {
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
-                  fontSize: 16.sp,
+                  fontSize: 16.sp.clamp(16, 22),
                 ),
               ),
               Icon(

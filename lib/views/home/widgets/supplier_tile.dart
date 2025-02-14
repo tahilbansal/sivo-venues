@@ -1,9 +1,6 @@
-// ignore_for_file: unnecessary_null_comparison
-
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:get/get.dart';
 import 'package:sivo_venues/common/app_style.dart';
 import 'package:sivo_venues/common/reusable_text.dart';
 import 'package:sivo_venues/common/show_snack_bar.dart';
@@ -12,161 +9,124 @@ import 'package:sivo_venues/controllers/contact_controller.dart';
 import 'package:sivo_venues/models/response_model.dart';
 import 'package:sivo_venues/models/suppliers.dart';
 import 'package:sivo_venues/views/supplier/suppliers_page.dart';
-import 'package:get/get.dart';
 
 class SupplierTile extends StatelessWidget {
   const SupplierTile({
-    super.key,
+    Key? key,
     required this.supplier,
-  });
+  }) : super(key: key);
 
   final Suppliers supplier;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Get.to(
-            () => SupplierPage(
-                  supplier: supplier,
-                ),
-            transition: Transition.native,
-            duration: const Duration(seconds: 1));
-      },
-      child: Stack(
-        clipBehavior: Clip.hardEdge,
-        children: [
-          Container(
-            margin: const EdgeInsets.only(bottom: 8),
-            height: 70,
-            width: width,
-            decoration: const BoxDecoration(
-                color: kOffWhite,
-                borderRadius: BorderRadius.all(Radius.circular(9))),
-            child: Container(
-              padding: const EdgeInsets.all(4),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(12)),
-                    child: Stack(
-                      children: [
-                        SizedBox(
-                            height: 70.h,
-                            width: 70.w,
-                            child: Image.network(
-                              supplier.imageUrl!,
-                              fit: BoxFit.cover,
-                            )),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      ReusableText(
-                          text: supplier.title!,
-                          style: appStyle(11, kDark, FontWeight.w400)),
-                      ReusableText(
-                          text: "Delivery time: ${supplier.time}",
-                          style: appStyle(9, kGray, FontWeight.w400)),
-                      SizedBox(
-                        width: width * 0.7,
-                        child: Text(supplier.coords.address,
-                            overflow: TextOverflow.ellipsis,
-                            style: appStyle(9, kGray, FontWeight.w400)),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                    ],
-                  )
-                ],
-              ),
+      onTap: () => Get.to(() => SupplierPage(supplier: supplier),
+          transition: Transition.native,
+          duration: const Duration(milliseconds: 300)),
+      child: Container(
+        margin: EdgeInsets.only(bottom: 8.h),
+        padding: EdgeInsets.all(8.w),
+        decoration: BoxDecoration(
+          color: kOffWhite,
+          borderRadius: BorderRadius.circular(12.r),
+          boxShadow: [
+            BoxShadow(
+              color: kGray.withOpacity(0.1),
+              blurRadius: 4,
+              offset: const Offset(0, 2),
             ),
-          ),
-          // Positioned(
-          //   right: 5,
-          //   top: 6.h,
-          //   child: Container(
-          //     width: 60.h,
-          //     height: 19.h,
-          //     decoration: BoxDecoration(
-          //         color: supplier.isAvailable == true ||
-          //                 supplier.isAvailable == null
-          //             ? kPrimary
-          //             : kSecondaryLight,
-          //         borderRadius: const BorderRadius.all(
-          //           Radius.circular(10),
-          //         )),
-          //     child: Center(
-          //       child: ReusableText(
-          //         text: supplier.isAvailable == null ||
-          //                 supplier.isAvailable == true
-          //             ? "OPEN"
-          //             : "CLOSED",
-          //         style: appStyle(12, kLightWhite, FontWeight.bold),
-          //       ),
-          //     ),
-          //   ),
-          // ),
-          Positioned(
-            right: 5,
-            top: 10.h,
-            child: Container(
-              width: 70.h,
-              height: 19.h,
-              decoration: const BoxDecoration(
-                  color: kPrimary,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10),
-                  )),
-              child: Center(
-                child: GestureDetector(
-                  onTap: () async {
-                    ResponseModel status = await Get.find<ContactController>().goChat(supplier);
-                    if (status.isSuccess == false) {
-                      showCustomSnackBar(status.message!, title: status.title!);
-                    }
-                  },
-                  child: ReusableText(
-                    text: "Chat",
-                    style: appStyle(13, kLightWhite, FontWeight.bold),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-              right: 80.h,
-              top: 10.h,
-              child: Container(
-                width: 19.h,
-                height: 19.h,
-                decoration: const BoxDecoration(
-                    color: kSecondary,
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                child: GestureDetector(
-                  onTap: () {},
-                  child: const Center(
-                    child: Icon(
-                      MaterialCommunityIcons.shopping_outline,
-                      size: 15,
-                      color: kLightWhite,
-                    ),
-                  ),
-                ),
-              ))
-        ],
+          ],
+        ),
+        child: Row(
+          children: [
+            _buildSupplierImage(),
+            SizedBox(width: 12.w),
+            Expanded(child: _buildSupplierInfo()),
+            _buildActionButtons(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSupplierImage() {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(12.r),
+      child: Image.network(
+        supplier.imageUrl!,
+        height: 70.h,
+        width: 70.w,
+        fit: BoxFit.cover,
+      ),
+    );
+  }
+
+  Widget _buildSupplierInfo() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ReusableText(
+          text: supplier.title!,
+          style: appStyle(14, kDark, FontWeight.w500),
+        ),
+        SizedBox(height: 4.h),
+        ReusableText(
+          text: "Delivery time: ${supplier.time}",
+          style: appStyle(12, kGray, FontWeight.w400),
+        ),
+        SizedBox(height: 4.h),
+        ReusableText(
+          text: supplier.coords.address,
+          style: appStyle(12, kGray, FontWeight.w400),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildActionButtons() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        _buildButton(
+          text: "Chat",
+          color: kPrimary,
+          onTap: () async {
+            ResponseModel status = await Get.find<ContactController>().goChat(supplier);
+            if (!status.isSuccess) {
+              showCustomSnackBar(status.message!, title: status.title!);
+            }
+          },
+        ),
+        // SizedBox(height: 8.h),
+        // _buildButton(
+        //   icon: Icons.shopping_cart_outlined,
+        //   color: kSecondary,
+        //   onTap: () {
+        //     // Implement shopping action
+        //   },
+        // ),
+      ],
+    );
+  }
+
+  Widget _buildButton({String? text, IconData? icon, required Color color, required VoidCallback onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(20.r),
+        ),
+        child: text != null
+            ? ReusableText(
+          text: text,
+          style: appStyle(12, kLightWhite, FontWeight.bold),
+        )
+            : Icon(icon, size: 18.sp, color: kLightWhite),
       ),
     );
   }
 }
+

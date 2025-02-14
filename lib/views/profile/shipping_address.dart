@@ -130,7 +130,7 @@ class _AddAddressState extends State<AddAddress> {
           position.latitude, position.longitude);
 
       // Extract address details
-      String address = '';
+      String address = "Location detected, but address not found";
       if (placemarks.isNotEmpty) {
         Placemark place = placemarks.first;
         address = '${place.name}, ${place.locality}, ${place.administrativeArea}, ${place.country}';

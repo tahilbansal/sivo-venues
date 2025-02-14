@@ -18,17 +18,17 @@ Widget ChatLeftItem(Msgcontent item) {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: 230.w, minHeight: 40.w),
+            constraints: BoxConstraints(maxWidth: 230.w.clamp(230, 360), minHeight: 40.w.clamp(40, 50)),
             child: Container(
-                margin: EdgeInsets.only(right: 10.w, top: 0.w),
+                margin: EdgeInsets.only(right: 10.w.clamp(10, 14), top: 0.w),
                 padding: EdgeInsets.only(
-                  top: 10.w,
-                  left: 10.w,
-                  right: 10.w,
+                  top: 10.w.clamp(10, 14),
+                  left: 10.w.clamp(10, 14),
+                  right: 10.w.clamp(10, 14),
                 ),
                 decoration: BoxDecoration(
                     color: kPrimary.withOpacity(0.5),
-                    borderRadius: BorderRadius.all(Radius.circular(10.w))),
+                    borderRadius: BorderRadius.all(Radius.circular(10.w.clamp(10, 14)))),
                 child: item.type == "text"
                     ? Text("${item.content}")
                     : item.type == "order"
@@ -39,10 +39,10 @@ Widget ChatLeftItem(Msgcontent item) {
                                 item.content ?? "",
                                 style: TextStyle(
                                   fontWeight: FontWeight.w500,
-                                  fontSize: 16.sp,
+                                  fontSize: 16.sp.clamp(16, 22),
                                 ),
                               ),
-                              SizedBox(height: 8.w),
+                              SizedBox(height: 8.w.clamp(8, 12)),
                               CustomButton(
                                 onTap: () {
                                   // Navigate to the order details page
@@ -55,7 +55,7 @@ Widget ChatLeftItem(Msgcontent item) {
                                 btnHieght: 34.h,
                                 text: "VIEW ORDER DETAILS",
                               ),
-                              SizedBox(height: 4.w),
+                              SizedBox(height: 4.w.clamp(4, 7)),
                             ],
                           )
                         : item.type == "invoice"
@@ -66,10 +66,10 @@ Widget ChatLeftItem(Msgcontent item) {
                                     "${item.content}",
                                     style: TextStyle(
                                       fontWeight: FontWeight.w500,
-                                      fontSize: 16.sp,
+                                      fontSize: 16.sp.clamp(16, 22),
                                     ),
                                   ),
-                                  SizedBox(height: 8.w),
+                                  SizedBox(height: 8.w.clamp(8, 12)),
                                   CustomButton(
                                     onTap: () {
                                       // Navigate to invoice page or perform action
@@ -81,7 +81,7 @@ Widget ChatLeftItem(Msgcontent item) {
                                     btnHieght: 34.h,
                                     text: "VIEW INVOICE",
                                   ),
-                                  SizedBox(height: 4.w),
+                                  SizedBox(height: 4.w.clamp(4, 7)),
                                 ],
                               )
                             : ConstrainedBox(

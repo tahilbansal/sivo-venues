@@ -42,7 +42,7 @@ class EmailTextField extends StatelessWidget {
           hintText: hintText,
           prefixIcon: prefixIcon,
           isDense: true,
-          contentPadding: const EdgeInsets.all(6),
+          contentPadding: const EdgeInsets.fromLTRB(14,9, 14, 9),
 
           hintStyle: appStyle(12, kGray, FontWeight.normal),
           // contentPadding: EdgeInsets.only(left: 24),

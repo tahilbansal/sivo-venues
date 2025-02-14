@@ -11,7 +11,19 @@ class AppRoutes {
   // me
   static const Me = '/me';
   //chat
-  static const Chat = '/chat';
+  static const Chat = '/chat/:chatId';
 
   static const Photoimgview = '/photoimgview';
+
+  static const login = '/login';
+
+  static const verification = '/verification';
+
+  static const Orders = '/orders';
+
+  static const OrderDetails = '/order/:orderId';
+
+  static const main = '/';
+
+  static const profile = '/profile';
 }

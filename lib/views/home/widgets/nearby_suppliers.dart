@@ -1,5 +1,3 @@
-// ignore_for_file: unused_local_variable
-
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,38 +17,40 @@ class NearbySuppliers extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final location = Get.put(UserLocationController());
-
     final hookResult = useFetchSuppliers();
     final suppliers = hookResult.data;
     final isLoading = hookResult.isLoading;
-    final error = hookResult.error;
-    //final refetch = hookResult.refetch;
 
-    return (isLoading || suppliers == null || suppliers.isEmpty)
-        ? const NearbyShimmer()
-        : Container(
-            padding: const EdgeInsets.only(left: 12, top: 10),
-            height: 210.h,
-            child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: suppliers?.length ?? 0,
-                itemBuilder: (context, index) {
-                  Suppliers supplier = suppliers[index];
-                  return SupplierWidget(
-                    image: supplier.imageUrl!,
-                    title: supplier.title!,
-                    time: supplier.time,
-                    logo: supplier.logoUrl!,
-                    rating: "${supplier.ratingCount} + reviews and ratings",
-                    onTap: () {
-                      location.setLocation(LatLng(
-                          supplier.coords.latitude, supplier.coords.longitude));
-                      Get.to(() => SupplierPage(
-                            supplier: supplier,
-                          ));
-                    },
-                  );
-                }),
-          );
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return (isLoading || suppliers == null || suppliers.isEmpty)
+            ? const NearbyShimmer()
+            : Container(
+          padding: EdgeInsets.only(left: 12.w, top: 10.h),
+          height: 210.h,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: suppliers?.length ?? 0,
+            itemBuilder: (context, index) {
+              Suppliers supplier = suppliers[index];
+              return SizedBox(
+                width: 300.w.clamp(300, 340),
+                child: SupplierWidget(
+                  image: supplier.imageUrl!,
+                  title: supplier.title!,
+                  time: supplier.time,
+                  logo: supplier.logoUrl!,
+                  onTap: () {
+                    location.setLocation(LatLng(
+                        supplier.coords.latitude, supplier.coords.longitude));
+                    Get.to(() => SupplierPage(supplier: supplier));
+                  },
+                ),
+              );
+            },
+          ),
+        );
+      },
+    );
   }
 }
