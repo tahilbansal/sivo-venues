@@ -247,7 +247,7 @@ class _AddAddressState extends State<AddAddress> {
         ],
       ),
       body: SizedBox(
-        height: hieght,
+        height: height,
         width: width,
         child: PageView(
           controller: _pageController,
@@ -260,7 +260,7 @@ class _AddAddressState extends State<AddAddress> {
             Container(
               color: kGrayLight,
               width: width,
-              height: hieght,
+              height: height,
               child: Stack(
                 children: [
                   GoogleMap(

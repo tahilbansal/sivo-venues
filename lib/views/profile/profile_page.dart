@@ -53,7 +53,7 @@ class ProfilePage extends HookWidget {
                   containerContent: Column(
                 children: [
                   Container(
-                    height: hieght * 0.06,
+                    height: height * 0.06,
                     decoration: const BoxDecoration(color: Colors.white),
                     child: Column(
                       children: [

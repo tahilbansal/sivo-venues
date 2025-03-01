@@ -97,7 +97,7 @@ class LoadingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      height: hieght,
+      height: height,
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
@@ -107,7 +107,7 @@ class LoadingWidget extends StatelessWidget {
         child: LottieBuilder.asset(
           "assets/anime/delivery.json",
           width: width,
-          height: hieght / 2,
+          height: height / 2,
         ),
       ),
     );

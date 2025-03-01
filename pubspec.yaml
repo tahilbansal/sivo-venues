@@ -72,6 +72,7 @@ dependencies:
 
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.13.1
   flutter_test:
     sdk: flutter
 
@@ -80,7 +81,6 @@ dev_dependencies:
 
 
 flutter:
-
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
@@ -90,3 +90,10 @@ flutter:
     - assets/icons/
     - .env.development
     - .env.production
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icons/sivo_logo_dark_bg.png"
+  adaptive_icon_background: "#0094ff"
+  adaptive_icon_foreground: "assets/icons/sivo_logo_dark_bg.png"

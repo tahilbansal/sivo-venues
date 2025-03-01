@@ -21,7 +21,7 @@ class ActiveOrders extends HookWidget {
     // controller.setOnStatusChangeCallback(refetch);
 
     return Container(
-      height: hieght / 1.3,
+      height: height / 1.3,
       width: width,
       color: kLightWhite,
       child: isLoading

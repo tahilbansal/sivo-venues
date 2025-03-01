@@ -197,7 +197,7 @@ class CheckoutPage extends HookWidget {
                       ),
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 12.w),
-                        height: 0.58 * hieght,
+                        height: 0.58 * height,
                         decoration: BoxDecoration(
                             color: kLightWhite,
                             borderRadius: BorderRadius.circular(18.r)),

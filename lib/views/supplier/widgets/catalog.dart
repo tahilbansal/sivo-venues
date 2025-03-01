@@ -38,7 +38,7 @@ class SupplierCatalog extends HookWidget {
       const ItemsListShimmer()
       : Container(
         padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10),
-        height: hieght * heightFactor,
+        height: height * heightFactor,
         child: ListView.builder(
           padding: const EdgeInsets.only(bottom: 80.0),
           itemCount: items?.length ?? 0,

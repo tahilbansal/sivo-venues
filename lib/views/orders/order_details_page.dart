@@ -47,7 +47,7 @@ class OrderDetailsPage extends StatelessWidget {
                     children: [
                       Container(
                         width: width,
-                        height: hieght / 4.2,
+                        height: height / 4.2,
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.r)),
                         child: Container(
                           padding: EdgeInsets.symmetric(horizontal: 12.w),
@@ -147,7 +147,7 @@ class OrderDetailsPage extends StatelessWidget {
                       ),
                       Container(
                         color: kLightWhite,
-                        height: 0.53 * hieght,
+                        height: 0.53 * height,
                         child: ListView.builder(
                           shrinkWrap: true,
                           itemCount: controller.order!.orderItems.length,

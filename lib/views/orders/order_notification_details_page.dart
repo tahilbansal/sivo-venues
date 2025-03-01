@@ -46,7 +46,7 @@ class OrderNotificationDetailsPage extends StatelessWidget {
                       ),
                       Container(
                         width: width,
-                        height: hieght / 5,
+                        height: height / 5,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20.r)),
                         child: Container(

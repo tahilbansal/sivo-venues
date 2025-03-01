@@ -44,7 +44,7 @@ class _PhoneVerificationPageState extends State<PhoneVerificationPage> {
           )
         : Container(
             width: width,
-            height: hieght,
+            height: height,
             color: kLightWhite,
             child: const Center(
               child: CircularProgressIndicator(

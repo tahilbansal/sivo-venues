@@ -30,12 +30,12 @@ class LoginRedirection extends StatelessWidget {
               children: [
                 Container(
                   width: width,
-                  height: hieght / 2,
+                  height: height / 2,
                   color: Colors.white,
                   child: LottieBuilder.asset(
                     "assets/anime/delivery.json",
                     width: width,
-                    height: hieght / 2,
+                    height: height / 2,
                   ),
                 ),
                 CustomButton(

@@ -49,13 +49,13 @@ class Addresses extends HookWidget {
                     : Container(
                         padding: EdgeInsets.symmetric(vertical: 40.h),
                         width: width,
-                        height: hieght,
+                        height: height,
                         child: AddressList(addresses: addresses),
                       ),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
-                    height: hieght * 0.08,
+                    height: height * 0.08,
                     padding: EdgeInsets.only(bottom: 20.0.h),
                     width: width,
                     color: Colors.transparent,

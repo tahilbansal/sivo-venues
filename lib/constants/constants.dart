@@ -2,12 +2,11 @@ import 'dart:ui';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-// String googleApiKey = 'AIzaSyBCOoQR2ovyrYRTPbqMAO5H0SHVeLfSjeY';
-// AIzaSyB4lViZNqNgOWIYse9C3MKxzgSSshF7St8
-
 const kPrimary = Color(0xFF30b9b2);
+const kPrimary_new = Color(0xFF0F1D40);
 const kPrimaryLight = Color(0xFF40F3EA);
 const kSecondary = Color(0xffffa44f);
+const kSecondary_new = Color(0xFF0094FF);
 const kSecondaryLight = Color(0xFFffe5db);
 const kTertiary = Color(0xff0078a6);
 const kGray = Color(0xff83829A);
@@ -18,11 +17,8 @@ const kDark = Color(0xff000000);
 const kRed = Color(0xffe81e4d);
 const kOffWhite = Color(0xffF3F4F8);
 
-double hieght = 825.h;
+double height = 825.h;
 double width = 375.w;
-
-// const String {Environment.appBaseUrl} = "https://foodlybackend-production-4026.up.railway.app";
-// const String {Environment.appBaseUrl} = "http://localhost:6003";
 
 final List<String> verificationReasons = [
   'Real-time Updates: Get instant notifications about your order status.',

@@ -38,7 +38,7 @@ class AllNearbySuppliers extends HookWidget {
           ? const ItemsListShimmer()
           : Container(
               padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
-              height: hieght,
+              height: height,
               child: ListView.builder(
                   padding: EdgeInsets.zero,
                   itemCount: suppliers?.length ?? 0,

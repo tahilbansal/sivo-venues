@@ -129,7 +129,7 @@ class _ClientOrderPageState extends State<ClientOrderPage>
         body: SafeArea(
           child: CustomContainer(
             containerContent: SizedBox(
-              height: hieght,
+              height: height,
               child: TabBarView(controller: _tabController, children: const [
                 PendingOrders(),
                 // PaidOrders(),

@@ -49,7 +49,7 @@ class Successful extends StatelessWidget {
             clipBehavior: Clip.none,
             children: [
               Container(
-                height: hieght * 0.3.h,
+                height: height * 0.3.h,
                 width: width - 40,
                 decoration: BoxDecoration(
                     color: kOffWhite,

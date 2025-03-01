@@ -123,7 +123,7 @@ class CartPage extends HookWidget {
                               padding: EdgeInsets.symmetric(
                                   horizontal: 12.w, vertical: 2.h),
                               width: width,
-                              height: 0.64 * hieght,
+                              height: 0.64 * height,
                               color: kOffWhite,
                               child: ListView.builder(
                                 padding: EdgeInsets.zero,

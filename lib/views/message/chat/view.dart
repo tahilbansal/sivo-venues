@@ -178,8 +178,10 @@ class ChatPage extends GetView<ChatController> {
                       hasItemsInCart: counterController
                           .hasSupplierItemCount(controller.state.supplier_uid),
                       onStartOrder: () {
-                        Get.to(() => SupplierCatalogPage(
-                            supplierId: controller.state.supplier_uid));
+                        if (controller.supplier.value != null) {
+                          Get.to(() =>
+                              SupplierPage(supplier: controller.supplier.value!));
+                        }
                       },
                       onGoToCart: () {
                         Get.to(() => CartPage(supplierId: controller.state.supplier_uid));

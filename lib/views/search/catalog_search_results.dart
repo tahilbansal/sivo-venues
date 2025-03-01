@@ -19,7 +19,7 @@ class CatalogSearchResults extends StatelessWidget {
           ? kLightWhite
           : Colors.white,
       padding: EdgeInsets.only(left: 12.w, top: 10.h, right: 12.w),
-      height: hieght,
+      height: height,
       child: searchController.itemsResults!.isNotEmpty
           ? ListView.builder(
           scrollDirection: Axis.vertical,
@@ -36,7 +36,7 @@ class CatalogSearchResults extends StatelessWidget {
           child: LottieBuilder.asset(
           "assets/anime/delivery.json",
           width: width,
-          height: hieght / 2,
+          height: height / 2,
         ),
       ),
     );

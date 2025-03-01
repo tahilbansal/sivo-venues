@@ -85,7 +85,7 @@ class OrderPage extends HookWidget {
                   //OrderTile(item: item),
                   Container(
                     width: width,
-                    height: hieght / 2.8,
+                    height: height / 2.8,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.r)),
                     child: Container(
