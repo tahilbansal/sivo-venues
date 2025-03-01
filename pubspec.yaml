@@ -94,6 +94,6 @@ flutter:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/icons/sivo_logo_dark_bg.png"
-  adaptive_icon_background: "#0094ff"
-  adaptive_icon_foreground: "assets/icons/sivo_logo_dark_bg.png"
+  image_path: "assets/icons/sivo_logo.png"
+  adaptive_icon_background: "#30b9b2"
+  adaptive_icon_foreground: "assets/icons/sivo_logo.png"
