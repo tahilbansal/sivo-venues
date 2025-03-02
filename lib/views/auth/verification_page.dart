@@ -28,7 +28,7 @@ class VerificationPage extends StatelessWidget {
           SizedBox(
             height: 100.h,
           ),
-          Lottie.asset('assets/anime/delivery.json'),
+          Lottie.asset('assets/anime/sivo_animation.json'),
           SizedBox(
             height: 30.h,
           ),

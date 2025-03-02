@@ -64,7 +64,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
             child: Column(
               children: [
                 SizedBox(height: 20.h),
-                Lottie.asset('assets/anime/delivery.json', height: 200.h),
+                Lottie.asset('assets/anime/sivo_animation.json', height: 200.h),
                 SizedBox(height: 20.h),
                 Form(
                   key: _registrationFormKey,

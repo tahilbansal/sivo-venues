@@ -257,7 +257,8 @@ class CartPage extends HookWidget {
                                   Get.to(() => CheckoutPage(
                                         supplierId: supplierId!,
                                         deliveryDate: selectedDate.value!,
-                                      ));
+                                      )
+                                  );
                                 } else {
                                   Get.snackbar(
                                     "Empty Cart",

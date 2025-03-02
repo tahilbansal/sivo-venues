@@ -57,7 +57,7 @@ class _LoginState extends State<Login> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Lottie.asset('assets/anime/delivery.json', height: 200.h),
+                      Lottie.asset('assets/anime/sivo_animation.json', height: 200.h),
                       SizedBox(height: 30.h),
                       _buildEmailField(),
                       SizedBox(height: 20.h),
