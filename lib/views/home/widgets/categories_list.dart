@@ -1,9 +1,10 @@
 // ignore_for_file: unused_local_variable
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+//import 'package:sivo_venues/views/categories/more_categories.dart';
+import 'package:get/get.dart';
 import 'package:sivo_venues/common/app_style.dart';
 import 'package:sivo_venues/common/cached_image_loader.dart';
 import 'package:sivo_venues/common/reusable_text.dart';
@@ -12,8 +13,6 @@ import 'package:sivo_venues/constants/constants.dart';
 import 'package:sivo_venues/controllers/category_controller.dart';
 import 'package:sivo_venues/hooks/fetchCategories.dart';
 import 'package:sivo_venues/models/categories.dart';
-//import 'package:sivo_venues/views/categories/more_categories.dart';
-import 'package:get/get.dart';
 
 class CategoriesWidget extends HookWidget {
   const CategoriesWidget({super.key});

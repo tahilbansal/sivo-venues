@@ -107,7 +107,7 @@ class LoadingWidget extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.only(bottom: 180.0.h),
         child: LottieBuilder.asset(
-          "assets/anime/delivery.json",
+          "assets/anime/sivo_animation.json",
           width: width,
           height: height / 2,
         ),

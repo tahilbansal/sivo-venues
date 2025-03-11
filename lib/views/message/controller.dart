@@ -1,18 +1,17 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:location/location.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:sivo_venues/common/entities/entities.dart';
 import 'package:sivo_venues/common/entities/message.dart';
-import 'package:sivo_venues/common/store/store.dart';
 import 'package:sivo_venues/common/utils/firebase_messaging_handler.dart';
 import 'package:sivo_venues/common/utils/http.dart';
 import 'package:sivo_venues/models/environment.dart';
 import 'package:sivo_venues/views/message/state.dart';
-import 'package:get/get.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:location/location.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 
 class MessageController extends GetxController {
   MessageController();

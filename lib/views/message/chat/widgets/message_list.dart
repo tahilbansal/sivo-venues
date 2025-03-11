@@ -46,7 +46,7 @@ class MessageList extends GetView<MessageController> {
                     height: 54.w.clamp(54, 62),
                     fit: BoxFit.cover,
                     errorWidget: (context, url, error) =>
-                        Image.asset('assets/images/feature-1.png', width: 54.w.clamp(54, 62), height: 54.w.clamp(54, 62)),
+                        Image.asset('assets/images/sivo_logo.png', width: 54.w.clamp(54, 62), height: 54.w.clamp(54, 62)),
                   ),
                 ),
                 if (counterController.hasSupplierItemCount(item.supplier_uid ?? ""))

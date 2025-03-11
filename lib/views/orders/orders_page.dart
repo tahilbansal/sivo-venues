@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:sivo_venues/common/app_style.dart';
 import 'package:sivo_venues/common/back_ground_container.dart';
 import 'package:sivo_venues/common/divida.dart';
@@ -20,10 +21,8 @@ import 'package:sivo_venues/services/distance.dart';
 import 'package:sivo_venues/views/auth/phone_verification.dart';
 import 'package:sivo_venues/views/home/widgets/custom_btn.dart';
 import 'package:sivo_venues/views/orders/payment.dart';
-import 'package:sivo_venues/views/orders/widgets/order_tile.dart';
 import 'package:sivo_venues/views/profile/shipping_address.dart';
 import 'package:sivo_venues/views/supplier/suppliers_page.dart';
-import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class OrderPage extends HookWidget {

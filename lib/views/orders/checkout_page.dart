@@ -68,20 +68,24 @@ class CheckoutPage extends HookWidget {
     List<CartItem> cartItems = [];
     double grandTotal = 0.0;
 
-    DistanceTime distanceTime;
+    DistanceTime? distanceTime;
 
     if (supplier != null) {
       Get.find<ContactController>().state.ownerId.value = supplier.owner;
       loadChatData();
-
-      distanceTime = Distance().calculateDistanceTimePrice(
-        controller.defaultAddress!.latitude,
-        controller.defaultAddress!.longitude,
-        supplier.coords.latitude,
-        supplier.coords.longitude,
-        10,
-        2.00,
-      );
+      if (controller.defaultAddress != null) {
+        distanceTime = Distance().calculateDistanceTimePrice(
+          controller.defaultAddress!.latitude,
+          controller.defaultAddress!.longitude,
+          supplier.coords.latitude,
+          supplier.coords.longitude,
+          10,
+          2.00,
+        );
+      }
+      else{
+        distanceTime = DistanceTime(distance: 0, time: 0, price: 0.0);
+      }
     } else {
       return Center(child: CircularProgressIndicator());
     }
@@ -236,7 +240,7 @@ class CheckoutPage extends HookWidget {
                                         width,
                                         grandTotal,
                                         grandPriceDelivery,
-                                        distanceTime,
+                                        distanceTime!,
                                         controller),
                                   ),
                                 );
@@ -308,14 +312,9 @@ class CheckoutPage extends HookWidget {
                                                       controller.defaultAddress!
                                                           .longitude
                                                     ],
-                                                    deliveryFee: distanceTime
-                                                        .price
-                                                        .toStringAsFixed(2),
-                                                    grandTotal:
-                                                        grandPriceDelivery
-                                                            .toStringAsFixed(2),
-                                                    deliveryAddress: controller
-                                                        .defaultAddress!.id,
+                                                    deliveryFee: distanceTime!.price.toStringAsFixed(2),
+                                                    grandTotal: grandPriceDelivery.toStringAsFixed(2),
+                                                    deliveryAddress: controller.defaultAddress!.id,
                                                     deliveryDate: deliveryDate,
                                                     paymentMethod: "STRIPE",
                                                     supplierId: supplier.id!);

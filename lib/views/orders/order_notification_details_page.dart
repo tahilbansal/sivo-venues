@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:sivo_venues/common/app_style.dart';
 import 'package:sivo_venues/common/back_ground_container.dart';
 import 'package:sivo_venues/common/divida.dart';
@@ -12,7 +13,6 @@ import 'package:sivo_venues/constants/constants.dart';
 import 'package:sivo_venues/controllers/notifications_controller.dart';
 import 'package:sivo_venues/views/orders/widgets/order_page_tile.dart';
 import 'package:sivo_venues/views/supplier/suppliers_page.dart';
-import 'package:get/get.dart';
 
 class OrderNotificationDetailsPage extends StatelessWidget {
   const OrderNotificationDetailsPage({super.key});

@@ -28,7 +28,7 @@ class SupplierTile extends StatelessWidget {
         margin: EdgeInsets.only(bottom: 8.h),
         padding: EdgeInsets.all(8.w),
         decoration: BoxDecoration(
-          color: kOffWhite,
+          color: kLightWhite,
           borderRadius: BorderRadius.circular(12.r),
           boxShadow: [
             BoxShadow(

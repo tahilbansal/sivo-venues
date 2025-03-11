@@ -1,15 +1,13 @@
-import 'package:sivo_venues/common/app_style.dart';
-import 'package:sivo_venues/common/search_bar.dart';
-import 'package:sivo_venues/common/search_results_page.dart';
-import 'package:sivo_venues/common/values/colors.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:sivo_venues/common/search_results_page.dart';
+import 'package:sivo_venues/common/values/colors.dart';
 import 'package:sivo_venues/constants/constants.dart';
 import 'package:sivo_venues/views/message/index.dart';
 import 'package:sivo_venues/views/search/seach_page.dart';
+
 import 'chat/widgets/message_list.dart';
-import 'package:get/get.dart';
 
 class MessagePage extends StatelessWidget {
   const MessagePage({Key? key}) : super(key: key);

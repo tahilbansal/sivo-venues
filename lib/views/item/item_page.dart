@@ -1,12 +1,13 @@
 import 'dart:convert';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
-import 'package:sivo_venues/common/address_modal.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:sivo_venues/common/app_style.dart';
-import 'package:sivo_venues/common/custom_textfield.dart';
 import 'package:sivo_venues/common/not_found.dart';
 import 'package:sivo_venues/common/reusable_text.dart';
 import 'package:sivo_venues/common/show_snack_bar.dart';
@@ -16,21 +17,12 @@ import 'package:sivo_venues/controllers/contact_controller.dart';
 import 'package:sivo_venues/controllers/counter_controller.dart';
 import 'package:sivo_venues/controllers/item_controller.dart';
 import 'package:sivo_venues/hooks/fetchSupplier.dart';
-import 'package:sivo_venues/models/cart_request.dart';
 import 'package:sivo_venues/models/items.dart';
-import 'package:sivo_venues/models/order_item.dart';
 import 'package:sivo_venues/models/response_model.dart';
-import 'package:sivo_venues/models/user_cart.dart';
-import 'package:sivo_venues/views/auth/login_page.dart';
 import 'package:sivo_venues/views/auth/phone_verification.dart';
 import 'package:sivo_venues/views/cart/widgets/cart_bar.dart';
 import 'package:sivo_venues/views/home/widgets/custom_btn.dart';
-import 'package:sivo_venues/views/message/chat/index.dart';
-import 'package:sivo_venues/views/message/index.dart';
-import 'package:sivo_venues/views/orders/orders_page.dart';
 import 'package:sivo_venues/views/supplier/suppliers_page.dart';
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 class ItemPage extends StatefulHookWidget {
   const ItemPage({

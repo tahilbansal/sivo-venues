@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sivo_venues/common/app_style.dart';
 import 'package:sivo_venues/common/divida.dart';
 import 'package:sivo_venues/common/reusable_text.dart';
@@ -15,10 +19,6 @@ import 'package:sivo_venues/models/suppliers.dart';
 import 'package:sivo_venues/services/distance.dart';
 import 'package:sivo_venues/views/home/widgets/custom_btn.dart';
 import 'package:sivo_venues/views/supplier/suppliers_page.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class DirectionsPage extends StatefulWidget {
   const DirectionsPage({super.key, required this.supplier});

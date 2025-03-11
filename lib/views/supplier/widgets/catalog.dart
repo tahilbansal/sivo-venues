@@ -7,7 +7,6 @@ import 'package:sivo_venues/controllers/item_controller.dart';
 import 'package:sivo_venues/hooks/fetchSupplierCatalog.dart';
 import 'package:sivo_venues/models/items.dart';
 import 'package:sivo_venues/views/item/widgets/item_tile.dart';
-import 'package:sivo_venues/controllers/counter_controller.dart';
 
 class SupplierCatalog extends HookWidget {
   const SupplierCatalog({

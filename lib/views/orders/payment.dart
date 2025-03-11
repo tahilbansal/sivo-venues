@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sivo_venues/controllers/order_controller.dart';
 import 'package:sivo_venues/views/orders/payments/failed.dart';
 import 'package:sivo_venues/views/orders/payments/successful.dart';
-import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_android/webview_flutter_android.dart';
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
