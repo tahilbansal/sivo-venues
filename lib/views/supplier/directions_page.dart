@@ -220,24 +220,24 @@ class _DirectionsPageState extends State<DirectionsPage> {
                     ),
                     const Divida(),
                     RowText(
-                        first: "Distance To Restaurant",
+                        first: "Supplier's Distance",
                         second:
                             "${distanceTime.distance.toStringAsFixed(3)} km"),
                     SizedBox(
                       height: 5.h,
                     ),
-                    RowText(
-                        first: "Price From Current Location",
-                        second: "\$ ${distanceTime.price.toStringAsFixed(3)}"),
-                    SizedBox(
-                      height: 5.h,
-                    ),
-                    RowText(
-                        first: "Estimated Delivery Time",
-                        second: "${totalTime.toStringAsFixed(0)} mins"),
-                    SizedBox(
-                      height: 5.h,
-                    ),
+                    // RowText(
+                    //     first: "Price From Current Location",
+                    //     second: "\₹ ${distanceTime.price.toStringAsFixed(3)}"),
+                    // SizedBox(
+                    //   height: 5.h,
+                    // ),
+                    // RowText(
+                    //     first: "Estimated Delivery Time",
+                    //     second: "${totalTime.toStringAsFixed(0)} mins"),
+                    // SizedBox(
+                    //   height: 5.h,
+                    // ),
                     RowText(
                         first: "Business Hours", second: widget.supplier.time),
                     SizedBox(
@@ -254,7 +254,7 @@ class _DirectionsPageState extends State<DirectionsPage> {
                       color: kPrimary,
                       btnHieght: 35,
                       radius: 6,
-                      text: "Make a reservation",
+                      text: "Contact Supplier",
                     )
                   ],
                 ),

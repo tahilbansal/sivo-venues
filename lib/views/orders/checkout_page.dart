@@ -246,8 +246,7 @@ class CheckoutPage extends HookWidget {
                                 );
                               },
                               child: Text("View Bill Details",
-                                  style:
-                                      appStyle(14, kPrimary, FontWeight.w500)),
+                                  style: appStyle(14, kPrimary, FontWeight.w500)),
                             ),
                             SizedBox(height: 5.h),
                             Row(
@@ -255,7 +254,7 @@ class CheckoutPage extends HookWidget {
                               children: [
                                 ReusableText(
                                   text:
-                                      "₹${grandPriceDelivery.toStringAsFixed(2)}",
+                                      "₹${grandTotal.toStringAsFixed(2)}",
                                   style: appStyle(18, kDark, FontWeight.bold),
                                 ),
                                 SizedBox(width: 16),
@@ -269,7 +268,7 @@ class CheckoutPage extends HookWidget {
                                           color: kPrimary,
                                           btnWidth: width * 0.95,
                                           btnHieght: 34.h,
-                                          text: "Add  Default Address",
+                                          text: "Add Default Address",
                                         )
                                       : orderController.isLoading
                                           ? const CircularProgressIndicator
@@ -281,46 +280,37 @@ class CheckoutPage extends HookWidget {
                                           : CustomButton(
                                               onTap: () {
                                                 // Convert cartItems to orderItems
-                                                List<OrderItem> orderItems =
-                                                    cartItems.map((cartItem) {
+                                                List<OrderItem> orderItems = cartItems.map((cartItem) {
                                                   return OrderItem(
-                                                    itemId:
-                                                        cartItem.productId.id,
-                                                    quantity: cartItem.quantity
-                                                        .toString(),
-                                                    price: cartItem.totalPrice
-                                                        .toString(),
+                                                    itemId: cartItem.productId.id,
+                                                    quantity: cartItem.quantity.toString(),
+                                                    price: cartItem.totalPrice.toString(),
                                                     additives: [],
                                                     instructions: '',
                                                   );
                                                 }).toList();
                                                 Order order = Order(
-                                                    userId: controller
-                                                        .defaultAddress!.userId,
+                                                    userId: controller.defaultAddress!.userId,
                                                     orderItems: orderItems,
-                                                    orderTotal: grandTotal
-                                                        .toStringAsFixed(2),
-                                                    supplierAddress:
-                                                        supplier.coords.address,
+                                                    orderTotal: grandTotal.toStringAsFixed(2),
+                                                    supplierAddress: supplier.coords.address,
                                                     supplierCoords: [
                                                       supplier.coords.latitude,
                                                       supplier.coords.longitude
                                                     ],
                                                     recipientCoords: [
-                                                      controller.defaultAddress!
-                                                          .latitude,
-                                                      controller.defaultAddress!
-                                                          .longitude
+                                                      controller.defaultAddress!.latitude,
+                                                      controller.defaultAddress!.longitude
                                                     ],
-                                                    deliveryFee: distanceTime!.price.toStringAsFixed(2),
-                                                    grandTotal: grandPriceDelivery.toStringAsFixed(2),
+                                                    // deliveryFee: distanceTime!.price.toStringAsFixed(2),
+                                                    deliveryFee: '0.0',
+                                                    grandTotal: grandTotal.toStringAsFixed(2),
                                                     deliveryAddress: controller.defaultAddress!.id,
                                                     deliveryDate: deliveryDate,
                                                     paymentMethod: "STRIPE",
                                                     supplierId: supplier.id!);
 
-                                                String orderData =
-                                                    orderToJson(order);
+                                                String orderData = orderToJson(order);
 
                                                 orderController.order = order;
 

@@ -29,10 +29,12 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:glass/glass.dart';
 import 'package:sivo_venues/views/supplier/widgets/catalog_search.dart';
+import 'package:sivo_venues/views/supplier/widgets/filter_categories_model.dart';
 import 'package:sivo_venues/views/supplier/widgets/my_catalog.dart';
 import 'package:sivo_venues/views/supplier/widgets/top_bar.dart';
 
 import '../../controllers/counter_controller.dart';
+import '../../controllers/item_controller.dart';
 import '../cart/widgets/cart_bar.dart';
 import 'directions_page.dart';
 
@@ -46,6 +48,7 @@ class SupplierPage extends StatefulWidget {
 }
 
 class _SupplierPageState extends State<SupplierPage> with TickerProviderStateMixin {
+  final scrollToCategoryNotifier = ValueNotifier<String?>(null);
   late TabController _tabController = TabController(
     length: 2,
     vsync: this,
@@ -258,13 +261,31 @@ class _SupplierPageState extends State<SupplierPage> with TickerProviderStateMix
                       blurY: 8),
                 ),
                 const SizedBox(height: 4),
-                catalogSearchBar(supplierId: widget.supplier.id!),
+                Row(
+                  children: [
+                    Expanded(child: catalogSearchBar(supplierId: widget.supplier.id!)),
+                    IconButton(
+                      icon: Icon(Icons.filter_list),
+                      onPressed: () async {
+                        final selectedCategory = await showModalBottomSheet<String?>(
+                          context: context,
+                          builder: (context) => const FilterCategoriesModal(),
+                        );
+
+                        // Update the notifier to scroll to the selected category
+                        if (selectedCategory != null) {
+                          scrollToCategoryNotifier.value = selectedCategory;
+                        }
+                      },
+                    ),
+                  ],
+                ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height / 1.3,
                   child: TabBarView(
                     controller: _tabController,
                     children: [
-                      SupplierCatalog(supplierId: widget.supplier.id!, heightFactor: 0.62),
+                      SupplierCatalog(supplierId: widget.supplier.id!, heightFactor: 0.62, scrollToCategory: scrollToCategoryNotifier,),
                       MyCatalog(supplierId: widget.supplier.id!),
                     ],
                   ),

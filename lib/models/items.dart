@@ -14,9 +14,10 @@ class Item {
   final String description;
   final double? price;
   final List<String>? imageUrl;
-  final int v;
+  final int? v;
   final String? unit;
   final String category;
+  final String? categoryName;
 
   Item({
     required this.id,
@@ -28,9 +29,10 @@ class Item {
     required this.description,
     required this.price,
     required this.imageUrl,
-    required this.v,
+    this.v,
     required this.category,
-    this.unit
+    this.unit,
+    this.categoryName
   });
 
   factory Item.fromJson(Map<String, dynamic> json) => Item(
@@ -45,7 +47,8 @@ class Item {
         imageUrl: List<String>.from(json["imageUrl"].map((x) => x)),
         v: json["__v"],
         category: json["category"],
-        unit: json["unit"]
+        unit: json["unit"],
+        categoryName: json["categoryName"]
       );
 
   Map<String, dynamic> toJson() => {

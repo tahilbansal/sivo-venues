@@ -163,9 +163,6 @@ class ContactController extends GetxController {
     }
     final decodedUserId = jsonDecode(userId).toString();
     final ownerId = state.ownerId.value;
-    print("Raw user id from storage: $userId");
-    print("Decoded user id: $decodedUserId");
-    print("owner id : $ownerId");
     state.contactList.clear();
     // Query the Firestore collection
     var usersbase = await db

@@ -15,6 +15,8 @@ class ItemController extends GetxController {
   List<String> ads = [];
   var currentPage = 0.obs;
   var wishlistItems = <Item>[].obs;
+  final RxList<Item> supplierItems = <Item>[].obs;
+  final RxBool isCatalogLoading = false.obs;
 
   void updatePage(int index) {
     currentPage.value = index;
@@ -148,5 +150,31 @@ class ItemController extends GetxController {
     } catch (error) {
       print("Error removing from wishlist: $error");
     }
+  }
+
+  // Fetch all items for supplier
+  Future<void> fetchAllItems(String supplierId) async {
+    isCatalogLoading.value = true;
+    try {
+      final response = await http.get(
+        Uri.parse('${Environment.appBaseUrl}/api/supplier-items?supplierId=$supplierId'),
+      );
+      if (response.statusCode == 200) {
+        final List<dynamic> itemsJson = jsonDecode(response.body)['items'];
+        supplierItems.value = itemsJson.map((e) => Item.fromJson(e)).toList();
+      } else {
+        print('Error fetching items: ${response.body}');
+      }
+    } catch (e) {
+      print('Error: $e');
+    } finally {
+      isCatalogLoading.value = false;
+    }
+  }
+
+  // Filter by category
+  void fetchItemsByCategory(String supplierId, String categoryId) {
+    final filteredItems = supplierItems.where((item) => item.category == categoryId).toList();
+    supplierItems.value = filteredItems;
   }
 }

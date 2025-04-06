@@ -43,7 +43,7 @@ Widget buildBillDetails(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: const [
             Text(
-              "(Rivus does not guarantee the accuracy of prices)",
+              "(Sivo does not guarantee the accuracy of prices)",
               style: TextStyle(fontSize: 11, color: kGray),
               softWrap: true,
             ),
@@ -54,10 +54,12 @@ Widget buildBillDetails(
         SizedBox(height: 5.h),
         RowText(
           first: controller.defaultAddress == null ? "Delivery Fee To Current Location" : "Delivery Fee",
-          second: "\₹ ${distanceTime.price.toStringAsFixed(2)}",
+          // second: "\₹ ${distanceTime.price.toStringAsFixed(2)}",
+          second: "\₹ 0",
         ),
         SizedBox(height: 5.h),
-        RowText(first: "Estimated Order Total", second: "\₹ ${grandPriceDelivery.toStringAsFixed(2)}"),
+        // RowText(first: "Estimated Order Total", second: "\₹ ${grandPriceDelivery.toStringAsFixed(2)}"),
+        RowText(first: "Estimated Order Total", second: "\₹ ${grandTotal.toStringAsFixed(2)}"),
         SizedBox(height: 5.h),
         const Divida(),
         SizedBox(height: 5.h),
