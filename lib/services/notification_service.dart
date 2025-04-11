@@ -40,7 +40,8 @@ class NotificationService {
       sound: true,
     );
 
-    final token = await _messaging.getAPNSToken();
+    final token = await _messaging.getToken();
+    // final token = await _messaging.getAPNSToken();
     print("FCM Token: $token");
     if (token != null) {
       controller.setFcm = token;
@@ -90,10 +91,10 @@ class NotificationService {
     );
     AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails(
-      'channel_id_5', 'foodly_flutter', importance: Importance.high,
+      'channel_id_5', 'sivo_flutter', importance: Importance.high,
       styleInformation: bigTextStyleInformation, priority: Priority.high,
       playSound: true,
-      //sound: RawResourceAndroidNotificationSound('notification'),
+      sound: RawResourceAndroidNotificationSound('notification'),
     );
     NotificationDetails platformChannelSpecifics =
         NotificationDetails(android: androidPlatformChannelSpecifics);

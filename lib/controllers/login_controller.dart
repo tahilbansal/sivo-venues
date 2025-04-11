@@ -59,8 +59,8 @@ class LoginController extends GetxController {
         box.write("verification", data.verification);
 
         // Force reload messages after login
-        // await messageController.asyncLoadMsgData();
-        messageController.reset();
+        await messageController.asyncLoadMsgData();
+        // messageController.reset();
 
         print("my token is ${json.encode(data.userToken)}");
         if (data.phoneVerification == true) {
