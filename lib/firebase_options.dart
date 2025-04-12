@@ -41,48 +41,49 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDa12MRCZSQUlNCg9hcy3XGm9Dk1AWC07Y',
-    appId: '1:615943697958:web:a4171a969ee78012b618e7',
-    messagingSenderId: '615943697958',
-    projectId: 'rivus-flutter',
-    authDomain: 'rivus-flutter.firebaseapp.com',
-    storageBucket: 'rivus-flutter.appspot.com',
-    measurementId: 'G-SQ1BE51PK1',
+    apiKey: 'AIzaSyAH7PpqwgjpIqxfC9z1UQW-TjFyAZtNQWo',
+    appId: '1:490259590896:web:045590873e7ea4ecb95c35',
+    messagingSenderId: '490259590896',
+    projectId: 'sivo-in',
+    authDomain: 'sivo-in.firebaseapp.com',
+    storageBucket: 'sivo-in.firebasestorage.app',
+    measurementId: 'G-DD98FHZ2QS',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBJOqotLOzD1wh0lCbT9O0XX2Ncb_ss23g',
-    appId: '1:615943697958:android:8b886e1a8d916a63b618e7',
-    messagingSenderId: '615943697958',
-    projectId: 'rivus-flutter',
-    storageBucket: 'rivus-flutter.appspot.com',
+    apiKey: 'AIzaSyAt_cAT5z3tCoTpxEJpX0Fil6POcNkSuwg',
+    appId: '1:490259590896:android:4704587f3ad38f12b95c35',
+    messagingSenderId: '490259590896',
+    projectId: 'sivo-in',
+    storageBucket: 'sivo-in.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAw4WxJkuUuAktl_p0YymazRLty3HHQCRQ',
-    appId: '1:615943697958:ios:da095574133bdcc8b618e7',
-    messagingSenderId: '615943697958',
-    projectId: 'rivus-flutter',
-    storageBucket: 'rivus-flutter.appspot.com',
+    apiKey: 'AIzaSyD_RT9einY6N9szAFOWjFUxy0DNDB-LXN4',
+    appId: '1:490259590896:ios:daaf329da79b797eb95c35',
+    messagingSenderId: '490259590896',
+    projectId: 'sivo-in',
+    storageBucket: 'sivo-in.firebasestorage.app',
     iosBundleId: 'com.example.rivusUser',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAw4WxJkuUuAktl_p0YymazRLty3HHQCRQ',
-    appId: '1:615943697958:ios:da095574133bdcc8b618e7',
-    messagingSenderId: '615943697958',
-    projectId: 'rivus-flutter',
-    storageBucket: 'rivus-flutter.appspot.com',
+    apiKey: 'AIzaSyD_RT9einY6N9szAFOWjFUxy0DNDB-LXN4',
+    appId: '1:490259590896:ios:daaf329da79b797eb95c35',
+    messagingSenderId: '490259590896',
+    projectId: 'sivo-in',
+    storageBucket: 'sivo-in.firebasestorage.app',
     iosBundleId: 'com.example.rivusUser',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyDa12MRCZSQUlNCg9hcy3XGm9Dk1AWC07Y',
-    appId: '1:615943697958:web:9e5ed9014a177a2db618e7',
-    messagingSenderId: '615943697958',
-    projectId: 'rivus-flutter',
-    authDomain: 'rivus-flutter.firebaseapp.com',
-    storageBucket: 'rivus-flutter.appspot.com',
-    measurementId: 'G-5X1QWYQ718',
+    apiKey: 'AIzaSyAH7PpqwgjpIqxfC9z1UQW-TjFyAZtNQWo',
+    appId: '1:490259590896:web:ed1c2f734855945bb95c35',
+    messagingSenderId: '490259590896',
+    projectId: 'sivo-in',
+    authDomain: 'sivo-in.firebaseapp.com',
+    storageBucket: 'sivo-in.firebasestorage.app',
+    measurementId: 'G-Y54K9K3R8T',
   );
+
 }

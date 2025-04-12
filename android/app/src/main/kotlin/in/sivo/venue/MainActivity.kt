@@ -1,4 +1,4 @@
-package com.example.rivus_user
+package `in`.sivo.venue
 
 import io.flutter.embedding.android.FlutterActivity
 

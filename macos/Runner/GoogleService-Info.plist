@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyAw4WxJkuUuAktl_p0YymazRLty3HHQCRQ</string>
+	<string>AIzaSyD_RT9einY6N9szAFOWjFUxy0DNDB-LXN4</string>
 	<key>GCM_SENDER_ID</key>
-	<string>615943697958</string>
+	<string>490259590896</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.example.rivusUser</string>
 	<key>PROJECT_ID</key>
-	<string>rivus-flutter</string>
+	<string>sivo-in</string>
 	<key>STORAGE_BUCKET</key>
-	<string>rivus-flutter.appspot.com</string>
+	<string>sivo-in.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:615943697958:ios:da095574133bdcc8b618e7</string>
+	<string>1:490259590896:ios:daaf329da79b797eb95c35</string>
 </dict>
 </plist>

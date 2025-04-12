@@ -37,6 +37,10 @@ app.*.symbols
 # Obfuscation related
 app.*.map.json
 
+# Keystore files
+android/key.properties
+android/app/my-key.jks
+
 # Android Studio will place build artifacts here
 /android/app/debug
 /android/app/profile

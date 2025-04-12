@@ -381,7 +381,7 @@ class ChatController extends GetxController {
       return;
     }
     var url =
-        Uri.parse('${Environment.appBaseUrl}/api/restaurant/messagesByRes/');
+        Uri.parse('${Environment.appBaseUrl}/api/supplier/messagesByRes/');
     var IosNotification = {
       "data": {
         "doc_id": "${doc_id}",
@@ -404,14 +404,14 @@ class ChatController extends GetxController {
     var AndroidNotification = {
       "data": {
         "doc_id": "${doc_id}",
-        "to_uid": "${from_uid}",
-        "to_name": "${"Ahmed"}",
-        "to_avatar": "${"cool"}"
+        "to_uid": "${to_uid}",
+        "to_name": "${user_profile?.username}",
+        "to_avatar": "${user_profile?.profile}"
       },
       "notification": {
         "body": body,
         "title": title,
-        "android_channel_id": "com.dbestech.letschat1",
+        "android_channel_id": "in.sivo.venue",
         "sound": "default",
       },
       "to": token
@@ -421,18 +421,18 @@ class ChatController extends GetxController {
     String AndroidNotificationJson = jsonEncode(AndroidNotification);
     var notificationInfo = jsonEncode({
       "data": {
-        "doc_id": "ahaha",
+        "doc_id": "${doc_id}",
         "to_uid": to_uid,
-        "to_name": "ahmed",
-        "to_avatar": "cool"
+        "to_name": "${user_profile?.username}",
+        "to_avatar": "${user_profile?.profile}"
       },
       "notification": {
         "body": body,
         "title": title,
-        "android_channel_id": "com.dbestech.letschat1",
+        "android_channel_id": "in.sivo.venue",
         "sound": "default"
       },
-      "to": "xys"
+      "to": token
     });
     try {
       await http.post(url,
