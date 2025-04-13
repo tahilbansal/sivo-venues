@@ -39,7 +39,7 @@ class OrderTile extends StatelessWidget {
           //borderRadius: BorderRadius.all(Radius.circular(9)),
         ),
         child: Container(
-          padding: const EdgeInsets.all(6),
+          padding: const EdgeInsets.all(5),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -69,7 +69,7 @@ class OrderTile extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 3),
+                  const SizedBox(height: 2),
                   ReusableText(
                     text: 'Quantity: ${cartItem.quantity}',
                     style: appStyle(11, kGray, FontWeight.w400),

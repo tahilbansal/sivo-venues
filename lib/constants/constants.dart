@@ -29,9 +29,9 @@ final List<String> verificationReasons = [
 ];
 
 List<String> reasonsToAddAddress = [
-  "Ensures that food orders are delivered accurately to the customer’s location.",
-  "Allows users to check if the delivery service is available in their area.",
-  "Provides a personalized experience by showing nearby restaurants, estimated delivery times, and special offers.",
+  "Ensures that orders are delivered accurately to the venue’s location.",
+  "Allows venues to check if the service is available in their area.",
+  "Provides a personalized experience by showing nearby suppliers, estimated delivery times, and special offers.",
   "Streamlines the checkout process by saving addresses for quicker order placement.",
   "Enables management of multiple addresses (e.g., home, work) for easy switching.",
 ];
