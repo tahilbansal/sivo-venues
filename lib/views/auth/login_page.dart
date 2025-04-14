@@ -109,7 +109,7 @@ class _LoginState extends State<Login> {
 
   Widget _buildLoginButton() {
     return Obx(() => controller.isLoading
-        ? CircularProgressIndicator(color: kPrimary)
+        ? const CircularProgressIndicator(color: kPrimary)
         : CustomButton(
       btnHieght: 50.h,
       color: kPrimary,

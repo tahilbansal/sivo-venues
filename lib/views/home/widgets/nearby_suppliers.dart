@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sivo_venues/common/shimmers/nearby_shimmer.dart';
-import 'package:sivo_venues/constants/constants.dart';
 import 'package:sivo_venues/controllers/location_controller.dart';
 import 'package:sivo_venues/hooks/fetchNearbySuppliers.dart';
 import 'package:sivo_venues/models/suppliers.dart';

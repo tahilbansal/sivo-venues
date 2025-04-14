@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:sivo_venues/common/app_style.dart';
@@ -111,7 +110,7 @@ class CartTile extends HookWidget {
                       counterController.increment(toItem);
                     },
                     child: Container(
-                      padding: EdgeInsets.all(4.0),
+                      padding: const EdgeInsets.all(4.0),
                       child: const Icon(
                         AntDesign.plussquareo,
                         color: kPrimary,
@@ -149,7 +148,7 @@ class CartTile extends HookWidget {
                       // }
                     },
                     child: Container(
-                      padding: EdgeInsets.all(4.0),
+                      padding: const EdgeInsets.all(4.0),
                       child: const Icon(
                         AntDesign.minussquareo,
                         color: kPrimary,
@@ -207,7 +206,7 @@ class CartTile extends HookWidget {
 
                       return ReusableText(
                         text:
-                        "\₹ ${(price * itemCount.toDouble()).toStringAsFixed(2)}",
+                        "₹ ${(price * itemCount.toDouble()).toStringAsFixed(2)}",
                         style: appStyle(12, kLightWhite, FontWeight.bold),
                       );
                     },

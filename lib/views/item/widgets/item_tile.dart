@@ -59,7 +59,7 @@ class ItemTile extends StatelessWidget {
                   // Title and Price Section
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 8.0),
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -73,7 +73,7 @@ class ItemTile extends StatelessWidget {
                           SizedBox(height: 4.h),
                           if (item.price != null)
                           ReusableText(
-                            text: "\₹${item.price!.toStringAsFixed(2)}",
+                            text: "₹${item.price!.toStringAsFixed(2)}",
                             style: appStyle(12, kPrimary, FontWeight.w500),
                           ),
                         ],
@@ -95,7 +95,7 @@ class ItemTile extends StatelessWidget {
                       counterController.increment(item);
                     },
                     child: Container(
-                      padding: EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: const Icon(
                         AntDesign.plussquareo,
                         color: kPrimary,
@@ -115,7 +115,7 @@ class ItemTile extends StatelessWidget {
                       counterController.decrement(item);
                     },
                     child: Container(
-                      padding: EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: const Icon(
                         AntDesign.minussquareo,
                         color: kPrimary,
@@ -129,7 +129,7 @@ class ItemTile extends StatelessWidget {
                         itemController.toggleFavoriteStatus(item);
                       },
                       child: Container(
-                        padding: EdgeInsets.all(4.0),
+                        padding: const EdgeInsets.all(4.0),
                         child: Icon(
                           itemController.isFavorite(item)
                               ? AntDesign.heart

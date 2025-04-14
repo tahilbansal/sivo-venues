@@ -3,12 +3,8 @@
 import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:sivo_venues/common/app_style.dart';
-import 'package:sivo_venues/common/divida.dart';
-import 'package:sivo_venues/common/not_found.dart';
 import 'package:sivo_venues/common/reusable_text.dart';
 import 'package:sivo_venues/common/show_snack_bar.dart';
 import 'package:sivo_venues/constants/constants.dart';
@@ -21,9 +17,6 @@ import 'package:sivo_venues/models/suppliers.dart';
 import 'package:sivo_venues/services/distance.dart';
 import 'package:sivo_venues/views/auth/login_page.dart';
 import 'package:sivo_venues/views/home/widgets/custom_btn.dart';
-//import 'package:sivo_venues/views/supplier/directions_page.dart';
-//import 'package:sivo_venues/views/supplier/rating_page.dart';
-//import 'package:sivo_venues/views/supplier/widgets/explore.dart';
 import 'package:sivo_venues/views/supplier/widgets/catalog.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -34,9 +27,7 @@ import 'package:sivo_venues/views/supplier/widgets/my_catalog.dart';
 import 'package:sivo_venues/views/supplier/widgets/top_bar.dart';
 
 import '../../controllers/counter_controller.dart';
-import '../../controllers/item_controller.dart';
 import '../cart/widgets/cart_bar.dart';
-import 'directions_page.dart';
 
 class SupplierPage extends StatefulWidget {
   const SupplierPage({super.key, required this.supplier});
@@ -48,11 +39,8 @@ class SupplierPage extends StatefulWidget {
 }
 
 class _SupplierPageState extends State<SupplierPage> with TickerProviderStateMixin {
-  final scrollToCategoryNotifier = ValueNotifier<String?>(null);
-  late TabController _tabController = TabController(
-    length: 2,
-    vsync: this,
-  );
+  final ValueNotifier<String?> scrollToCategoryNotifier = ValueNotifier(null);
+  late TabController _tabController;
   final box = GetStorage();
   final controller = Get.put(AddressController());
   final location = Get.put(UserLocationController());
@@ -70,6 +58,39 @@ class _SupplierPageState extends State<SupplierPage> with TickerProviderStateMix
     if (response.isSuccess == false) {
       showCustomSnackBar(response.message!);
     }
+  }
+
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(
+      length: 2,
+      vsync: this,
+    );
+
+    _tabController.addListener(() async {
+      if (_tabController.index == 0) {
+        // When switching to the catalog tab, wait for the tab to render
+        // before attempting to scroll to a category
+        await Future.delayed(const Duration(milliseconds: 300));
+        if (scrollToCategoryNotifier.value != null) {
+          // Force a refresh of the notifier to trigger the scroll
+          final currentCategory = scrollToCategoryNotifier.value;
+          scrollToCategoryNotifier.value = null;
+          await Future.delayed(const Duration(milliseconds: 50));
+          scrollToCategoryNotifier.value = currentCategory;
+        }
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    // Clean up resources
+    scrollToCategoryNotifier.dispose();
+    _tabController.dispose();
+    super.dispose();
   }
 
   @override
@@ -152,33 +173,24 @@ class _SupplierPageState extends State<SupplierPage> with TickerProviderStateMix
                       bottom: 12.h,
                       left: 0,
                       right: 10.h,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        CustomButton(
-                          onTap: () async {
-                            if (widget.supplier == null) {
-                              Get.to(
-                                      () => const NotFoundPage(
-                                    text: "Can not open supplier page",),
-                                  transition: Transition.fade,
-                                  duration: const Duration(seconds: 1),
-                                  arguments: {});
-                            } else {
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          CustomButton(
+                            onTap: () async {
                               ResponseModel status = await _controller.goChat(widget.supplier);
                               if (status.isSuccess == false) {
                                 showCustomSnackBar(status.message!, title: status.title!);
                               }
-                            }
-                          },
-                          radius: 30,
-                          color: kPrimary,
-                          btnHieght: 34.h,
-                          btnWidth: width * 0.3,
-                          text: "Message",
-                        ),
-                      ],
-                    ),
+                                                        },
+                            radius: 30,
+                            color: kPrimary,
+                            btnHieght: 34.h,
+                            btnWidth: width * 0.3,
+                            text: "Message",
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -186,18 +198,6 @@ class _SupplierPageState extends State<SupplierPage> with TickerProviderStateMix
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    // CustomButton(
-                    //   onTap: () async {
-                    //     // Add your logic to move supplier to wishlist
-                    //     //ResponseModel status = await _controller.addToWishlist(widget.supplier);
-                    //   },
-                    //   radius: 9,
-                    //   color: Colors.grey, // Customize the color
-                    //   btnWidth: MediaQuery.of(context).size.width *
-                    //       0.45, // Half width minus padding
-                    //   btnHieght: 34.h,
-                    //   text: "Add to Wishlist",
-                    // ),
                     const SizedBox(width: 18),
                     ReusableText(
                         text: widget.supplier.title!,
@@ -265,7 +265,7 @@ class _SupplierPageState extends State<SupplierPage> with TickerProviderStateMix
                   children: [
                     Expanded(child: catalogSearchBar(supplierId: widget.supplier.id!)),
                     IconButton(
-                      icon: Icon(Icons.filter_list),
+                      icon: const Icon(Icons.filter_list),
                       onPressed: () async {
                         final selectedCategory = await showModalBottomSheet<String?>(
                           context: context,
@@ -274,6 +274,9 @@ class _SupplierPageState extends State<SupplierPage> with TickerProviderStateMix
 
                         // Update the notifier to scroll to the selected category
                         if (selectedCategory != null) {
+                          _tabController.animateTo(0); // Switch to SupplierCatalog tab
+                          await Future.delayed(const Duration(milliseconds: 300));
+                          scrollToCategoryNotifier.value = null;
                           scrollToCategoryNotifier.value = selectedCategory;
                         }
                       },
@@ -376,9 +379,9 @@ class RowText extends StatelessWidget {
         ReusableText(text: first, style: appStyle(10, kGray, FontWeight.w500)),
         Flexible(
             child: Text(second,
-            overflow: TextOverflow.ellipsis,
-            maxLines: 1,
-            style: appStyle(10, kGray, FontWeight.w400))
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: appStyle(10, kGray, FontWeight.w400))
         )
       ],
     );

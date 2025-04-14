@@ -136,7 +136,7 @@ class OrderNotificationDetailsPage extends StatelessWidget {
                         height: 20.h,
                       ),
                       OrderPageTile(
-                        item: controller.order!.orderItems![0],
+                        item: controller.order!.orderItems[0],
                         status: controller.order!.orderStatus,
                       ),
                       SizedBox(

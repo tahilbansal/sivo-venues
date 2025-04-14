@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:sivo_venues/models/api_error.dart';
 import 'package:sivo_venues/models/cart_response.dart';
 import 'package:sivo_venues/models/environment.dart';
-import 'package:sivo_venues/models/user_cart.dart';
-import 'package:sivo_venues/views/entrypoint.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
@@ -19,7 +17,7 @@ class CartController extends GetxController {
   RxInt cartItemCount = 0.obs;
 
   // Reactive state
-  var _address = false.obs;
+  final _address = false.obs;
 
   // Getter
   bool get address => _address.value;
@@ -29,7 +27,7 @@ class CartController extends GetxController {
     _address.value = newValue;
   }
 
-  RxBool _isLoading = false.obs;
+  final RxBool _isLoading = false.obs;
 
   bool get isLoading => _isLoading.value;
 

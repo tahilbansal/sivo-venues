@@ -20,7 +20,7 @@ class NotFoundPage extends StatelessWidget {
       body: Center(
         child: Text(
           text,
-          style: TextStyle(fontSize: 24, color: Colors.red),
+          style: const TextStyle(fontSize: 24, color: Colors.red),
         ),
       ),
     );

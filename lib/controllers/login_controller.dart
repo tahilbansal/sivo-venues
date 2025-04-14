@@ -25,7 +25,7 @@ class LoginController extends GetxController {
   final controller = Get.put(NotificationsController());
   final messageController = Get.put(MessageController());
   final box = GetStorage();
-  RxBool _isLoading = false.obs;
+  final RxBool _isLoading = false.obs;
   final db = FirebaseFirestore.instance;
   bool get isLoading => _isLoading.value;
   LoginResponse? _loginResponse;
@@ -257,7 +257,7 @@ class LoginController extends GetxController {
     // messageController.reset();
     Get.delete<MessageController>();
 
-    Get.offAll(() => Login(),
+    Get.offAll(() => const Login(),
         transition: Transition.fade, duration: const Duration(seconds: 1));
   }
 

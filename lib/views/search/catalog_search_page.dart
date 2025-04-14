@@ -7,7 +7,6 @@ import 'package:sivo_venues/common/shimmers/itemlist_shimmer.dart';
 import 'package:sivo_venues/constants/constants.dart';
 import 'package:sivo_venues/controllers/search_controller.dart';
 import 'package:sivo_venues/views/search/catalog_search_results.dart';
-import 'package:sivo_venues/views/search/search_results.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
@@ -49,7 +48,7 @@ class _SearchPageState extends State<CatalogSearchPage> {
           child: Row(
             children: [
               IconButton(
-                icon: Icon(Icons.arrow_back, color: kPrimary),
+                icon: const Icon(Icons.arrow_back, color: kPrimary),
                 onPressed: () {
                   Get.back();
                 },

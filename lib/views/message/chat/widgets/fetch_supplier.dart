@@ -4,7 +4,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:sivo_venues/hooks/fetchSupplier.dart';
-import 'package:sivo_venues/models/suppliers.dart';
 import 'package:sivo_venues/views/supplier/suppliers_page.dart';
 
 class SupplierFetcher extends HookWidget {
@@ -17,15 +16,15 @@ class SupplierFetcher extends HookWidget {
     final fetchHook = useFetchSupplier(supplierId);
 
     if (fetchHook.isLoading) {
-      return CircularProgressIndicator();
+      return const CircularProgressIndicator();
     }
 
     if (fetchHook.error != null) {
-      return Text('Error fetching supplier');
+      return const Text('Error fetching supplier');
     }
 
     if (fetchHook.data == null) {
-      return Text('Supplier not found');
+      return const Text('Supplier not found');
     }
 
     final supplier = fetchHook.data!;

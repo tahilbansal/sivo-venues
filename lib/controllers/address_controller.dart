@@ -8,8 +8,6 @@ import 'package:sivo_venues/models/all_addresses.dart';
 import 'package:sivo_venues/models/api_error.dart';
 import 'package:sivo_venues/models/environment.dart';
 import 'package:sivo_venues/views/entrypoint.dart';
-import 'package:sivo_venues/views/home/home_page.dart';
-import 'package:sivo_venues/views/profile/address.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';

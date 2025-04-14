@@ -5,7 +5,7 @@ class HelperNotification {
   static FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   static Future<void> initialize() async {
     var androidInitialize = const AndroidInitializationSettings('ic_launcher');
-    var iOSInitialize = DarwinInitializationSettings();
+    var iOSInitialize = const DarwinInitializationSettings();
     var initializationsSettings =
         InitializationSettings(android: androidInitialize, iOS: iOSInitialize);
     flutterLocalNotificationsPlugin.initialize(initializationsSettings,

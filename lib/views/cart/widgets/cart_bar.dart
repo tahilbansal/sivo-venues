@@ -8,7 +8,7 @@ import '../cart_page.dart';
 class CartBar extends StatelessWidget {
   final String supplierId;
 
-  CartBar({required this.supplierId});
+  const CartBar({super.key, required this.supplierId});
   @override
   Widget build(BuildContext context) {
     final CartController cartController = Get.find<CartController>();

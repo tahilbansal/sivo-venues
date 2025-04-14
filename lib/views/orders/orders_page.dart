@@ -36,7 +36,7 @@ class OrderPage extends HookWidget {
   final Suppliers supplier;
   final Item item;
 
-  TextEditingController _phone = TextEditingController();
+  final TextEditingController _phone = TextEditingController();
 
   @override
   Widget build(BuildContext context) {

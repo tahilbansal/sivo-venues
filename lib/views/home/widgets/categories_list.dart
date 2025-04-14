@@ -27,28 +27,28 @@ class CategoriesWidget extends HookWidget {
     return isLoading
         ? const CatergoriesShimmer()
         : LayoutBuilder(
-      builder: (context, constraints) {
+        builder: (context, constraints) {
         return Container(
-          padding: EdgeInsets.only(left: 12, top: 8),
+          padding: const EdgeInsets.only(left: 12, top: 8),
           height: 90.h,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: categoryItems?.length ?? 0,
             itemBuilder: (context, index) {
-              Categories category = categoryItems[index];
+              Categories supplierCategory = categoryItems[index];
 
               return GestureDetector(
                 onTap: () {
-                  if (categoryController.categoryValue == category.id) {
-                    categoryController.updateCategory = '';
+                  if (categoryController.supplierCategoryValue == supplierCategory.id) {
+                    categoryController.supplierUpdateCategory = '';
                     categoryController.updateTitle = '';
-                  } else if (category.value == 'more') {
+                  } else if (supplierCategory.value == 'more') {
                     // Get.to(() => const AllCategories(),
                     //     transition: Transition.fade,
                     //     duration: const Duration(seconds: 1));
                   } else {
-                    categoryController.updateCategory = category.id;
-                    categoryController.updateTitle = category.title;
+                    categoryController.supplierUpdateCategory = supplierCategory.id;
+                    categoryController.updateTitle = supplierCategory.title;
                   }
                 },
                 child: Obx(
@@ -59,11 +59,11 @@ class CategoriesWidget extends HookWidget {
                     width: 80.w,
                     height: 90.h,
                     decoration: BoxDecoration(
-                      color: categoryController.categoryValue == category.id
+                      color: categoryController.supplierCategoryValue == supplierCategory.id
                           ? kPrimary.withOpacity(0.1) // Highlight selected category
                           : Colors.transparent,
                       border: Border.all(
-                        color: categoryController.categoryValue == category.id
+                        color: categoryController.supplierCategoryValue == supplierCategory.id
                             ? kPrimary
                             : kOffWhite,
                         width: 0.8,
@@ -74,13 +74,13 @@ class CategoriesWidget extends HookWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CachedImageLoader(
-                          image: category.imageUrl,
+                          image: supplierCategory.imageUrl,
                           imageHeight: 40.w.clamp(40, 50),
                           imageWidth: 40.w.clamp(40, 50),
                         ),
                         SizedBox(height: 5.h),
                         ReusableText(
-                          text: category.title,
+                          text: supplierCategory.title,
                           style: appStyle(12, kDark, FontWeight.w500),
                           textAlign: TextAlign.center,
                         ),

@@ -16,7 +16,7 @@ class ItemSearchController extends GetxController {
     _searchQuery.value = newValue;
   }
 
-  RxBool _isLoading = false.obs;
+  final RxBool _isLoading = false.obs;
 
   bool get isLoading => _isLoading.value;
 

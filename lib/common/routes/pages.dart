@@ -4,11 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sivo_venues/views/message/chat/index.dart';
 import 'package:sivo_venues/views/message/photoview/index.dart';
-import 'package:sivo_venues/views/message/view.dart';
 import '../../views/auth/login_page.dart';
 import '../../views/auth/verification_page.dart';
 import '../../views/entrypoint.dart';
-import '../../views/orders/client_orders.dart';
 import '../../views/orders/order_details_page.dart';
 import 'routes.dart';
 
@@ -63,10 +61,10 @@ class AppPages {
         page: () =>  MainScreen(),
     ),
     GetPage(name: AppRoutes.login,
-        page: () => Login()),
+        page: () => const Login()),
 
     GetPage(name: AppRoutes.verification,
-        page: () => VerificationPage()),
+        page: () => const VerificationPage()),
 
     GetPage(
       name: AppRoutes.OrderDetails,

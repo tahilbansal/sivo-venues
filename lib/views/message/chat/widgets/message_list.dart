@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -21,7 +20,7 @@ class MessageList extends GetView<MessageController> {
 
     return InkWell(
       onTap: () {
-        Get.to(ChatPage(), arguments: {
+        Get.to(const ChatPage(), arguments: {
           "doc_id": item.doc_id,
           "to_uid": item.token,
           "to_name": item.name,

@@ -12,7 +12,6 @@ import 'package:sivo_venues/views/home/home_page.dart';
 import 'package:sivo_venues/views/message/view.dart';
 import 'package:sivo_venues/views/profile/profile_page.dart';
 
-import '../common/routes/names.dart';
 import 'orders/client_orders.dart';
 
 // ignore: must_be_immutable
@@ -42,7 +41,7 @@ class MainScreen extends HookWidget {
     // Use the argument to set tabIndex and control loading
     final args = Get.arguments;
     if (args != null && args is int) {
-      Future.delayed(Duration(milliseconds: 50), () {
+      Future.delayed(const Duration(milliseconds: 50), () {
         entryController.setTabIndex = args;
       });
     }

@@ -46,7 +46,7 @@ class _SearchPageState extends State<SearchPage> {
               child: Row(
                 children: [
                   IconButton(
-                    icon: Icon(Icons.arrow_back, color: kPrimary),
+                    icon: const Icon(Icons.arrow_back, color: kPrimary),
                     onPressed: () {
                       Get.back();
                     },

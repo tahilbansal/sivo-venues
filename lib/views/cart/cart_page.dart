@@ -14,7 +14,6 @@ import 'package:sivo_venues/views/auth/widgets/login_redirect.dart';
 import 'package:sivo_venues/views/cart/widgets/cart_tile.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:sivo_venues/views/supplier/supplier_catalog_page.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:sivo_venues/views/cart/widgets/delivery_date_selector.dart';
 import 'package:sivo_venues/views/orders/checkout_page.dart';
 import '../home/widgets/custom_btn.dart';
@@ -86,7 +85,7 @@ class CartPage extends HookWidget {
               ),
               actions: [
                 IconButton(
-                  icon: Icon(Icons.delete, color: Colors.red),
+                  icon: const Icon(Icons.delete, color: Colors.red),
                   onPressed: () {
                     // handle delete all items
                   },
@@ -138,8 +137,8 @@ class CartPage extends HookWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Padding(
-                                          padding: const EdgeInsets.all(8.0)),
+                                      const Padding(
+                                          padding: EdgeInsets.all(8.0)),
                                       ListView.builder(
                                         padding: EdgeInsets.zero,
                                         shrinkWrap: true,
@@ -181,7 +180,7 @@ class CartPage extends HookWidget {
                                   return TextFormField(
                                     readOnly: true,
                                     controller: controller,
-                                    decoration: InputDecoration(
+                                    decoration: const InputDecoration(
                                       labelText: "Delivery Date",
                                       hintText: "Select Delivery Date",
                                       border: OutlineInputBorder(),
@@ -195,13 +194,13 @@ class CartPage extends HookWidget {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15.0),
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
+                          children: [
                             ReusableText(
                               text: "Estimated total : Actual prices would be provided by supplier",
                               style: TextStyle(
@@ -227,7 +226,7 @@ class CartPage extends HookWidget {
                               style: appStyle(18, kDark, FontWeight.bold),
                             ),
                           ),
-                          SizedBox(width: 16),
+                          const SizedBox(width: 16),
                           Expanded(
                             child: CustomButton(
                               onTap: () async {

@@ -30,6 +30,7 @@ class CatalogSearchResults extends StatelessWidget {
               Item item = searchController.itemsResults![index];
               return ItemTile(item: item);
             }
+            return null;
           })
           : Padding(
           padding: EdgeInsets.only(bottom: 180.0.h),

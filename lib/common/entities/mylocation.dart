@@ -22,14 +22,14 @@ class MyLocation {
         results: json["results"] == null
             ? null
             : List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
-        status: json["status"] == null ? null : json["status"],
+        status: json["status"],
       );
 
   Map<String, dynamic> toJson() => {
         "results": results == null
             ? null
             : List<dynamic>.from(results!.map((x) => x.toJson())),
-        "status": status == null ? null : status,
+        "status": status,
       };
 }
 
@@ -53,13 +53,11 @@ class Result {
             ? null
             : List<AddressComponent>.from(json["address_components"]
                 .map((x) => AddressComponent.fromJson(x))),
-        formattedAddress: json["formatted_address"] == null
-            ? null
-            : json["formatted_address"],
+        formattedAddress: json["formatted_address"],
         geometry: json["geometry"] == null
             ? null
             : Geometry.fromJson(json["geometry"]),
-        placeId: json["place_id"] == null ? null : json["place_id"],
+        placeId: json["place_id"],
         types: json["types"] == null
             ? null
             : List<String>.from(json["types"].map((x) => x)),
@@ -69,9 +67,9 @@ class Result {
         "address_components": addressComponents == null
             ? null
             : List<dynamic>.from(addressComponents!.map((x) => x.toJson())),
-        "formatted_address": formattedAddress == null ? null : formattedAddress,
-        "geometry": geometry == null ? null : geometry!.toJson(),
-        "place_id": placeId == null ? null : placeId,
+        "formatted_address": formattedAddress,
+        "geometry": geometry?.toJson(),
+        "place_id": placeId,
         "types":
             types == null ? null : List<dynamic>.from(types!.map((x) => x)),
       };
@@ -90,16 +88,16 @@ class AddressComponent {
 
   factory AddressComponent.fromJson(Map<String, dynamic> json) =>
       AddressComponent(
-        longName: json["long_name"] == null ? null : json["long_name"],
-        shortName: json["short_name"] == null ? null : json["short_name"],
+        longName: json["long_name"],
+        shortName: json["short_name"],
         types: json["types"] == null
             ? null
             : List<String>.from(json["types"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
-        "long_name": longName == null ? null : longName,
-        "short_name": shortName == null ? null : shortName,
+        "long_name": longName,
+        "short_name": shortName,
         "types":
             types == null ? null : List<dynamic>.from(types!.map((x) => x)),
       };
@@ -123,17 +121,17 @@ class Geometry {
             ? null
             : MyLocationClass.fromJson(json["location"]),
         locationType:
-            json["location_type"] == null ? null : json["location_type"],
+            json["location_type"],
         viewport:
             json["viewport"] == null ? null : Bounds.fromJson(json["viewport"]),
         bounds: json["bounds"] == null ? null : Bounds.fromJson(json["bounds"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "location": location == null ? null : location!.toJson(),
-        "location_type": locationType == null ? null : locationType,
-        "viewport": viewport == null ? null : viewport!.toJson(),
-        "bounds": bounds == null ? null : bounds!.toJson(),
+        "location": location?.toJson(),
+        "location_type": locationType,
+        "viewport": viewport?.toJson(),
+        "bounds": bounds?.toJson(),
       };
 }
 
@@ -156,8 +154,8 @@ class Bounds {
       );
 
   Map<String, dynamic> toJson() => {
-        "northeast": northeast == null ? null : northeast!.toJson(),
-        "southwest": southwest == null ? null : southwest!.toJson(),
+        "northeast": northeast?.toJson(),
+        "southwest": southwest?.toJson(),
       };
 }
 
@@ -172,12 +170,12 @@ class MyLocationClass {
 
   factory MyLocationClass.fromJson(Map<String, dynamic> json) =>
       MyLocationClass(
-        lat: json["lat"] == null ? null : json["lat"].toDouble(),
-        lng: json["lng"] == null ? null : json["lng"].toDouble(),
+        lat: json["lat"]?.toDouble(),
+        lng: json["lng"]?.toDouble(),
       );
 
   Map<String, dynamic> toJson() => {
-        "lat": lat == null ? null : lat,
-        "lng": lng == null ? null : lng,
+        "lat": lat,
+        "lng": lng,
       };
 }

@@ -26,10 +26,10 @@ class HomePage extends StatelessWidget {
         child: CustomContainer(
         containerContent: Column(
         children: [
-          chatSearchBar(),
+          const chatSearchBar(),
           const CategoriesWidget(),
           Obx(
-            () => categoryController.categoryValue == ''
+            () => categoryController.supplierCategoryValue == ''
             ? Column(
                 children: [
                   HomeHeading(

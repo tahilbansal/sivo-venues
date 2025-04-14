@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:sivo_venues/common/address_modal.dart';
-import 'package:sivo_venues/constants/constants.dart';
 import 'package:sivo_venues/controllers/address_controller.dart';
 import 'package:sivo_venues/models/all_addresses.dart';
 import 'package:sivo_venues/models/environment.dart';

@@ -16,7 +16,7 @@ class CategorySupplierList extends HookWidget {
   Widget build(BuildContext context) {
     final categoryController = Get.put(CategoryController());
     final hookResult =
-        useFetchCategory(categoryController.categoryValue, "41007428");
+        useFetchCategory(categoryController.supplierCategoryValue, "41007428");
     final suppliers = hookResult.data ?? [];
     final isLoading = hookResult.isLoading;
 

@@ -7,7 +7,6 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:sivo_venues/common/app_style.dart';
 import 'package:sivo_venues/common/back_ground_container.dart';
-import 'package:sivo_venues/common/custom_appbar.dart';
 import 'package:sivo_venues/common/reusable_text.dart';
 import 'package:sivo_venues/constants/constants.dart';
 import 'package:sivo_venues/controllers/address_controller.dart';
@@ -49,7 +48,7 @@ class _AddAddressState extends State<AddAddress> {
   }
 
   List<dynamic> _placeList = [];
-  List<dynamic> _selectedPlace = [];
+  final List<dynamic> _selectedPlace = [];
 
   LatLng? _selectedLocation;
 

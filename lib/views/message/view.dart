@@ -19,7 +19,7 @@ class MessagePage extends StatelessWidget {
       appBar: AppBar(
           automaticallyImplyLeading: false,
           backgroundColor: kPrimary,
-          iconTheme: IconThemeData(color: Colors.white),
+          iconTheme: const IconThemeData(color: Colors.white),
           title: Text(
             "Message",
             style: TextStyle(
@@ -32,18 +32,18 @@ class MessagePage extends StatelessWidget {
           children: [
             SizedBox(height: 8.h),
             GestureDetector(
-              onTap: () => Get.to(() => SearchResultsPage()),
+              onTap: () => Get.to(() => const SearchResultsPage()),
               child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 16.0),
-                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                margin: const EdgeInsets.symmetric(horizontal: 16.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                 decoration: BoxDecoration(
                   color: Colors.grey[200],
                   borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.search, color: Colors.grey),
-                    SizedBox(width: 8.0),
+                    const Icon(Icons.search, color: Colors.grey),
+                    const SizedBox(width: 8.0),
                     Text(
                       "Search...",
                       style: TextStyle(color: Colors.grey, fontSize: 16.sp.clamp(16, 24)),
@@ -58,9 +58,9 @@ class MessagePage extends StatelessWidget {
                 Get.to(() => const SearchPage(), arguments: {'focus': true});
               },
               child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 0.0),
-                padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
-                decoration: BoxDecoration(
+                margin: const EdgeInsets.symmetric(horizontal: 0.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+                decoration: const BoxDecoration(
                   color: kOffWhite,
                   border: Border.symmetric(
                     horizontal: BorderSide(
@@ -68,7 +68,7 @@ class MessagePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                child: Row(
+                child: const Row(
                   children: [
                     SizedBox(width: 2.0),
                     Text(
@@ -79,7 +79,7 @@ class MessagePage extends StatelessWidget {
                 ),
               ),
             ),
-            Expanded(child: const MessageList()),
+            const Expanded(child: MessageList()),
           ],
         ),
       ),

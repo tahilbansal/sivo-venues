@@ -12,7 +12,7 @@ class FilterCategoriesModal extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             "Filter by Category",
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),

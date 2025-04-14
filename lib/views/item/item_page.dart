@@ -63,7 +63,7 @@ class _ItemPageState extends State<ItemPage> {
   @override
   Widget build(BuildContext context) {
     final box = GetStorage();
-    var phone_verification = box.read('phone_verification');
+    var phoneVerification = box.read('phone_verification');
     var address = box.read('default_address') ?? false;
     final itemController = Get.put(ItemController());
     final cartController = Get.put(CartController());
@@ -387,7 +387,7 @@ class _ItemPageState extends State<ItemPage> {
                               style: appStyle(18, kDark, FontWeight.w600)),
                           Obx(
                                 () => ReusableText(
-                                text: "\₹ ${((widget.item.price ?? 0.0) * counterController.getItemCount(widget.item.supplier, widget.item.id).toDouble()).toStringAsFixed(2)}",
+                                text: "₹ ${((widget.item.price ?? 0.0) * counterController.getItemCount(widget.item.supplier, widget.item.id).toDouble()).toStringAsFixed(2)}",
                                 style: appStyle(18, kPrimary, FontWeight.w600)),
                           ),
                         ],
@@ -520,7 +520,7 @@ class _ItemPageState extends State<ItemPage> {
                   SizedBox(
                       height: 250.h,
                       child: ListView.builder(
-                          itemCount: verificationReasons?.length ?? 0,
+                          itemCount: verificationReasons.length ?? 0,
                           physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
                             return ListTile(

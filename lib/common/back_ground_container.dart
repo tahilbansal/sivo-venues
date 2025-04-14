@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sivo_venues/constants/constants.dart';
-import 'package:cross_connectivity/cross_connectivity.dart';
 
 class BackGroundContainer extends StatelessWidget {
   const BackGroundContainer({

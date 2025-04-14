@@ -76,10 +76,10 @@ class MyApp extends StatelessWidget {
     if (token == null) {
       // If no token, user is not logged in, so navigate to the login page
       defaultHome = const Login();
-    } else if (token != null && verification == false) {
+    } else if (verification == false) {
       // If user has a token but is not verified, go to VerificationPage
       defaultHome = const VerificationPage();
-    } else if (token != null && verification == true) {
+    } else if (verification == true) {
       // If user is logged in and verified, go to MainScreen
       defaultHome = MainScreen();
     } else {

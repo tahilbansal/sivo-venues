@@ -44,13 +44,13 @@ class MessageController extends GetxController {
 
   asyncLoadMsgData() async {
 
-    var from_messages = await db.collection("message")
+    var fromMessages = await db.collection("message")
     .withConverter(
       fromFirestore: Msg.fromFirestore,
       toFirestore: (Msg msg, options) => msg.toFirestore(),
     ).where("from_uid", isEqualTo: token).get();
 
-    var to_messages = await db.collection("message")
+    var toMessages = await db.collection("message")
     .withConverter(
       fromFirestore: Msg.fromFirestore,
       toFirestore: (Msg msg, options) => msg.toFirestore(),
@@ -59,11 +59,11 @@ class MessageController extends GetxController {
 
     state.msgList.clear();
 
-    if (from_messages.docs.isNotEmpty) {
-      await addMessage(from_messages.docs);
+    if (fromMessages.docs.isNotEmpty) {
+      await addMessage(fromMessages.docs);
     }
-    if (to_messages.docs.isNotEmpty) {
-      await addMessage(to_messages.docs);
+    if (toMessages.docs.isNotEmpty) {
+      await addMessage(toMessages.docs);
     }
     // sort
     state.msgList.value.sort((a, b) {
@@ -81,9 +81,9 @@ class MessageController extends GetxController {
   }
 
   addMessage(List<QueryDocumentSnapshot<Msg>> data) async {
-    data.forEach((element) {
+    for (var element in data) {
       var item = element.data();
-      Message message = new Message();
+      Message message = Message();
       message.doc_id = element.id;
       message.last_time = item.last_time;
       message.msg_num = item.msg_num;
@@ -103,7 +103,7 @@ class MessageController extends GetxController {
         message.msg_num = item.from_msg_num ?? 0;
       }
       state.msgList.add(message);
-    });
+    }
   }
 
   _snapshots() async {
@@ -138,20 +138,20 @@ class MessageController extends GetxController {
       final location = await Location().getLocation();
       String address = "${location.latitude}, ${location.longitude}";
 
-      String url = "https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${Environment.googleApiKey}";
+      String url = "https://maps.googleapis.com/maps/api/geocode/json?address=$address&key=${Environment.googleApiKey}";
 
       var response = await HttpUtil().get(url);
-      MyLocation location_res = MyLocation.fromJson(response);
-      if (location_res.status == "OK") {
-        String? myaddresss = location_res.results?.first.formattedAddress;
+      MyLocation locationRes = MyLocation.fromJson(response);
+      if (locationRes.status == "OK") {
+        String? myaddresss = locationRes.results?.first.formattedAddress;
         if (myaddresss != null) {
-          var user_location =
+          var userLocation =
               await db.collection("users").where("id", isEqualTo: token).get();
-          if (user_location.docs.isNotEmpty) {
-            var doc_id = user_location.docs.first.id;
+          if (userLocation.docs.isNotEmpty) {
+            var docId = userLocation.docs.first.id;
             await db
                 .collection("users")
-                .doc(doc_id)
+                .doc(docId)
                 .update({"location": myaddresss});
           }
         }
@@ -169,8 +169,8 @@ class MessageController extends GetxController {
       var user =
           await db.collection("users").where("id", isEqualTo: token).get();
       if (user.docs.isNotEmpty) {
-        var doc_id = user.docs.first.id;
-        await db.collection("users").doc(doc_id).update({"fcmtoken": fcmToken});
+        var docId = user.docs.first.id;
+        await db.collection("users").doc(docId).update({"fcmtoken": fcmToken});
       } else {
         print("----------docs are empty-------");
       }
@@ -195,21 +195,19 @@ class MessageController extends GetxController {
       HelperNotification.showNotification(message.notification!.title!, message.notification!.body!);
     });
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      if (message.data != null) {
-        var to_uid = message.data["to_uid"];
-        var to_name = message.data["to_name"];
-        var to_avatar = message.data["to_avatar"];
-        var doc_id = message.data['doc_id'];
-        var supplier_uid = message.data['supplier_uid'];
-        Get.toNamed("/chat", parameters: {
-          "doc_id": doc_id,
-          "to_uid": to_uid,
-          "to_name": to_name,
-          "to_avatar": to_avatar,
-          "supplier_uid": supplier_uid,
+      var toUid = message.data["to_uid"];
+      var toName = message.data["to_name"];
+      var toAvatar = message.data["to_avatar"];
+      var docId = message.data['doc_id'];
+      var supplierUid = message.data['supplier_uid'];
+      Get.toNamed("/chat", parameters: {
+        "doc_id": docId,
+        "to_uid": toUid,
+        "to_name": toName,
+        "to_avatar": toAvatar,
+        "supplier_uid": supplierUid,
+      });
         });
-      }
-    });
   }
   void reset() {
     state.msgList.clear();

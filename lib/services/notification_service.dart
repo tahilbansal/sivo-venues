@@ -94,7 +94,7 @@ class NotificationService {
       'channel_id_5', 'sivo_flutter', importance: Importance.high,
       styleInformation: bigTextStyleInformation, priority: Priority.high,
       playSound: true,
-      sound: RawResourceAndroidNotificationSound('notification'),
+      sound: const RawResourceAndroidNotificationSound('notification'),
     );
     NotificationDetails platformChannelSpecifics =
         NotificationDetails(android: androidPlatformChannelSpecifics);

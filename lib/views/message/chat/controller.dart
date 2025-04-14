@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:sivo_venues/common/utils/security.dart';
 import 'package:sivo_venues/controllers/login_controller.dart';
@@ -21,7 +20,7 @@ class ChatController extends GetxController {
   var supplier = Rxn<Suppliers>();
   ChatController();
   ChatState state = ChatState();
-  var doc_id = null;
+  var doc_id;
   final textController = TextEditingController();
   ScrollController msgScrolling = ScrollController();
   FocusNode contentNode = FocusNode();
@@ -108,7 +107,7 @@ class ChatController extends GetxController {
         .where("id", isEqualTo: state.to_uid.value)
         .get();
     if (userbase.docs.isEmpty) {
-      var title = "Message made by ${from_name}";
+      var title = "Message made by $from_name";
       var body = "【image】";
       var token = userbase.docs.first.data().fcmtoken;
       if (token != null) {
@@ -169,32 +168,32 @@ class ChatController extends GetxController {
     clear_msg_num(doc_id);
   }
 
-  clear_msg_num(String doc_id) async {
-    var message_res = await db
+  clear_msg_num(String docId) async {
+    var messageRes = await db
         .collection("message")
-        .doc(doc_id)
+        .doc(docId)
         .withConverter(
           fromFirestore: Msg.fromFirestore,
           toFirestore: (Msg msg, options) => msg.toFirestore(),
         )
         .get();
-    if (message_res.data() != null) {
-      var item = message_res.data()!;
+    if (messageRes.data() != null) {
+      var item = messageRes.data()!;
       to_uid = item.to_uid;
       from_uid = item.from_uid;
       from_name = item.from_name;
       to_name = item.to_name;
-      int to_msg_num = item.to_msg_num == null ? 0 : item.to_msg_num!;
-      int from_msg_num = item.from_msg_num == null ? 0 : item.from_msg_num!;
+      int toMsgNum = item.to_msg_num == null ? 0 : item.to_msg_num!;
+      int fromMsgNum = item.from_msg_num == null ? 0 : item.from_msg_num!;
       if (item.from_uid == user_id) {
-        to_msg_num = 0;
+        toMsgNum = 0;
       } else {
-        from_msg_num = 0;
+        fromMsgNum = 0;
       }
       await db
           .collection("message")
-          .doc(doc_id)
-          .update({"to_msg_num": to_msg_num, "from_msg_num": from_msg_num});
+          .doc(docId)
+          .update({"to_msg_num": toMsgNum, "from_msg_num": fromMsgNum});
     }
   }
 
@@ -219,7 +218,7 @@ class ChatController extends GetxController {
       textController.clear();
       Get.focusScope?.unfocus();
     });
-    var message_res = await db
+    var messageRes = await db
         .collection("message")
         .doc(doc_id)
         .withConverter(
@@ -228,18 +227,18 @@ class ChatController extends GetxController {
         )
         .get();
 
-    if (message_res.data() != null) {
-      var item = message_res.data()!;
-      int to_msg_num = item.to_msg_num == null ? 0 : item.to_msg_num!;
-      int from_msg_num = item.from_msg_num == null ? 0 : item.from_msg_num!;
+    if (messageRes.data() != null) {
+      var item = messageRes.data()!;
+      int toMsgNum = item.to_msg_num == null ? 0 : item.to_msg_num!;
+      int fromMsgNum = item.from_msg_num == null ? 0 : item.from_msg_num!;
       if (item.from_uid == user_id) {
-        from_msg_num = from_msg_num + 1;
+        fromMsgNum = fromMsgNum + 1;
       } else {
-        to_msg_num = to_msg_num + 1;
+        toMsgNum = toMsgNum + 1;
       }
       await db.collection("message").doc(doc_id).update({
-        "to_msg_num": to_msg_num,
-        "from_msg_num": from_msg_num,
+        "to_msg_num": toMsgNum,
+        "from_msg_num": fromMsgNum,
         "last_msg": sendContent,
         "last_time": Timestamp.now()
       });
@@ -292,7 +291,7 @@ class ChatController extends GetxController {
     });
 
     // Update message count and last message
-    var message_res = await db
+    var messageRes = await db
         .collection("message")
         .doc(doc_id)
         .withConverter(
@@ -301,18 +300,18 @@ class ChatController extends GetxController {
         )
         .get();
 
-    if (message_res.data() != null) {
-      var item = message_res.data()!;
-      int to_msg_num = item.to_msg_num == null ? 0 : item.to_msg_num!;
-      int from_msg_num = item.from_msg_num == null ? 0 : item.from_msg_num!;
+    if (messageRes.data() != null) {
+      var item = messageRes.data()!;
+      int toMsgNum = item.to_msg_num == null ? 0 : item.to_msg_num!;
+      int fromMsgNum = item.from_msg_num == null ? 0 : item.from_msg_num!;
       if (item.from_uid == user_id) {
-        from_msg_num = from_msg_num + 1;
+        fromMsgNum = fromMsgNum + 1;
       } else {
-        to_msg_num = to_msg_num + 1;
+        toMsgNum = toMsgNum + 1;
       }
       await db.collection("message").doc(doc_id).update({
-        "to_msg_num": to_msg_num,
-        "from_msg_num": from_msg_num,
+        "to_msg_num": toMsgNum,
+        "from_msg_num": fromMsgNum,
         "last_msg": sendContent,
         "last_time": Timestamp.now()
       });
@@ -384,27 +383,27 @@ class ChatController extends GetxController {
         Uri.parse('${Environment.appBaseUrl}/api/supplier/messagesByRes/');
     var IosNotification = {
       "data": {
-        "doc_id": "${doc_id}",
-        "to_uid": "${to_uid}",
+        "doc_id": "$doc_id",
+        "to_uid": "$to_uid",
         "to_name": "${user_profile?.username}",
         "to_avatar": "${user_profile?.profile}"
       },
       "notification": {
-        "body": "${body}",
-        "title": "${title}",
+        "body": body,
+        "title": title,
         "content_available": true,
         "mutable_content": true,
         "sound": "task_cancel.caf",
         "badge": 1
       },
-      "to": "${token}"
+      "to": token
     };
     String IosNotificationJson = jsonEncode(IosNotification);
     // android
     var AndroidNotification = {
       "data": {
-        "doc_id": "${doc_id}",
-        "to_uid": "${to_uid}",
+        "doc_id": "$doc_id",
+        "to_uid": "$to_uid",
         "to_name": "${user_profile?.username}",
         "to_avatar": "${user_profile?.profile}"
       },
@@ -421,7 +420,7 @@ class ChatController extends GetxController {
     String AndroidNotificationJson = jsonEncode(AndroidNotification);
     var notificationInfo = jsonEncode({
       "data": {
-        "doc_id": "${doc_id}",
+        "doc_id": "$doc_id",
         "to_uid": to_uid,
         "to_name": "${user_profile?.username}",
         "to_avatar": "${user_profile?.profile}"
@@ -450,7 +449,7 @@ class ChatController extends GetxController {
 
   getLocation() async {
     try {
-      var user_location = await FirebaseFirestore.instance
+      var userLocation = await FirebaseFirestore.instance
           .collection("users")
           .where("id", isEqualTo: state.to_uid.value)
           .withConverter(
@@ -458,7 +457,7 @@ class ChatController extends GetxController {
               toFirestore: (UserData userdata, options) =>
                   userdata.toFirestore())
           .get();
-      var location = user_location.docs.first.data().location;
+      var location = userLocation.docs.first.data().location;
       if (location != "") {
         state.to_location.value = location ?? "unknown";
       } else {}

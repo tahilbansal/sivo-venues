@@ -1,10 +1,8 @@
 import 'package:sivo_venues/common/app_style.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sivo_venues/constants/constants.dart';
 import 'package:sivo_venues/views/search/catalog_search_page.dart';
-import 'package:sivo_venues/views/search/seach_page.dart';
 import 'package:get/get.dart';
 
 class catalogSearchBar extends StatelessWidget {
@@ -37,7 +35,7 @@ class catalogSearchBar extends StatelessWidget {
           ),
           child: Row(
             children: [
-              Icon(Icons.search, color: kGray),
+              const Icon(Icons.search, color: kGray),
               SizedBox(width: 8.w),
               Text(
                 "Search Catalog",

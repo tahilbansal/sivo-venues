@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sivo_venues/common/entities/message.dart';
 import 'package:sivo_venues/common/shimmers/itemlist_shimmer.dart';
 import 'package:sivo_venues/constants/constants.dart';
 import 'package:sivo_venues/controllers/contact_controller.dart';

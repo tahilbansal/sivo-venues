@@ -5,7 +5,6 @@ import 'package:sivo_venues/models/api_error.dart';
 import 'package:sivo_venues/models/environment.dart';
 import 'package:sivo_venues/models/hook_models/hook_result.dart';
 import 'package:sivo_venues/models/user_cart.dart';
-import 'package:sivo_venues/constants/constants.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 

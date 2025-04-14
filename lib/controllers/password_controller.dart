@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 
 class PasswordController extends GetxController {
   // Reactive state
-  var _password = true.obs;
+  final _password = true.obs;
 
   // Getter
   bool get password => _password.value;

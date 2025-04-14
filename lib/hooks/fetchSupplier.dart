@@ -5,7 +5,6 @@ import 'package:sivo_venues/controllers/contact_controller.dart';
 import 'package:sivo_venues/models/environment.dart';
 import 'package:sivo_venues/models/hook_models/hook_result.dart';
 import 'package:sivo_venues/models/suppliers.dart';
-import 'package:sivo_venues/models/user_cart.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 

@@ -9,7 +9,6 @@ import 'package:sivo_venues/controllers/login_controller.dart';
 import 'package:sivo_venues/views/cart/cart_page.dart';
 import 'package:sivo_venues/views/message/chat/widgets/chat_bar.dart';
 import 'package:sivo_venues/views/message/chat/widgets/chat_list.dart';
-import 'package:sivo_venues/views/supplier/supplier_catalog_page.dart';
 
 import '../../entrypoint.dart';
 import '../../supplier/suppliers_page.dart';
@@ -22,7 +21,7 @@ class ChatPage extends GetView<ChatController> {
     return AppBar(
       backgroundColor: kPrimary,
       elevation: 0,
-      iconTheme: IconThemeData(
+      iconTheme: const IconThemeData(
         color: Colors.white,
       ),
       title: Container(
@@ -112,7 +111,7 @@ class ChatPage extends GetView<ChatController> {
         ),
       ),
       leading: IconButton(
-        icon: Icon(Icons.arrow_back),
+        icon: const Icon(Icons.arrow_back),
         onPressed: () {
           Get.offAll(() => MainScreen(), arguments: 1);
         },
@@ -128,16 +127,16 @@ class ChatPage extends GetView<ChatController> {
             child: Wrap(
               children: [
                 ListTile(
-                  leading: Icon(Icons.photo_library),
-                  title: Text("Gallery"),
+                  leading: const Icon(Icons.photo_library),
+                  title: const Text("Gallery"),
                   onTap: () {
                     controller.imgFromGallery();
                     Get.back();
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.photo_camera),
-                  title: Text("Camera"),
+                  leading: const Icon(Icons.photo_camera),
+                  title: const Text("Camera"),
                   onTap: () {
                     controller.imgFromCamera();
                     Get.back();
@@ -164,7 +163,7 @@ class ChatPage extends GetView<ChatController> {
         appBar: _buildAppBar(),
         body: SafeArea(
           child: ConstrainedBox(
-            constraints: BoxConstraints.expand(),
+            constraints: const BoxConstraints.expand(),
             child: Stack(
               children: [
                 const ChatList(),

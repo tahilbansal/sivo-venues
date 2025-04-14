@@ -1,5 +1,4 @@
 import 'package:sivo_venues/views/message/photoview/controller.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:photo_view/photo_view.dart';

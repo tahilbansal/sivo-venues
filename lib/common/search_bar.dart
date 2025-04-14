@@ -1,5 +1,4 @@
 import 'package:sivo_venues/common/app_style.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sivo_venues/constants/constants.dart';
@@ -33,7 +32,7 @@ class chatSearchBar extends StatelessWidget {
           ),
           child: Row(
             children: [
-              Icon(Icons.search, color: kGray),
+              const Icon(Icons.search, color: kGray),
               SizedBox(width: 8.w),
               Text(
                 "Search Suppliers",

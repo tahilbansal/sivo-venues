@@ -30,7 +30,7 @@ class ItemCategoriesWidget extends HookWidget {
         : LayoutBuilder(
         builder: (context, constraints) {
         return Container(
-          padding: EdgeInsets.only(left: 12, top: 8),
+          padding: const EdgeInsets.only(left: 12, top: 8),
           height: 90.h,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
@@ -51,7 +51,7 @@ class ItemCategoriesWidget extends HookWidget {
                   } else {
                     categoryController.updateCategory = category.id;
                     categoryController.updateTitle = category.title;
-                    onCategorySelected(category.id);
+                    onCategorySelected(category.title);
                   }
                 },
                 child: Obx(

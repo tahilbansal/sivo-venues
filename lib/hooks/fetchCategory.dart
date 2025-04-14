@@ -1,7 +1,6 @@
 // ignore_for_file: unused_local_variable
 
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:sivo_venues/constants/constants.dart';
 import 'package:sivo_venues/controllers/location_controller.dart';
 import 'package:sivo_venues/models/api_error.dart';
 import 'package:sivo_venues/models/environment.dart';

@@ -44,7 +44,7 @@ class UserLocationController extends GetxController {
     update();
   }
 
-  var _userAddress = Placemark(
+  var _userAddress = const Placemark(
     name: "Central Park",
     street: "59th St to 110th St",
     isoCountryCode: "US",

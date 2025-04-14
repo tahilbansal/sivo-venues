@@ -1,11 +1,8 @@
-import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sivo_venues/common/app_style.dart';
-import 'package:sivo_venues/common/back_ground_container.dart';
-import 'package:sivo_venues/common/divida.dart';
 import 'package:sivo_venues/common/reusable_text.dart';
 import 'package:sivo_venues/constants/constants.dart';
 import 'package:sivo_venues/controllers/address_controller.dart';
@@ -13,9 +10,7 @@ import 'package:sivo_venues/controllers/order_controller.dart';
 import 'package:sivo_venues/hooks/fetchCart.dart';
 import 'package:sivo_venues/hooks/fetchDefaultAddress.dart';
 import 'package:sivo_venues/models/distance_time.dart';
-import 'package:sivo_venues/models/items.dart';
 import 'package:sivo_venues/models/order_item.dart';
-import 'package:sivo_venues/models/suppliers.dart';
 import 'package:sivo_venues/services/distance.dart';
 import 'package:sivo_venues/views/home/widgets/custom_btn.dart';
 import 'package:sivo_venues/views/orders/payment.dart';
@@ -40,7 +35,7 @@ class CheckoutPage extends HookWidget {
   final String? supplierId;
   final DateTime deliveryDate;
 
-  TextEditingController _phone = TextEditingController();
+  final TextEditingController _phone = TextEditingController();
 
   Future<ResponseModel> loadData() async {
     return Get.find<ContactController>().asyncLoadSingleSupplier();
@@ -87,7 +82,7 @@ class CheckoutPage extends HookWidget {
         distanceTime = DistanceTime(distance: 0, time: 0, price: 0.0);
       }
     } else {
-      return Center(child: CircularProgressIndicator());
+      return const Center(child: CircularProgressIndicator());
     }
 
     if (userCarts != null) {
@@ -96,7 +91,7 @@ class CheckoutPage extends HookWidget {
         grandTotal = userCart.grandTotal;
       }
     } else {
-      return Center(child: CircularProgressIndicator());
+      return const Center(child: CircularProgressIndicator());
     }
 
     //double totalTime = 25 + distanceTime.time;
@@ -166,9 +161,8 @@ class CheckoutPage extends HookWidget {
                                   child: Text(
                                     (controller.userAddress != null &&
                                             controller.userAddress!.length > 50)
-                                        ? controller.userAddress!
-                                                .substring(0, 50) +
-                                            '...'
+                                        ? '${controller.userAddress!
+                                                .substring(0, 50)}...'
                                         : (controller.userAddress ??
                                             "Provide an address to proceed ordering"),
                                     overflow: TextOverflow.ellipsis,
@@ -189,7 +183,7 @@ class CheckoutPage extends HookWidget {
                             RowText(
                                 first: "Order Delivery Date",
                                 second:
-                                    "${DateFormat('yyyy-MM-dd').format(deliveryDate)}"),
+                                    DateFormat('yyyy-MM-dd').format(deliveryDate)),
                             SizedBox(
                               height: 5.h,
                             ),
@@ -257,7 +251,7 @@ class CheckoutPage extends HookWidget {
                                       "₹${grandTotal.toStringAsFixed(2)}",
                                   style: appStyle(18, kDark, FontWeight.bold),
                                 ),
-                                SizedBox(width: 16),
+                                const SizedBox(width: 16),
                                 Expanded(
                                   child: controller.defaultAddress == null
                                       ? CustomButton(

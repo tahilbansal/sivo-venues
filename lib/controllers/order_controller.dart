@@ -5,19 +5,15 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:sivo_venues/constants/constants.dart';
 import 'package:sivo_venues/controllers/contact_controller.dart';
-import 'package:sivo_venues/controllers/login_controller.dart';
 import 'package:sivo_venues/models/api_error.dart';
 import 'package:sivo_venues/models/environment.dart';
 import 'package:sivo_venues/models/order_item.dart';
 import 'package:sivo_venues/models/order_response.dart';
-import 'package:sivo_venues/models/payment_request.dart';
 import 'package:sivo_venues/models/user_cart.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import '../models/suppliers.dart';
-import '../models/user_cart.dart';
-import '../models/user_cart.dart';
 import '../views/message/chat/controller.dart';
 import 'cart_controller.dart';
 
@@ -26,7 +22,7 @@ class OrderController extends GetxController {
 
   Order? order;
 
-  void set setOrder(Order newValue) {
+  set setOrder(Order newValue) {
     order = newValue;
   }
 
@@ -96,11 +92,11 @@ class OrderController extends GetxController {
         // Create order summary message
         String orderSummary = _createOrderSummary(cartItems);
 
-        final _controller = Get.find<ContactController>();
-        _controller.state.supplierId.value = supplier.id!;
+        final controller = Get.find<ContactController>();
+        controller.state.supplierId.value = supplier.id!;
 
         // Assigning the supplier ID to the controller state
-        await _controller.goChat(supplier);
+        await controller.goChat(supplier);
 
         final chatController = Get.put(ChatController());
 

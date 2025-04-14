@@ -37,7 +37,7 @@ class ContactController extends GetxController {
     }
   }
 
-  Future<ResponseModel> goChat(Suppliers to_userdata) async {
+  Future<ResponseModel> goChat(Suppliers toUserdata) async {
     String? token = box.read("userId");
     if (token != null) {
       token = jsonDecode(token);
@@ -54,17 +54,17 @@ class ContactController extends GetxController {
           message: "Login before you continue",
           title: "Login issue");
     }
-    bool appUser = CheckUser.isValidId(token!);
+    bool appUser = CheckUser.isValidId(token);
     if (appUser == false) {
       return ResponseModel(
           isSuccess: false,
           message: "Corrupted user account",
           title: "Serious issue");
     }
-    to_userdata.id =  to_userdata.owner;
-    bool supplierOwner = CheckUser.isValidId(to_userdata.id!);
+    toUserdata.id =  toUserdata.owner;
+    bool supplierOwner = CheckUser.isValidId(toUserdata.id!);
 
-    if (to_userdata.id == null) {
+    if (toUserdata.id == null) {
       return ResponseModel(
           isSuccess: false,
           message: "Supplier may not exist, try another shop");
@@ -75,29 +75,29 @@ class ContactController extends GetxController {
           message: "Corrupted supplier account",
           title: "Serious issue");
     }
-    var from_messages = await db
+    var fromMessages = await db
         .collection("message")
         .withConverter(
             fromFirestore: Msg.fromFirestore,
             toFirestore: (Msg msg, options) => msg.toFirestore())
         .where("from_uid", isEqualTo: token) //and condition
-        .where("to_uid", isEqualTo: to_userdata.id)
+        .where("to_uid", isEqualTo: toUserdata.id)
         .get();
-    var to_messages = await db
+    var toMessages = await db
         .collection("message")
         .withConverter(
             fromFirestore: Msg.fromFirestore,
             toFirestore: (Msg msg, options) => msg.toFirestore())
-        .where("from_uid", isEqualTo: to_userdata.id)
+        .where("from_uid", isEqualTo: toUserdata.id)
         .where("to_uid", isEqualTo: token)
         .get();
-    if (from_messages.docs.isEmpty) {
+    if (fromMessages.docs.isEmpty) {
       print("Empty chat list");
     } else {
-      print("Chat id is ${from_messages.docs.first.id}");
+      print("Chat id is ${fromMessages.docs.first.id}");
     }
 
-    if (from_messages.docs.isEmpty && to_messages.docs.isEmpty) {
+    if (fromMessages.docs.isEmpty && toMessages.docs.isEmpty) {
       String? data = box.read("user");
       if (data == null) {
         return ResponseModel(
@@ -107,11 +107,11 @@ class ContactController extends GetxController {
       print("inserting---------");
       var msgdata = Msg(
           from_uid: userdata.id,
-          to_uid: to_userdata.owner,
+          to_uid: toUserdata.owner,
           from_name: userdata.username,
-          to_name: to_userdata.title,
+          to_name: toUserdata.title,
           from_avatar: userdata.profile,
-          to_avatar: to_userdata.imageUrl,
+          to_avatar: toUserdata.imageUrl,
           supplier_uid: state.supplierId.value,
           last_msg: "",
           last_time: Timestamp.now(),
@@ -125,29 +125,29 @@ class ContactController extends GetxController {
           .then((value) {
         Get.to(const ChatPage(), arguments: {
           "doc_id": value.id,
-          "to_uid": to_userdata.id ?? "",
-          "to_name": to_userdata.title ?? "",
-          "to_avatar": to_userdata.logoUrl ?? "",
+          "to_uid": toUserdata.id ?? "",
+          "to_name": toUserdata.title ?? "",
+          "to_avatar": toUserdata.logoUrl ?? "",
           "supplier_uid": state.supplierId.value ?? "",
         });
       });
       return ResponseModel(isSuccess: true, message: "");
     } else {
-      if (from_messages.docs.isNotEmpty) {
+      if (fromMessages.docs.isNotEmpty) {
         Get.to(const ChatPage(), arguments: {
-          "doc_id": from_messages.docs.first.id,
-          "to_uid": to_userdata.id ?? "",
-          "to_name": to_userdata.title ?? "",
-          "to_avatar": to_userdata.logoUrl ?? "",
+          "doc_id": fromMessages.docs.first.id,
+          "to_uid": toUserdata.id ?? "",
+          "to_name": toUserdata.title ?? "",
+          "to_avatar": toUserdata.logoUrl ?? "",
           "supplier_uid": state.supplierId.value ?? "",
         });
       }
-      if (to_messages.docs.isNotEmpty) {
+      if (toMessages.docs.isNotEmpty) {
         Get.to(const ChatPage(), arguments: {
-          "doc_id": to_messages.docs.first.id,
-          "to_uid": to_userdata.id ?? "",
-          "to_name": to_userdata.title ?? "",
-          "to_avatar": to_userdata.logoUrl ?? "",
+          "doc_id": toMessages.docs.first.id,
+          "to_uid": toUserdata.id ?? "",
+          "to_name": toUserdata.title ?? "",
+          "to_avatar": toUserdata.logoUrl ?? "",
           "supplier_uid": state.supplierId.value ?? "",
         });
       }

@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -8,7 +7,6 @@ import 'package:sivo_venues/constants/constants.dart';
 import 'package:sivo_venues/controllers/address_controller.dart';
 import 'package:sivo_venues/controllers/location_controller.dart';
 import 'package:sivo_venues/hooks/fetchDefaultAddress.dart';
-import 'package:sivo_venues/views/orders/widgets/updates.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';

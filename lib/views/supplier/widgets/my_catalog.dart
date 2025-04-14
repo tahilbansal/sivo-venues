@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:get/get.dart';
 import 'package:sivo_venues/common/shimmers/itemlist_shimmer.dart';
 import 'package:sivo_venues/constants/constants.dart';
 import 'package:sivo_venues/hooks/fetchWishlistItems.dart';

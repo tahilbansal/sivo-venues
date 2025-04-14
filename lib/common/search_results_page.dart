@@ -13,7 +13,7 @@ class SearchResultsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Search"),
+        title: const Text("Search"),
         backgroundColor: kPrimary,
       ),
       body: Column(
@@ -25,7 +25,7 @@ class SearchResultsPage extends StatelessWidget {
               onChanged: (value) => controller.searchMessages(value),
               decoration: InputDecoration(
                 hintText: 'Search...',
-                prefixIcon: Icon(Icons.search),
+                prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
@@ -37,7 +37,7 @@ class SearchResultsPage extends StatelessWidget {
               final filteredMessages = controller.state.filteredMsgList;
 
               if (filteredMessages.isEmpty) {
-                return Center(
+                return const Center(
                   child: Text("No results found."),
                 );
               }
