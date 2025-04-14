@@ -28,72 +28,70 @@ class ItemCategoriesWidget extends HookWidget {
     return isLoading
         ? const CatergoriesShimmer()
         : LayoutBuilder(
-        builder: (context, constraints) {
-        return Container(
-          padding: const EdgeInsets.only(left: 12, top: 8),
-          height: 90.h,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: categoryItems?.length ?? 0,
-            itemBuilder: (context, index) {
-              Categories category = categoryItems[index];
-
-              return GestureDetector(
-                onTap: () {
-                  if (categoryController.categoryValue == category.id) {
-                    categoryController.updateCategory = '';
-                    categoryController.updateTitle = '';
-                    onCategorySelected(null);
-                  } else if (category.value == 'more') {
-                    // Get.to(() => const AllCategories(),
-                    //     transition: Transition.fade,
-                    //     duration: const Duration(seconds: 1));
-                  } else {
-                    categoryController.updateCategory = category.id;
-                    categoryController.updateTitle = category.title;
-                    onCategorySelected(category.title);
-                  }
-                },
-                child: Obx(
+      builder: (context, constraints) {
+        return GridView.builder(
+          padding: const EdgeInsets.all(8),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: MediaQuery.of(context).size.width > 600 ? 4 : 3,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
+            childAspectRatio: 0.9,
+          ),
+          itemCount: categoryItems?.length ?? 0,
+          itemBuilder: (context, index) {
+            Categories category = categoryItems[index];
+            return GestureDetector(
+              onTap: () {
+                if (categoryController.categoryValue == category.id) {
+                  categoryController.updateCategory = '';
+                  categoryController.updateTitle = '';
+                  onCategorySelected(null);
+                } else if (category.value == 'more') {
+                  // Navigate to more categories screen if implemented
+                } else {
+                  categoryController.updateCategory = category.id;
+                  categoryController.updateTitle = category.title;
+                  onCategorySelected(category.title);
+                }
+              },
+              child: Obx(
                     () => AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
-                    margin: EdgeInsets.only(right: 6.w),
-                    padding: EdgeInsets.symmetric(vertical: 5.h),
-                    width: 80.w,
-                    height: 90.h,
-                    decoration: BoxDecoration(
+                  duration: const Duration(milliseconds: 200),
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: categoryController.categoryValue == category.id
+                        ? kPrimary.withOpacity(0.1)
+                        : Colors.white,
+                    border: Border.all(
                       color: categoryController.categoryValue == category.id
-                          ? kPrimary.withOpacity(0.1) // Highlight selected category
-                          : Colors.transparent,
-                      border: Border.all(
-                        color: categoryController.categoryValue == category.id
-                            ? kPrimary
-                            : kOffWhite,
-                        width: 0.8,
-                      ),
-                      borderRadius: BorderRadius.circular(12.r),
+                          ? kPrimary
+                          : kOffWhite,
+                      width: 1,
                     ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CachedImageLoader(
-                          image: category.imageUrl,
-                          imageHeight: 40.w.clamp(40, 50),
-                          imageWidth: 40.w.clamp(40, 50),
-                        ),
-                        SizedBox(height: 5.h),
-                        ReusableText(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CachedImageLoader(
+                        image: category.imageUrl,
+                        imageHeight: 40,
+                        imageWidth: 40,
+                      ),
+                      const SizedBox(height: 6),
+                      Flexible(
+                        child: ReusableText(
                           text: category.title,
                           style: appStyle(12, kDark, FontWeight.w500),
                           textAlign: TextAlign.center,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         );
       },
     );
